@@ -1,0 +1,62 @@
+.w300
+	.pl30.mt50.position-fxd-txt
+	  h1 Products
+	/ .div.hide-on-admin-desktop.position-fxt-mbl  
+	/ 	.col-md-12.mb-5px
+	/     .input-group.search-group.mar-63
+	/       input.form-control#inventory_search type="text" placeholder="Search Products.."
+	/       span.input-group-addon
+	/         i.fa.fa-search  
+	/ 	.col-md-12.mb-5px
+	/     #modalWidth.button.btn.btn-default.add-btn.mb-5px.mar-63 data-target="#myModal" data-toggle="modal" type="button"  Add Product
+	/     / = link_to 'Add Products', new_dashboard_inventory_path, class:"btn btn-default pull-right add-btn"
+	/     = form_tag destroy_multiple_dashboard_inventories_path, method: :delete do
+	/       input.hidden#inventory_ids type="text" name="inventory_ids" value="[]"
+	/       = submit_tag 'Delete Products',id: "delete-multiple-inventories", class:"btn btn-default resp-deletebtn mar-63 mb-5px"  
+	.card-contain-user.w300
+	  .row.position-fxt-mbl
+	    .col-md-3.mb-5px
+	      .input-group.search-group
+	        input.form-control#inventory_search type="text" placeholder="Search Products.."
+	        span.input-group-addon
+	          i.fa.fa-search
+	    .col-md-4.col-md-offset-5
+	      #modalWidth.button.btn.btn-default.pull-right.add-btn.mb-5px data-target="#myModal" data-toggle="modal" type="button"  Add Product
+	      / = link_to 'Add Products', new_dashboard_inventory_path, class:"btn btn-default pull-right add-btn"
+	      = form_tag destroy_multiple_dashboard_inventories_path, method: :delete do
+	        input.hidden#inventory_ids type="text" name="inventory_ids" value="[]"
+	        = submit_tag 'Delete Products',id: "delete-multiple-inventories", class:"btn btn-default resp-deletebtn w251-mbl"
+	  .col-md-12.p0
+
+
+	  div
+	    table.wdth-auto-mbl.mt-187-mbl.table.table-hover.table-striped.col-md-12.product-border-top#inventories_table cellpadding="10"
+	      thead
+	        tr
+	          th
+	          th Name
+	          th SKU
+	          th In Stock
+	          th Price
+	          / th On Hand/Par
+	          th Cart
+
+
+	      tbody
+	        = render 'dashboard/inventories/table'
+	        br
+	input.supplier_names type="hidden" name="sq[]" value="#{@providers.pluck(:name)}"
+	#myModal.modal.fade role="dialog"
+	  .modal-dialog
+	    /! Modal content
+	    .modal-content
+	      .modal-header
+	        button.close data-dismiss="modal" type="button"  &times;
+	        h4.modal-title Create Products
+	      .modal-body
+	        #example1.hot.handsontable.htRowHeaders.htColumnHeaders data-originalstyle=("height: 320px; overflow: hidden; width: 505px;") style=("height: 320px; overflow: hidden; width: 505px;")
+	        br
+	        button.btn.btn-primary data-dismiss="modal" data-dump="#example1" data-instance="hot1" name="dump"  Create Products
+
+	      .modal-footer
+	        button.btn.btn-default data-dismiss="modal" type="button"  Close

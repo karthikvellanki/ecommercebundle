@@ -1,0 +1,54 @@
+p Dear #{@supplier.user.company},
+br
+
+p You have a new order from #{@client.name}. Please fulfill this order.
+
+div style="float:right;"
+  p Order Date:
+  strong = @order.created_at
+
+div 
+  p Order Number:
+  strong = @order.id
+  
+p Customer:
+strong = @order.first_name + " " + @order.last_name
+br
+= render partial: "addresses/address", locals: {address: @order.addresses.first}
+p Phone: #{@order.mobile_number}
+
+
+br
+br
+table.table
+  thead
+    tr
+      th Quantity
+      th Item
+      th Price ($)
+      th Amount ($)
+  tbody.row
+    - @order.order_items.each do |order_item|
+      tr.col-md-12
+        td.border-none 
+          = order_item.quantity
+        td.border-none
+          p.cart_color #{order_item.product.name}
+        td.border-none
+          = humanized_money_with_symbol order_item.price
+        td.border-none
+          = humanized_money_with_symbol order_item.price * order_item.quantity
+br
+br
+div style="float:right"
+  strong 
+    | Total Price: 
+    = humanized_money_with_symbol @order.total_price
+
+
+br
+br
+div style="color:#999"
+  | Email us at support@orderbundle.com
+  br
+  | Call us at (415) 742-9890

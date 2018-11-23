@@ -1,0 +1,78 @@
+p#notice = notice
+.p30.mt-115
+  h1 #{@product.name}
+  hr
+  .col-md-12
+    .col-md-6.pull-right
+      = image_tag @product.image.url(:medium) , width:"100%"
+    .col-md-6
+      table.table-striped.table
+        tbody
+          tr
+           td
+            b Name
+            td = @product.name
+          tr
+           td
+            b Inventory count
+            td = @product.inventory_count
+          tr
+           td
+            b Inventory Policy
+            td 
+              - if @product.inventory_policy == true
+              	| On 
+              - else
+              	| Off
+          tr
+           td
+            b Barcode value
+            td = @product.barcode_value
+          tr
+           td
+            b Barcode value 1
+            td = @product.barcode_value1
+          tr
+           td
+            b Barcode value 2
+            td = @product.barcode_value2
+          
+          tr
+            td
+              b Short Description
+            td = @product.short_description
+          tr
+            td
+              b Description
+            td = @product.description
+          tr
+            td
+              b Delivery time
+            td  #{@product.delivery_time} days
+
+          tr
+            td
+              b Price
+            td
+              - if @product.price_cents == 0 || @product.price_cents.nil?
+                 | 0
+              - else
+                 | #{humanized_money_with_symbol @product.price}
+          tr
+            td
+              b Aggregatable
+            td
+              - if @product.is_aggregatable
+                 |  Yes
+              - else
+                 |  No
+  .col-md-12
+    h2 Product pictures
+    - @product.pictures.each do |picture|
+      .col-md-4
+        =image_tag picture.picture_file(:medium)
+        = link_to 'Delete', picture_path(picture), method: :delete, class: "btn btn-primary",data: { confirm: 'Are you sure?' }
+  .col-md-12
+    = link_to 'Edit', edit_admin_product_path(@product), class:"btn btn-default"
+    | &nbsp;
+    = link_to 'Back', admin_categories_path, class:"btn btn-default"

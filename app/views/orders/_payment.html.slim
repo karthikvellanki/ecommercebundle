@@ -1,0 +1,68 @@
+.row
+  .col-md-5
+      .row style="text-align: left"
+          .panel.panel-default.border_none
+            .panel-heading
+              h3.panel-title
+                | Payment Details
+            .panel-body
+              #stripe_error
+              form#new_subscription autocomplete="off" method="POST" action='../orders/#{@order.id}/process_payment' name="payment_params"
+                input name="authenticity_token" value="#{form_authenticity_token}" type="hidden"
+                input name="user_id" value="#{@user.id}" type="hidden"
+                - if @user.subscriptions.empty?
+                  input id="subscription_stripe_card_token" name="stripe_customer_token" value="" type="hidden"
+                  .form-group
+                    label for="cardNumber"
+                      | CARD NUMBER
+                    .input-group
+                      input#card_number.form-control autofocus="" placeholder=("Valid Card Number") required="true" type="number" /
+                      span.input-group-addon
+                        span.glyphicon.glyphicon-lock
+                  .row
+                    .col-xs-7.col-md-7
+                      .form-group
+                        label for="expityMonth"
+                          | EXPIRY DATE
+                        .col-xs-6.col-lg-6.pl-ziro
+                          input#card_month.form-control placeholder="MM" required="true" type="text" /
+                        .col-xs-6.col-lg-6.pl-ziro
+                          input#card_year.form-control placeholder="YY" required="true" type="text" /
+                    .col-xs-5.col-md-5.pull-right
+                      .form-group
+                        label for="cvCode"
+                          | CVV CODE
+                        input#card_code.form-control placeholder="CVV" required="true" type="password" /
+                - else
+                  input id="subscription_stripe_card_token" name="stripe_customer_token" value="#{@user.subscriptions.first.stripe_customer_token}" type="hidden"
+                  .p Seems like you are an existing user. Press Pay to continue
+                button.btn.btn-success.btn-lg.btn-block type="submit"  Pay
+
+
+  .col-md-7
+    .ibox
+      .ibox-title
+        span.pull-right
+          | (
+          strong> #{@order.order_items.count}
+          |) items
+        h5 Items in your cart
+      .ibox-content
+        - @order.order_items.each do |order_item|
+          .table-responsive
+            table.table.shoping-cart-table
+              tbody
+                tr
+                  td width="90"
+                    .cart-product-imitation
+                  td.desc
+                    h3
+                      a.text-navy href="#"
+                        | #{order_item.product.name}
+                    p.small
+                      | #{raw order_item.product.short_description}
+                  td width="65"
+                    input.form-control placeholder="#{order_item.quantity}" type="text" /
+                  td
+                    h4
+                      | #{humanized_money_with_symbol order_item.price}

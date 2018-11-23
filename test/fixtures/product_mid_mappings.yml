@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product: one
+  provider: one
+  mid: MyString
+
+two:
+  product: two
+  provider: two
+  mid: MyString

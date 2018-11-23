@@ -1,0 +1,14 @@
+<p>Hi <%= @user.name %>,</p>
+
+<p><%= @supplier.user.company %> has joined Bundle.
+
+<p>You can place orders with <%= @supplier.user.company %>, manage inventory and do much more on Bundle.</p>
+
+<p>Login into your Bundle account here:</p>
+
+<p><%= link_to 'Change my password', edit_password_url(@user, reset_password_token: @token) %></p>
+
+<p>We’re glad to answer any questions you have.</p>
+
+<p>The Bundle Team</p>
+

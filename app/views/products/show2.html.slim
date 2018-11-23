@@ -1,0 +1,123 @@
+.col-md-10.col-md-offset-1.panel.border_none.mt5
+      .col-md-12.mt50
+        .col-md-10.col-md-offset-1.mb20
+            span.fs_3
+              | #{@product.name}
+            span.hidden
+              .pull-right
+                button.btn.btn-default.ml10.i.fa.fa-facebook.social-icons
+                button.btn.btn-default.ml5.i.fa.fa-twitter.social-icons
+                button.btn.btn-default.ml5.i.fa.fa-google-plus.social-icons
+            -if not @product.category.nil?
+              p.text-muted.mt5 #{@product.category.name}
+.container
+    .col-md-7
+      .col-md-12
+        .box-ribbon style="text-align:center;background: white;"
+          = image_tag @product.image, style:"max-width:100%;height:200px" 
+          -if @product.is_aggregatable?
+            .ribbon
+              span Aggregatable
+      .col-md-12.mt20.hidden
+        .col-md-12.panel.border_none
+          h3.text-center Product details
+          hr
+          - count = @product.pictures.count
+          -if count > 1
+            - @product.pictures.order('created_at DESC').take(1).each do |picture|
+                  .col-md-12.mb20
+                    =image_tag picture.picture_file, width:"100%"
+            - @product.pictures.order('created_at ASC').take(count - 1).each do |picture|
+                  .col-md-6.mb20
+                    =image_tag picture.picture_file, width:"100%"
+    #sticky-anchor
+    .col-md-5#sticky
+      .col-md-12.panel.border_none
+        .col-md-12#price_comparison
+          .span#loading_area style="text-align:center"
+            p Loading prices
+            = image_tag asset_path('loading.gif') , :width => "100"
+          form#products_index_add_to_cart_form action='/cart_items' method='POST' autocomplete="off"
+            .span#price_area
+              .col-md-12
+                / h1.text-center.f_40
+                /  = humanized_money_with_symbol @product.price
+                /hr
+                /.col-md-12
+                /  .col-md-6
+                /    p Delivery time
+                /  .col-md-6
+                /    span.pull-right
+                /      | #{@product.delivery_time} &nbsp;
+                /      i.fa.fa-clock-o
+                /.col-md-12
+                /  .col-md-6
+                /    p Aggregatable
+                /  .col-md-6
+                /    span.pull-right
+                /      -if @product.is_aggregatable?
+                /        i.fa.fa-check.text-success
+                /      - else
+                /        i.fa.fa-remove.text-danger
+            br
+            div
+             .m-t.text-right
+               input type="hidden" name="authenticity_token" value="#{form_authenticity_token}"
+               input type="hidden" name="product_id" value="#{@product.id}"
+             button.btn.btn-default.btn-block.mb10.btn-lg.add-to-cart#products_index_add_to_cart.btncart data-product="product-#{@product.id}"
+               i.glyphicon.glyphicon-plus
+               | Cart
+          div
+               .m-t.text-right
+                 input type="hidden" name="authenticity_token" value="#{form_authenticity_token}"
+                 input type="hidden" name="product_id" value="#{@product.id}"
+               -if @product.has_inventory?(current_user)
+                   button.btn.btn-success.btn-block.mb10.btn-lg.add-to-cart#products_index_add_to_cart.btncart style="background-color:#00943e;color:#FFF;"
+                     i.glyphicon.glyphicon-ok
+                     | Dashboard
+               -else
+                  button.btn.btn-default.btn-block.mb10.btn-lg.add-to-cart#products_index_add_to_cart.btncart onclick="import_product(#{@product.id})" data-product="product-import-#{@product.id}"
+                    i.glyphicon.glyphicon-plus
+                    | Dashboard
+
+        .col-md-12.panel.border_none.mt10#sticky-div.hidden
+            h2 Description
+            p #{raw @product.description}
+.col-md-12#related style="background-color: white"
+   .features_items
+      /! features_items
+      h2.title.text-center.mt30 Related Products
+      - @products.order("RANDOM()").limit(3).each do |product|
+        .col-sm-4
+          .product-image-wrapper
+            .single-products
+              .productinfo.text-center
+                =link_to (image_tag product.image, style:"max-width:100%;height:150px;width: auto;" ), product_path(product)
+                -if not product.sku.nil?
+                  p SKU: #{product.sku}
+                p= link_to product.name, product_path(product)
+                /form#products_index_add_to_cart_form action='/cart_items' method='POST' autocomplete="off"
+                div
+                     .m-t.text-right
+                       input type="hidden" name="authenticity_token" value="#{form_authenticity_token}"
+                       input type="hidden" name="product_id" value="#{product.id}"
+                     -if product.has_inventory?(current_user) 
+                         button.btn.btn-success.add-to-cart#products_index_add_to_cart.btncart style="background-color:#00943e;color:#FFF;"
+                           i.glyphicon.glyphicon-ok
+                           | Dashboard
+                     -else
+                        button.btn.btn-default.add-to-cart#products_index_add_to_cart.btncart onclick="import_product(#{product.id})" data-product="product-import-#{product.id}"
+                          i.glyphicon.glyphicon-plus
+                          | Dashboard
+
+            .choose.hidden
+              ul.nav.nav-pills.nav-justified
+                li
+                  a href="#"
+                    i.fa.fa-plus-square
+                    | Add to wishlist
+javascript:
+  product_id = #{@product.id}
+  user_id= #{current_user.present? ? current_user.id : ""}
+= javascript_include_tag "product-bundle"
+= javascript_include_tag "product-import-bundle"

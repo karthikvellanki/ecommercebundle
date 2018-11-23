@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Qty:
+  = @demand.qty
+p
+  strong Aggregation round:
+  = @demand.aggregation_round
+
+= link_to 'Edit', edit_demand_path(@demand)
+'|
+= link_to 'Back', demands_path

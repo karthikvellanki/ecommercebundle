@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Email:
+  = @subscription.email
+p
+  strong Product:
+  = @subscription.product_id
+
+= link_to 'Edit', edit_subscription_path(@subscription)
+'|
+= link_to 'Back', subscriptions_path

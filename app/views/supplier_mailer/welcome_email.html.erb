@@ -1,0 +1,13 @@
+<p>Hi <%= @user.name %>,</p>
+
+<p><%= @client.name %> has joined Bundle.
+
+<p>You will continue to receive <%= @client.name %>'s orders by email, but it is easier to manage them online here: </p>
+
+<p><%= link_to 'Change my password', edit_password_url(@user, reset_password_token: @token) %></p>
+
+<p> You can manage all your customers’ orders easily in one place. Host and manage your catalog online so that new customers can discover you and existing customers can buy new products easily.</p>
+
+<p>We’re glad to have you as part of the Bundle community.</p>
+
+<p>The Bundle Team</p>

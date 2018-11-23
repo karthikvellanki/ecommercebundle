@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @manufacturer.name
+
+= link_to 'Edit', edit_manufacturer_path(@manufacturer)
+'|
+= link_to 'Back', manufacturers_path

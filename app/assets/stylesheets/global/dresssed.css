@@ -1,0 +1,25 @@
+/*
+ * Pick one style by placing the `=` sign in front the the style you want. Just one.
+ *= require dresssed/blue
+ *  require dresssed/black
+ *  require dresssed/amber
+ *  require dresssed/white
+ *
+ * To fully customize your theme, run: `rails generate dresssed:customize`.
+ */
+
+/* Uncomment to change the logo and its size in the left corner of the top navbar.
+.navbar-brand {
+  background-image: url('logo.png');
+  width: 105px;
+  height: 24px;
+}
+*/
+
+/* If you don't have a logo yet and prefer to use text instead, uncomment this one:
+.navbar-brand {
+  background-image: none;
+  text-indent: 0;
+  width: auto;
+}
+*/

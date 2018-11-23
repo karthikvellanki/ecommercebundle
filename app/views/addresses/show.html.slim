@@ -1,0 +1,7 @@
+p#notice = notice
+
+== render 'address', locals: {address: @address}
+
+= link_to 'Edit', edit_address_path(@address)
+'|
+= link_to 'Back', addresses_path

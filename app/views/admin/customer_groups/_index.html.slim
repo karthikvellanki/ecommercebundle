@@ -1,0 +1,45 @@
+.p30.m20.card-contain-supplier.w300
+  .row.w500
+    .col-md-3.p0.mb-5px.hide-on-mbl-resp
+      input#customer_group_search.form-control name="search_term_for_users" data-id="#{group.id}" placeholder="Search Users" type="text" /
+    .col-md-4
+    	button.btn.btn-default.pull-right data-toggle="modal" data-target="#new_customer" New Customer
+    .col-md-4.text-center
+      = form_tag destroy_multiple_admin_customer_groups_path(group_id: group.id), method: :delete do
+	        input.hidden#customer_id type="text" name="customer_ids" value="[]"
+	        = submit_tag 'Delete Customer',id: "delete-multiple-customer", class:"btn btn-default resp-deletebtn w251-mbl"
+    br
+    br
+    br
+
+    table.wdth-auto-mbl.table.table-hover.table-striped.product-border-top
+      thead
+				tr
+					th
+					th Name
+					th Email
+					th Company
+
+      tbody#customer_group_table
+        = render 'admin/customer_groups/table'
+
+    br
+
+#new_customer.modal.fade role="dialog"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"  &times;
+        h4.modal-title Add Customer
+      .modal-body.text-center
+				= simple_form_for [:admin, CustomerGroup.new] do |f|
+					= f.error_notification
+
+					.form-inputs
+						label.text-left choose customer
+						/ = f.association :user, label: false
+						= f.association :user, as: :select, collection: current_user.provider.customers.map {|u| [u.name, u.id]}, label: false
+						= f.input :group_id, as: :hidden, :input_html => { :value => "#{group.id}" }
+
+					.form-actions
+						= f.button :submit

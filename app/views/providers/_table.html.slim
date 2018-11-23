@@ -1,0 +1,41 @@
+- @inventories.each do |inventory|
+  tr
+    td  style="white-space:normal;max-width:300px;" = inventory.name
+    - if not inventory.picture.nil?
+      td = image_tag inventory.picture.picture_file, style: "max-width:100px;"
+    - else
+      td
+    td style="white-space:normal;max-width:150px;"  = inventory.collection.nil? ? "" : inventory.collection.name
+    td#quantity = inventory.quantity
+    td
+      - if not inventory.product.nil?
+        = link_to 'Show', inventory.product
+    td = link_to 'Edit', edit_inventory_path(inventory)
+    td = link_to 'Delete', inventory, data: { confirm: 'Are you sure?' }, method: :delete
+    td
+      button.btn.btn-modal.btn-default threshold="#{inventory.threshold}" capacity="#{inventory.capacity}" quantity="#{inventory.quantity}" inventory-id="#{inventory.id}" Manage
+
+div#modal-inventory.modal.fade tabindex="-1" role="dialog"
+  div.modal-dialog role="document"
+    div.modal-content
+      div.modal-header
+        button.close type="button" data-dismiss="modal"
+          span &times;
+        h3.modal-title Manage Inventory
+      div.modal-body
+        div.form-group
+          label#quantity-label for="quantity" Quantity
+          input.form-control type="number" id="quantity" placeholder="Quantity" min="0"
+        div.form-group
+          label#capacity-label for="capacity" Capacity
+          input.form-control type="number" id="capacity" placeholder="Capacity"
+        div.form-group
+          label#threshold-label for="threshold" Threshold
+          input.form-control type="number" id="threshold" placeholder="Threshold"
+        div.form-group
+          label#threshold-label for="request" Request
+          input.form-control type="number" id="request" placeholder="Request"
+      div.modal-footer
+        button#submit.btn.btn-success type="button" Save
+
+= javascript_include_tag "inventory-bundle"

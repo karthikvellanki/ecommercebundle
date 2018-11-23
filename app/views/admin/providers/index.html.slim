@@ -1,0 +1,25 @@
+.p30.mt-115
+  h1 Listing providers
+
+  table.table.product-border-top
+    thead
+      tr
+        th Name
+        th
+        th
+        th
+
+    tbody
+      - @providers.each do |provider|
+        tr
+          td = provider.name
+          td = image_tag provider.image, class:"admin_provider_logo"
+          td = link_to 'Show', admin_provider_path(provider)
+          td
+             = button_to edit_admin_provider_path(provider), class: "btn btn-primary", method: :get  do
+               span.fa.fa-pencil
+  br
+
+  = link_to 'New Provider', new_admin_provider_path,class:"btn btn-default"
+
+

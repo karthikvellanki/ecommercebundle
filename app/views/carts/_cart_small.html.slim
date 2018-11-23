@@ -1,0 +1,86 @@
+.hide-on-mobile
+	- @cart.cart_items.each do |cart_item|
+		.div style="padding-bottom: 110px;"
+			.col-md-5 
+				= image_tag cart_item.product.image,width: "100%", height: "90px"
+			.col-md-7 style="text-align: left; padding-left: 70px;"
+				p style="color: #000000;font-family: Lato;font-size: 16px; margin-bottom: 10px;" #{cart_item.product.name}
+				p style="	color: #4A4A4A;	font-family: Lato;	font-size: 14px; margin-bottom: 10px;" #{cart_item.quantity} item
+				p style="color: #17AB5B;	font-family: Lato;	font-size: 16px; margin-bottom: 10px;" #{humanized_money_with_symbol cart_item.price}
+
+.hide-on-desktop
+  - @cart.cart_items.each do |cart_item|
+    .row
+      .col-xs-3
+        img.mt20 src="#{cart_item.get_product_preview.url}" width="30px"
+      .col-xs-9
+        p
+          strong.yellow = cart_item.product.name
+
+    .row
+      .col-xs-6.text-center
+        | Price: #{humanized_money_with_symbol cart_item.price}
+      .col-xs-6.text-center
+        | Quantity: #{cart_item.quantity}
+    hr
+
+
+
+.mtb2 style="border-bottom: 1px solid #F2F2F2; margin-top: 20px;"
+.row
+  .col-md-6.fwbold
+  .col-md-6.fwbold
+.row style="margin-top: 30px;"
+  .col-md-6
+		p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;"	 Sub Total
+  .col-md-6
+	  p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;" #{humanized_money_with_symbol @cart.total_price}
+.row
+  .col-md-6
+		p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;" Shipping
+  .col-md-6
+		- if current_user.shipping_choice == "use_my_shipping_account_number"
+			p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;" #{current_user.shippers_name}
+			p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;" #{current_user.shipping_account_number}
+		-else
+			p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;" Free
+.mtb2 style="border-bottom: 1px solid #F2F2F2"
+.row style="margin-top: 20px;"
+  .col-md-6
+		p style="	color: #1B2125;	font-family: Lato;	font-size: 20px;	font-weight: bold;" Total
+  .col-md-6
+		p style="color: #17AB5B;	font-family: Lato;	font-size: 20px;	font-weight: bold;" #{humanized_money_with_symbol @cart.total_price}
+
+br	
+    / table.table.border-0
+    /   thead.black-panel
+    /     tr.bgpink
+    /       td &nbsp;&nbsp;
+    /       td.white-font.text-center Product
+    /       td &nbsp;&nbsp;&nbsp;
+    /       td.white-font Qty
+    /       td &nbsp;&nbsp;&nbsp;
+    /       td.white-font Price
+    /       td &nbsp;&nbsp;&nbsp;
+    /       td.white-font Amount
+    /       td &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+
+    /   tbody
+    /     - @cart.cart_items.each do |cart_item|
+    /         tr
+    /           td
+    /           td.cart-image.text-center
+    /               img.mt20 src="#{cart_item.product.image.url}" width="40px"
+    /               p.mt5
+    /                 strong.yellow = cart_item.product.name
+    /           td
+    /           td.text-center
+    /             =cart_item.quantity
+
+    /           td
+    /           td.text-center
+    /             = humanized_money_with_symbol cart_item.price 
+    /           td
+    /           td.yellow.text-center
+    /             = humanized_money_with_symbol cart_item.price * cart_item.quantity
+    /           td

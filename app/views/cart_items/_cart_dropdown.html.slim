@@ -1,0 +1,30 @@
+- if @cart.present?
+  - cart = Cart.find(@cart)
+  - if cart.cart_items.count > 0
+    .p20
+      i.fa.fa-shopping-cart.yellow&nbsp
+      span.badge #{cart.cart_items.count}
+      .total-cart-price.pull-right
+        |Total:
+        span.yellow #{humanized_money_with_symbol cart.total_price}
+      hr
+      - cart.cart_items.each do |cart_item|
+        .row.mb10
+          .cart-item-container
+            .cart-d-image
+              = image_tag(cart_item.get_product_preview.url, :style => 'width: 70px;')
+            .cart-item-name
+              strong.fontb.ml10.pb10 #{cart_item.product.product_name}
+              .quan-price.yellow
+                  |&nbsp #{humanized_money_with_symbol cart_item.total_price}
+              .quan.pull-right
+                | Qty: #{cart_item.quantity}
+              br
+              br
+              br
+      .text-center
+        = link_to 'Proceed to Checkout', '/carts/' + @cart.to_s + '#cart' , :class => 'btn btn-block btnpink'
+  - else
+    p.text-center No items in your cart
+- else
+  p.text-center No items in your cart

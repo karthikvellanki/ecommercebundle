@@ -1,0 +1,47 @@
+.div 
+	/ .row
+	/ 	ol.breadcrumb
+	/ 		li.breadcrumb-item 
+	/ 			a href="/stores" home
+	/ 		- @breadcrumb_array.drop(1).reverse.each do |sc|
+	/ 		    li.breadcrumb-item 
+	/ 		      a href="/#{request.referrer.split("/").fourth}/#{sc.first}"  #{sc.last}
+	/ 	.col-md-3
+	/ 		.category-dropdown style="width: 90%"
+	/ 			- supplier_category = SupplierCategory.find(params[:supplier_category_id])
+	/ 			p.bg-style CATEGORIES
+	/ 			p.category_sidenav_provider #{supplier_category.parent.name}
+	/ 			p.category_sidenav_provider #{supplier_category.name}
+	/ 			- category = SupplierCategory.where(parent_id: 1).where.not(id: supplier_category)
+	/ 			- category.each do |sc|
+	/ 				a href="/supplier_categories/#{sc.id}/products"
+	/ 					p.category_sidenav_name #{sc.name}
+	.revamp-category#product-show style="margin-top: -70px; min-height: 90vh;"
+		.container style="margin-left: 2%; padding-left: 0px;"
+			.col-md-3#category-list.hide-mobile.collapse.in style="border: 1px solid #eee; border-top: 2px solid #F4A137; padding: 0;"
+				-@products.limit(1).each do |product|
+					ul style="list-style-type: none; padding-left: 0;"
+						a style="text-decoration: none; color: #333;" href="#"
+							.div class="dropdown"
+								li class="dropbtn" style="display: flex; width: 100%; padding: 10px;"
+									span style="width: 97%; word-wrap: break-word; padding-right: 10px;"
+										| #{product.supplier_category.name}
+									
+									
+			#product_show_render
+				.col-md-9
+					= render 'products/product', products: @products
+					= will_paginate @products
+
+
+= render "request_quote_modal"
+
+javascript:
+  user_id= '#{current_user.present? ? current_user.id : ""}'
+= javascript_include_tag "product-bundle"
+= javascript_include_tag "product-import-bundle"
+
+css:
+  .navbar-default {
+    padding-right:30px;
+  }

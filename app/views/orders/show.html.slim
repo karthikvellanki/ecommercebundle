@@ -1,0 +1,135 @@
+p#notice = notice
+
+.row
+  .col-md-12
+    .panel.border-none
+      .panel-body
+        .row
+          .col-xs-12
+            .invoice-title
+              h2.mt0 Order # #{@order.id}
+            hr
+            .row
+              .col-xs-6
+                address
+                  strong Billed To:
+                  br/
+                  = @order.first_name + " "  + @order.last_name
+                  br/
+                  = @order.email
+                  br/
+                  = @order.mobile_number
+                span
+                  strong Supplier:
+                  br/
+                  p #{@order.provider.nil? ? "" : @order.provider.user.company}
+              .col-xs-6.text-right
+                address
+                  strong Shipped To:
+                  br/
+                  - if not @order.addresses.count == 0
+                    = render partial: "addresses/address", locals: {address: @order.addresses.first}
+                  - elsif not @order.order_items.last.nil? and not @order.order_items.last.provider.nil?
+                    strong Provider
+                    br
+                    - if @order.order_items.last.provider.image.exists?
+                      = image_tag @order.order_items.last.provider.image
+                    - else
+                      h1 #{@order.order_items.last.provider.user.company}
+              .col-xs-12
+                address
+                  strong Order Date:
+                  br/
+                  = local_date(@order.order_date, "%m/%d/%Y")
+              .col-xs-12
+                address style="margin-bottom: 7px;"
+                  strong Shipping Choice:
+                  br/
+				- if current_user.shipping_choice == "use_my_shipping_account_number"
+					p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px; margin-bottom: 5px;" #{current_user.shippers_name}
+					p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;" #{current_user.shipping_account_number}
+				-else
+					p style="	color: #4A4A4A;	font-family: Lato;	font-size: 16px;" Free
+        .row
+          .col-md-12
+            h2 Payment
+            - if @order.fulfilled?
+            	/ .col-xs-2
+	            /   = image_tag asset_path('loading.gif') , :width => "30", style: "display:none;", id: "icon-working-#{@order.id}"
+	            /   button.btn.btn-primary onclick='pay_for_order(#{@order.id},#{current_user.bank_accounts.first.nil?});return false;' Pay using Bank
+              	.col-xs-2
+              		= render 'pay'
+            - elsif @order.paid?
+              button.btn.btn-success disabled="true" Paid
+            - elsif @order.placed? && @order.user.is_invoice == false
+            	.col-xs-12
+	              P Payment pending
+	              / = image_tag asset_path('loading.gif') , :width => "30", style: "display:none;", id: "icon-working-#{@order.id}"
+	              / button.btn.btn-primary.pay-by-bank-btn onclick='pay_for_order(#{@order.id},#{current_user.bank_accounts.first.nil?});return false;' Pay using Bank
+              	.col-xs-3.mt10
+	              = render 'pay'
+            - else
+              h4 Invoice Pending
+
+
+
+        .row
+          .col-md-12
+            h2 Products
+            table.table.table-striped
+              tbody.row
+                - @order.order_items.each do |order_item|
+                  tr
+                    td.border-none
+                      - if not order_item.product.nil?
+                        img.margin_tb src="#{order_item.product.image.url(:medium)}" style="max-width:200px;max-height:165px;"
+                    td.border-none
+                        - if not order_item.product.nil?
+                          p.cart_color #{order_item.product.name}
+                          - if not order_item.product.category.nil?
+                            p #{order_item.product.category.name}
+                        - else
+                          p.text-danger Product Unavailable
+                    td.border-none
+                      span.hidden
+                        | QTY &nbsp;
+                        span
+                          | &nbsp;
+                          a.fa.fa-trash.remove_order_item.pointer data-cart_item_id="#{order_item.id}"
+                    td.border-none style="border:0"
+                      span.text-muted
+                        = humanized_money_with_symbol order_item.price
+                        | &nbsp;x&nbsp;
+                        = order_item.quantity
+                      p
+                        = humanized_money_with_symbol order_item.price * order_item.quantity
+                    td.border-none style="border:0"
+                      p
+                        strong Status:
+                        = order_item.status
+          .col-md-3.col-md-offset-9.text-right style="padding-top:16px"
+            div style="font-size:16px;"
+              | Sub Total:
+              = humanized_money_with_symbol @order.sub_total
+            - if not @order.sales_tax_total_cents.nil? and @order.sales_tax_total_cents > 0
+              br
+              div style="font-size:16px;"
+                | Sales Tax:
+                = humanized_money_with_symbol @order.sales_tax_total
+            - if not @order.shipping_charges_cents.nil? and @order.shipping_charges_cents > 0
+              br
+              div style="font-size:16px;"
+                | Shipping Charges:
+                = humanized_money_with_symbol @order.shipping_charges
+            - if not @order.other_charges_cents.nil? and @order.other_charges_cents > 0
+              br
+              div style="font-size:16px;"
+                | #{@order.other_charges_name.blank? ? "Other Charges" : @order.other_charges_name}:
+                = humanized_money_with_symbol @order.other_charges
+            br
+            div style="font-size:20px;"
+              | Order Total:
+              = humanized_money_with_symbol @order.total_price
+
+= javascript_include_tag "stripe-bundle"
+= javascript_include_tag "https://cdn.plaid.com/link/v2/stable/link-initialize.js"

@@ -1,0 +1,43 @@
+= simple_form_for(@inventory) do |f|
+  = f.error_notification
+  - if @providers.first.nil?
+    h3 You must create a supplier before you can create an inventory
+    = link_to 'New Supplier', new_provider_path, class:"btn btn-default pull-right"
+  - else
+    .form-inputs
+    - if @inventory.id.nil?
+      = f.input :name
+      = f.input :sku, label: "SKU"
+    = f.input :price, label: "Price in USD"
+    - if @inventory.id.nil?
+      = f.input :quantity, label: "Quantity on hand", :input_html =>{value: @inventory.quantity.blank? ? 0 : @inventory.quantity }
+      = f.input :capacity, label: "Par Level", :input_html =>{value: @inventory.capacity.blank? ? 1000 : @inventory.capacity }
+      span.hidden
+        = f.input :threshold, :input_html =>{value: @inventory.threshold.blank? ? 0 : @inventory.threshold }
+    span.hidden
+      = f.label "Category"
+      select name="collection_id" 
+        option value="-1" ---
+        - @collections.each do |collection|
+          option value="#{collection.id}" #{collection.name}
+    br
+    br
+    br
+    - if @inventory.id.nil?
+      .row 
+        .col-xs-6
+          = f.label "Supplier"
+          select name="provider_id" 
+            - @providers.each do |provider|
+              option value="#{provider.id}" #{provider.user.company}
+        .col-xs-6
+          = link_to 'New Supplier', new_provider_path, class:"btn btn-default pull-right"
+
+    br
+    br
+    br
+    .form-actions
+      - if @inventory.id.nil?
+        = f.button :submit, value: "Create Product"
+      - else
+        = f.button :submit, value: "Save Product"

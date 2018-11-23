@@ -1,0 +1,39 @@
+.col-md-12.mt50
+  .col-md-6.col-md-offset-3.mt50
+    .row style="text-align: left"
+      .panel.panel-default.border_none
+        .panel-heading
+          h3.panel-title
+            | Payment Details
+        .panel-body
+          #stripe_error
+          form#new_subscription autocomplete="off" method="POST" action='../subscriptions' name="payment_params"
+            input name="authenticity_token" value="#{form_authenticity_token}" type="hidden"
+            input name="user_id" value="#{current_user.id}" type="hidden"
+            - if current_user.subscriptions.empty?
+              input id="subscription_stripe_card_token" name="stripe_customer_token" value="" type="hidden"
+              .form-group
+                label for="cardNumber"
+                  | CARD NUMBER
+                .input-group
+                  input#card_number.form-control autofocus="" placeholder=("Valid Card Number") required="true" type="number" /
+                  span.input-group-addon
+                    span.glyphicon.glyphicon-lock
+              .row
+                .col-xs-7.col-md-7
+                  .form-group
+                    label for="expityMonth"
+                      | EXPIRY DATE
+                    .col-xs-6.col-lg-6.pl-ziro
+                      input#card_month.form-control placeholder="MM" required="true" type="text" /
+                    .col-xs-6.col-lg-6.pl-ziro
+                      input#card_year.form-control placeholder="YY" required="true" type="text" /
+                .col-xs-5.col-md-5.pull-right
+                  .form-group
+                    label for="cvCode"
+                      | CVV CODE
+                    input#card_code.form-control placeholder="CVV" required="true" type="password" /
+            - else
+              input id="subscription_stripe_card_token" name="stripe_customer_token" value="#{current_user.subscriptions.first.stripe_customer_token}" type="hidden"
+              .p Seems like you are an existing user. Press Pay to continue
+            button.btn.btn-success.btn-lg.btn-block type="submit"  Save card details

@@ -1,0 +1,59 @@
+.container.bootstrap.snippet
+  .row
+    .col-sm-10
+      h1 Hello #{@user.first_name}
+    .col-sm-2
+        =image_tag 'user.png', class:"img-circle img-responsive pull-right"
+  .row
+    .col-sm-3
+      ul.list-group
+        li.list-group-item.text-muted Profile
+        li.list-group-item.text-right
+          span.pull-left
+            strong First name
+          - if @user.first_name.present?
+            | #{@user.first_name}
+          - else
+            br
+        li.list-group-item.text-right
+          span.pull-left
+            strong Last name
+          - if @user.last_name.present?
+            | #{@user.last_name}
+          -else
+            br
+        li.list-group-item.text-right
+          span.pull-left
+            strong Mobile
+          - if @user.mobile.present?
+            | #{@user.mobile}
+          -else
+            br
+        li.list-group-item.text-right
+          span.pull-left
+            strong Email
+          - if @user.email.present?
+            | #{@user.email}
+          - else
+            br
+        li.list-group-item.text-right.pb20.hidden
+          span.pull-left
+            strong Gender
+          - if @user.sex.present?
+            | #{@user.sex}
+          - else
+            br
+
+    /! /col-3
+    .col-sm-9
+      ul#myTab.nav.nav-tabs.mb10
+        li.active
+          a data-toggle="tab" href="#home"  Edit profile
+        li
+          a data-toggle="tab" href="#messages"  Address
+      .tab-content.mb20
+        #home.tab-pane.active
+          == render 'form'
+        #messages.tab-pane
+          h1 Address
+          = render 'admin/users/address_section'

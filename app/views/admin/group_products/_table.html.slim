@@ -1,0 +1,8 @@
+- @group.group_products.each do |group_product|
+	tr
+		td = group_product.product.try(:name)
+		td = group_product.sku
+		td = humanized_money_with_symbol group_product.product.price
+		td = humanized_money_with_symbol group_product.price
+		td 
+			= link_to 'Edit', edit_admin_group_product_path(group_product)

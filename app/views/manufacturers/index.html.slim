@@ -1,0 +1,21 @@
+h1 Listing manufacturers
+
+table
+  thead
+    tr
+      th Name
+      th
+      th
+      th
+
+  tbody
+    - @manufacturers.each do |manufacturer|
+      tr
+        td = manufacturer.name
+        td = link_to 'Show', manufacturer
+        td = link_to 'Edit', edit_manufacturer_path(manufacturer)
+        td = link_to 'Destroy', manufacturer, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Manufacturer', new_manufacturer_path

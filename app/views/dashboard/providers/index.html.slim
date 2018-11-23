@@ -1,0 +1,35 @@
+.w300
+	.div.hide-on-admin-desktop.position-fxt-mbl
+		.row.mb25
+	    .col-md-3
+	      h1.m0 Suppliers (#{@providers.count})
+	    .col-md-9.mt10px-mbl
+	      = link_to 'New Supplier', new_dashboard_provider_path, class:"btn btn-default"
+	.pl30.mt50.hide-on-mbl-resp
+	  .row.mb25
+	    .col-md-3
+	      h1.m0 Suppliers (#{@providers.count})
+	    
+
+	.card-contain-user.w300
+
+	  table.wdth-auto-mbl.table.table-hover.table-striped.col-md-12.product-border-top#inventories_table.mt150-mbl
+	    thead
+	      tr
+	        th Name
+	        th Phone
+	        th Email
+	        th Products
+
+	    tbody
+	      - @providers.each do |provider|
+	        tr
+	          td = provider.user.company
+	          td 
+	            - if not provider.user.nil?
+	              = provider.user.mobile
+	          td = provider.user.email
+	          td 
+	            = link_to 'View', dashboard_provider_path(provider), class:"btn btn-default"
+	      br
+

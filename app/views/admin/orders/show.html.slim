@@ -1,0 +1,102 @@
+.mt-115	
+	p#notice = notice
+	= simple_form_for [:admin, @order] do |f|
+	  h1 #{@order.id}
+	  hr
+	  .col-md-12
+	    table.table-striped.table
+	      tbody
+	        tr
+	          td
+	            b Email
+	          td = @order.email
+	        tr
+	          td
+	            b First Name
+	          td = @order.first_name + " " + @order.last_name
+	        tr
+	          td
+	            b Mobile No
+	          td = @order.mobile_number
+	        tr.hidden
+	          td
+	            b Status
+	          td = @order.status
+	        tr
+	          td Sub Total: 
+	          td = humanized_money_with_symbol @order.sub_total
+	        - if not @order.sales_tax_total_cents.nil? and @order.sales_tax_total_cents > 0
+	          tr
+	            td Sales Tax: 
+	            td = humanized_money_with_symbol @order.sales_tax_total
+	        - if not @order.shipping_charges_cents.nil? and @order.shipping_charges_cents > 0
+	          tr
+	            td Shipping Charges: 
+	            td = humanized_money_with_symbol @order.shipping_charges
+	        - if not @order.other_charges_cents.nil? and @order.other_charges_cents > 0
+	          tr
+	            td #{@order.other_charges_name.blank? ? "Other Charges" : @order.other_charges_name}: 
+	            td = humanized_money_with_symbol @order.other_charges
+	        tr
+	          td
+	            b Order Total
+	          td = humanized_money_with_symbol @order.total_price
+	        tr
+	          td
+	            b Order Date
+	          td = @order.order_date          
+	        - if not @order.addresses.first.nil?
+	          tr
+	            td
+	              b Shipping Address
+	            td = render partial: "addresses/address", locals: {address: @order.addresses.first}
+	          tr
+	            td
+	              b Shipping Choice:
+	            - if @order.user.shipping_choice == "use_my_shipping_account_number"
+		            td 
+		            	p = @order.user.shippers_name
+		            	p = @order.user.shipping_account_number
+	            - else
+	            	td Free  
+	  hr
+	  .col-md-12
+	    h2 Products
+	    table.table
+	      tbody.row
+	        /!- @order.admin_order_items(current_user).each do |order_item|
+	        = f.fields_for :order_items do |of|
+	          - order_item = of.object
+	          tr.col-md-12
+	            td.border-none style="width: 25%;border:0;"
+	              - if order_item.product and order_item.product.image.exists?
+	                img.margin_tb src="#{order_item.product.image.url(:medium)}" style="max-width:200px;max-height:165px;"
+	            td.border-none style="width: 30%;border:0;"
+	                - if order_item.product
+	                  p.cart_color #{order_item.product.name}
+	                  - if not order_item.product.category.nil?
+	                    p #{order_item.product.category.name}
+	            td.border-none style="border:0;: hidden"
+	              span.hidden
+	                | QTY &nbsp;
+	                span
+	                  | &nbsp;
+	                  a.fa.fa-trash.remove_order_item.pointer data-cart_item_id="#{order_item.id}"
+	            td.border-none style="border:0"
+	              span.text-muted
+	                = humanized_money_with_symbol order_item.price
+	                | &nbsp;x&nbsp;
+	                = order_item.quantity
+	              p
+	                = humanized_money_with_symbol order_item.price * order_item.quantity
+	            td.border-none style="border:0"
+	              = of.input :status, :as => :select, :collection => OrderItem.statuses.keys.to_a, selected: order_item.status.downcase
+	    .form-actions
+	      = f.button :submit, class:"btn btn-default mt5"
+
+
+	- if current_user.admin
+	  .col-md-12
+	    = link_to 'Edit', edit_admin_order_path(@order), class:"btn btn-default"
+	    | &nbsp;
+	    = link_to 'Back', admin_orders_path, class:"btn btn-default"

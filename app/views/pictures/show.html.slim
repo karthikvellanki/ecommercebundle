@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Picturable:
+  = @picture.picturable_id
+p
+  strong Picturable type:
+  = @picture.picturable_type
+
+= link_to 'Edit', edit_picture_path(@picture)
+'|
+= link_to 'Back', pictures_path

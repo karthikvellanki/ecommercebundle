@@ -1,0 +1,94 @@
+#main-content-nav.collapse.navbar-collapse.hidden-md-up
+	.nav-side-menu.override-sidenav.dashboard-user.position-rel-style
+	  .text-center
+	    =image_tag 'logo.png', class: 'sidenav-logo'
+	    br
+	    br
+
+	  ul.nav
+	    - if current_user.is_provider
+	      li
+	        a href="#{profile_admin_users_path}"
+	          i.fa.fa-user.fa-fw
+	          | Account
+	    - if current_user.is_provider or current_user.admin
+	      li
+	        a href="#{admin_products_path}"
+	          i.fa.fa-shopping-bag.fa-fw
+	          | Products
+	      li
+	        a href="#{admin_supplier_categories_path}"
+	          i.fa.fa-bars.fa-fw
+	          | Categories
+	      li
+	        a href="#{admin_users_path}"
+	          i.fa.fa-user-plus.fa-fw
+	          | Customers
+	      li
+			a href="#{admin_groups_path}"
+			  i.fa.fa-users.fa-fw
+    		  | Customer Groups
+	      li
+	        a href="#{admin_orders_path}"
+	          i.fa.fa-list-alt.fa-fw
+	          | Orders
+	      li
+	        a href="#{admin_request_quotes_path}"
+	          i.fa.fa-file-archive-o.fa-fw
+	          | Quotes
+	      li
+	        a href="#{admin_invoices_path}"
+	          i.fa.fa-file-text-o.fa-fw
+	          | Invoices	 	                   
+	      li
+		    a href="#{admin_pages_path}"
+		      i.fa.fa-book.fa-fw    
+		      | Pages
+				
+
+	    - if current_user.admin
+	      li
+	        a href="#{admin_providers_path}"
+	          i.fa.fa-user.fa-fw
+	          | Providers
+	      li
+	        a href="#{admin_users_path}"
+	          i.fa.fa-user.fa-fw
+	          | Customers
+	      li
+	        a href="#{admin_categories_path}"
+	          i.fa.fa-shopping-bag.fa-fw
+	          | Category
+	      li
+	        a href="#{admin_orders_path}"
+	          i.fa.fa-file-text-o.fa-fw
+	          | Orders
+	      li
+	        a href="#{admin_demands_path}"
+	          i.fa.fa-shopping-bag.fa-fw
+	          | Demands
+	      li
+	        a href="#{admin_aggregation_rounds_path}"
+	          i.fa.fa-shopping-bag.fa-fw
+	          | Aggregation rounds
+	      li
+	        a href="#{admin_banners_path}"
+	          i.fa.fa-shopping-bag.fa-fw
+	          | Banners
+	      li
+	        a href="#{admin_quote_requests_path}"
+	          i.fa.fa-shopping-bag.fa-fw
+	          | Quote Request
+	      li   
+		 			- if current_user.present? && current_user.admin 
+			 			li 
+			 				= link_to 'ADMIN PANEL', admin_users_path, class:"hide-on-admin-desktop btn btn-primary"
+        li 
+	        - if current_user.present?
+	        	li
+	          	= link_to 'Logout', destroy_user_session_path, :method => :delete, class:"btn btn-primary hide-on-admin-desktop mt10px-mbl w231-btn" 
+	        - else
+	        	li
+	            = link_to 'Sign In', new_user_session_path,class:"btn btn-primary hide-on-admin-desktop"           	     
+       
+

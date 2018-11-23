@@ -1,0 +1,10 @@
+- @users.each do |user|
+      tr
+        td = link_to "#{user.first_name} #{user.last_name}", admin_user_path(user), class:"black_text"
+        td = user.email
+        td = user.company
+        td = link_to "Catalog", "/admin/users/#{user.id}/catalog", class: "btn btn-primary" 
+        - if current_user.admin
+          td
+            = button_to edit_admin_user_path(user), class: "btn btn-primary", method: :get do
+              span.fa.fa-pencil

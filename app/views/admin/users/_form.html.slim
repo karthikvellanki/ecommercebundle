@@ -1,0 +1,23 @@
+= simple_form_for [:admin, @user] do |f|
+  - if @user.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@user.errors.count, "error")
+        | prohibited this user from being saved:
+      ul
+        - @user.errors.full_messages.each do |message|
+          li= message
+  .form-inputs
+
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :store_name
+    = f.input :location
+    = f.input :mobile
+    = f.input :email
+    = f.input :company
+    = f.input :avatar, as: :file
+    = f.simple_fields_for :provider do |p|
+ 			= p.input :slug
+  .actions
+    = f.submit 'Submit',class: 'btn btn-primary do'

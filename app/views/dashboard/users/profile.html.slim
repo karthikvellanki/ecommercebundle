@@ -1,0 +1,50 @@
+.container.bootstrap.snippet.resp-mac-profile
+  br
+  .row
+    .col-sm-10
+      h1 Hello #{@user.first_name}
+    .col-sm-2
+        =image_tag @user.avatar.url, class:"img-circle img-responsive wdt-50-mbl margin-auto mb-15-mbl"
+  .row
+    /! /col-3
+    .col-sm-12.col-md-12
+      ul#myTab.nav.nav-tabs.mb10
+        - if session[:tab] == nil
+          li.active
+            a data-toggle="tab" href="#home"  Edit profile
+        - else
+          li
+            a data-toggle="tab" href="#home"  Edit profile
+        - if session[:tab].present? && session[:tab] == 'address'
+          li.active
+            a data-toggle="tab" href="#messages"  Address
+        - else
+          li
+            a data-toggle="tab" href="#messages"  Address
+        - if session[:tab].present? && session[:tab] == 'pass'
+          li.active
+            a data-toggle="tab" href="#update_password"  Password
+        -else
+          li
+            a data-toggle="tab" href="#update_password"  Password
+      .tab-content.mb20
+        - if session[:tab] == nil
+          #home.tab-pane.active
+            = render 'form'
+        - else
+          #home.tab-pane
+            = render 'form'
+        - if session[:tab].present? && session[:tab] == 'address'
+          #messages.tab-pane.active
+            h1 Address
+            = render 'admin/users/address_section'
+        - else
+          #messages.tab-pane
+            h1 Address
+            = render 'admin/users/address_section'
+        - if session[:tab].present? && session[:tab] == 'pass'
+          #update_password.tab-pane.active
+            = render 'update_password_form'
+        - else
+          #update_password.tab-pane
+            = render 'update_password_form'

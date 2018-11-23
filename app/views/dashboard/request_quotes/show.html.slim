@@ -1,0 +1,37 @@
+.pl30
+  h1
+    = "#{@request_quote.product_name.capitalize} Quotes"
+.card-contain-user
+  div
+    table.table.table-hover.table-striped.col-md-12 cellpadding="10"
+      thead
+        tr
+          th Supplier
+          th Location
+          th style="width:30%;" Product
+          th Price
+          th Cart
+
+      tbody
+        - @request_quote.supplier_bids.each do |bid|
+          - product = bid.product
+          tr id="bid-#{bid.id}" 
+            td = bid.supplier.company
+            td = bid.supplier.location
+            td 
+              - if product.nil?
+                span = bid.notes
+              - else
+                a href="#{product_url(bid.product)}" style="text-decoration:underline;" target="_window" #{product.name}
+            td = humanized_money_with_symbol bid.price
+            td 
+              - if product
+                div id="product-#{product.id}"
+                  input.text-center#input-quantity name="quantity" type="number" value="1" min="1" style="width:75px;margin-right:10px;" 
+                  button.btn.btn-default#add_to_cart type="submit" style="margin-left:10px;font-size:12px;" onclick="add_to_cart(#{product.id});return false;"
+                    = image_tag asset_path('loading.gif') , :width => "30", style: "display:none;", id: "icon-working"
+                    | Add to Cart
+javascript:
+  user_id= '#{current_user.present? ? current_user.id : "temp"}'
+= javascript_include_tag "product-bundle"
+

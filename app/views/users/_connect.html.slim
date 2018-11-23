@@ -1,0 +1,8 @@
+.panel.panel-primary
+  .panel-body
+    h3 Connect to stripe
+    ul.list-group
+      li.list-group-item#stripe-oauth
+        = link_to 'Connect', stripe_oauth_path, class: "pull-right btn btn-lg btn-primary"
+        h3 OAuth
+        p Connect or create a Stripe account via OAuth.

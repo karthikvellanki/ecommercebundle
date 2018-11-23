@@ -1,0 +1,7 @@
+.nested-fields
+  = f.input :mid, label: "Product ID"
+  = f.input :price
+  - if current_user.admin
+    = f.association :provider
+    = link_to_remove_association "remove mid", f, class:"btn btn-default mb5"
+

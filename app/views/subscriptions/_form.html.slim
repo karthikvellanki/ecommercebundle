@@ -1,0 +1,9 @@
+= simple_form_for(@subscription) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :email
+    = f.input :product_id
+
+  .form-actions
+    = f.button :submit

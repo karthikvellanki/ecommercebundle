@@ -1,0 +1,1 @@
+json.array! @aggregation_rounds, partial: 'aggregation_rounds/aggregation_round', as: :aggregation_round

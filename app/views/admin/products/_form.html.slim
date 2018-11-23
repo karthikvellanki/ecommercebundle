@@ -1,0 +1,31 @@
+= simple_form_for [:admin, @product] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name
+    = f.input :sku, label: "SKU"
+    = f.input :image
+    = f.input :inventory_count
+    = f.input :inventory_policy
+    = f.input :barcode_value
+    = f.input :price, label: "Price in USD"
+    = f.input :unit
+    = f.input :barcode_value1
+    = f.input :barcode_value2
+    / = f.input :storefront_option
+    = f.input :brand
+
+    /!= f.association :category
+    - if current_user.admin or current_user.is_provider
+      = f.association :category
+			label Category
+			select.form-control name="product[supplier_category_id]"
+				- if @product.supplier_category.present?
+					option value="#{@product.supplier_category.id}" #{@product.supplier_category.name}
+				- else
+					option value="" Select a category
+				- SupplierCategory.where(provider_id: current_user.provider.id).each do |a|
+					- if a.children.blank?
+						option value="#{a.id}" #{parent_loop(a)}
+      br
+  .form-actions
+    = f.button :submit, class:"btn btn-default mt5"

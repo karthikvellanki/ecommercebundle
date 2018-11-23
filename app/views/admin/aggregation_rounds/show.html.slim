@@ -1,0 +1,21 @@
+p#notice = notice
+.p30
+  .col-md-6
+    table.table.table-striped
+      tr
+        td Start date:
+        td = @aggregation_round.start_date
+      tr
+        td End date:
+        td = @aggregation_round.end_date
+      tr
+        td Qty limit:
+        td  = @aggregation_round.qty_limit
+      tr
+        td Product:
+        td = @aggregation_round.product.name
+
+
+    = link_to 'Edit', edit_admin_aggregation_round_path(@aggregation_round), class:"btn btn-default"
+    | &nbsp;
+    = link_to 'Back', admin_aggregation_rounds_path, class:"btn btn-default"

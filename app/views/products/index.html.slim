@@ -1,0 +1,71 @@
+- if request.referer.present?
+	- if request.referer.include? "supplier_categories" or request.referer.include? "categories"
+		.div style="margin-top: -3%;"
+/ nav.navbar.navbar-inverse style="margin-bottom: 1px; border: none; background-color: #666666;"
+/ 	.container
+/ 		.navbar-header
+/ 			a.navbar-brand.hide-on-mobile style="background-color: #444444; width: 290px; color: #FFF;" href="#"  &#9776; &nbsp;&nbsp;All Categories
+/ 			a.hide-on-desktop.navbar-brand data-parent="#accordion" data-toggle="collapse"  style=" width: 290px; color: #FFF;" href="#category-list"  &#9776; &nbsp;&nbsp;All Categories
+/ 			a.hide-only-desktop.navbar-brand data-target="#store-front-nav" data-toggle="collapse"  style=" width: 290px; color: #FFF;" href="#category-list"  &#9776; &nbsp;&nbsp; Navigation
+.container style="margin-top: -12px;"
+	.revamp-category#product-show.mt30resp style="margin-top: 25px; min-height: 65vh; margin-left: -15px;"
+		.container style="padding-left: 0;"
+			/ .col-md-3#category-list.collapse.in style="border: 1px solid #eee; border-top: 2px solid #F4A137;"
+			/ 	-@categories.each do |category|
+			/ 		ul style="list-style-type: none"
+			/ 			.div class="dropdown"
+			/ 				li.get_product style="word-wrap: break-word; padding: 15px 0;cursor: pointer;"data-id="#{category.id}" data-provider="#{params[:provider_id]}" #{category.name.capitalize} 
+			.col-md-9
+			  #owl-demo.owl-carousel.owl-theme
+			    - @banners.each do |banner|
+			        .item
+			            =image_tag banner.image.url, width:"100%"
+
+				.div
+					.row#product_show_render
+						= render 'product', products: @products
+					.row
+						.row
+							= will_paginate @products
+							
+	/ .col-md-2 style="padding: 0 25px 0 0;"
+		/ .div.hide-on-mobile
+		/ 	h3 style="color: #000000;	font-family: Lato;	font-size: 20px;	font-weight: bold; margin-bottom: 30px;" Categories
+		/ 	-@categories.each do |category|
+		/ 		.category_side_nav 
+		/ 			ul.category_name_loop
+		/ 				span style="width: 80%;"
+		/ 					li.get_product style="padding: 20px 0; word-wrap: break-word;"data-id="#{category.id}" data-provider="#{params[:provider_id]}" #{category.name.capitalize} &nbsp;&nbsp;&nbsp;
+		/ 				span.right_arrow_hover.hidden
+		/ 					.fa.fa-arrow-right
+		/ 		br
+		/ .div.hide-on-desktop style="padding-top: 40px;"
+		/ 	.row style="display: flex; align-items: center; width: 90%; padding-left: 20px;"
+		/ 		span style="width: 80%"
+		/ 			h3 style="color: #000000;	font-family: Lato;	font-size: 20px;	font-weight: bold; margin-bottom: 30px;" Categories
+		/ 		span
+		/ 			button.hamburger data-target="#category-toggle" data-toggle="collapse" ☰	
+		/ 	#category-toggle.collapse
+		/ 		-@categories.each do |category|
+		/ 			.category_side_nav 
+		/ 				ul.category_name_loop style="text-align: center"
+		/ 					span style="width: 80%;"
+		/ 						li.get_product style="padding: 20px 0; word-wrap: break-word;"data-id="#{category.id}" data-provider="#{params[:provider_id]}" #{category.name.capitalize} &nbsp;&nbsp;&nbsp;
+		/ 					span.right_arrow_hover.hidden
+		/ 						.fa.fa-arrow-right
+					br
+				/ .row
+				/ 	= render "request_quote_form"
+
+
+= render "request_quote_modal"
+
+javascript:
+  user_id= '#{current_user.present? ? current_user.id : ""}'
+= javascript_include_tag "product-bundle"
+= javascript_include_tag "product-import-bundle"
+
+css:
+  .navbar-default {
+    padding-right:30px;
+  }

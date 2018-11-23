@@ -1,0 +1,11 @@
+= simple_form_for(@banner) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :description
+    = f.input :link
+    = f.input :button_text
+
+  .form-actions
+    = f.button :submit

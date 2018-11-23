@@ -1,0 +1,116 @@
+= stylesheet_link_tag "application-landing"
+.landing-content  style="margin-top:70px;"
+  .flex-parent-1.hidden
+    p.text-sze.flex-child-1 Add the products you require and your information in the fields below.
+    p.text-sze.flex-child-1.hidden style="margin-bottom:20px;" Have any questions? Contact us at <a href="mailto:hello@orderbundle.com">hello@orderbundle.com</a> or call us at <a href="tel:4157429890">(415) 742-9890<a>
+
+    .row
+       .col-xs-12.col-sm-7
+            #example2.hot2.handsontable.htRowHeaders.htColumnHeaders.requestSheet.mb40
+       .col-xs-12.col-sm-5
+            = form_for(@new_user, url: registration_path(@new_user),:html => {:class => 'Login-1' ,multipart: "true", style: "margin-top:0" }) do |f|
+              = f.hidden_field :is_supplier, value: false
+              = f.hidden_field :request_quote, value: '[]'
+              .col-md-6.pb-2.pt-2
+                = f.text_field :first_name ,placeholder: "First Name"
+                i.fa.fa-user
+              .col-md-6.pb-2.pt-2
+                = f.text_field :last_name ,placeholder: "Last Name"
+                i.fa.fa-user
+              .col-md-6.pb-2
+                = f.email_field :email ,placeholder: "E Mail"
+                i.fa.fa-envelope-o
+              .col-md-6.pb-2
+                = f.text_field :mobile ,placeholder: "Phone Number"
+                i.fa.fa-phone
+              .col-md-6.pb-2
+                = f.text_field :location ,placeholder: "Location"
+                i.fa.fa-location-arrow
+              .col-md-6.pb-2
+                = f.text_field :company ,placeholder: "Company"
+                i.fa.fa-building
+              .col-md-6
+                = f.password_field :password,placeholder: "Password"
+                i.fa.fa-key
+              .col-md-6
+                = f.password_field :password_confirmation,placeholder: " Confirm Password"
+                i.fa.fa-key
+
+              = f.submit "Sign Up and Request Quote", :style => "padding-left: 20px; padding-right: 20px;",class: "btn btn-info new-user-landing ", :html => {:"data-dump"=> "#example2", :"data-instance"=>"hot1"}, :name => "dump1"
+              .forgot.text-center
+                |  #{link_to 'Already have an account?',user_registration_path}
+              .clear
+
+  #request-quote.contain.text-center
+    .row
+      .col-md-12
+        p.red-sub-head.hidden REQUEST QUOTE
+        p.text-sze style="color:#428bca;" Get quotes from suppliers of abrasives, fasteners, lubricants, adhesives, cutting tools and much more, all in a single place!
+        p.text-sze.hidden Have any questions? Contact us at <a href="mailto:hello@orderbundle.com">hello@orderbundle.com</a> or call us at <a href="tel:4157429890">(415) 742-9890</a>
+        P.text-sze.hidden Please provide details for the products you require in the table below and enter your personal information in the fields next to it.
+        p.text-sze.hidden You can view your requests and supplier's responses in the requests section of your account.
+
+.custom-form-container id='msform'
+  / .form-field id='product-hide'
+
+  = simple_form_for(@quote_request) do |f|
+    = f.error_notification
+    .form-inputs
+      .form-field#fieldone.active
+        p.typeform-heading
+              span 1
+              span What types of products are you looking for?
+
+        .pt3p
+          .product-flex-parent
+            - @category.all.each do |category|
+              .product-child
+                label.image-checkbox.image-next for="#{category.id}" data-category-id="#{category.id}"
+                  = image_tag category.image, width:"100%", data: {category_id: category.id}
+                  .category-text
+                    = category.name.capitalize
+                  input.hidden#hidden_category_ids type="text" name="category_ids" value="[]"
+                  input.hidden type="radio" data-checkbox-id="#{category.id}"  name="category" id="category-#{category.id}" class="category-images-checkbox" value="#{category.id}"
+                  i.fa.fa-check.hidden
+       
+          
+      .form-field#form-id.pt40
+        / #inputOne.input-line
+        p.typeform-heading
+          span 2
+          span What is your name?
+        = f.input :name, :input_html =>  { class: 'input1 input-fields' }, label: false
+        span
+        	btn.btn-primary.btn-custom-blue.call-prev Back  
+        span
+          btn.btn-primary.btn-custom-blue.call-next Next
+      .form-field#email-hide.pt40
+        / #inputTwo.input-line
+        p.typeform-heading
+          span 3
+          span What is your email address?
+        = f.input :email, label: false, :input_html =>  { class: 'input2 input-fields' }
+        span
+        	btn.btn-primary.btn-custom-blue.call-prev Back  
+        span
+          btn.btn-primary.btn-custom-blue.call-next Next
+      .form-field#mobile-hide.pt40
+        / #inputThree.input-line
+        p.typeform-heading
+          span 4
+          span What is your mobile number?
+        = f.input :mobile_number, label: false, :input_html => { class: 'input3 input-fields' }
+        span
+        	btn.btn-primary.btn-custom-blue.call-prev Back  
+        span
+          btn.btn-primary.btn-custom-blue.call-next Next
+      .form-field#upload-product.pt40
+        .input-line
+        p.typeform-heading
+          span 5
+          span Please upload RFQ File
+        = f.input :upload_file, label: false, :input_html =>  { class: 'input-fields' }
+        .quote-back-btn
+      		btn.btn-primary.btn-custom-blue.call-prev Back 
+        .form-actions
+          = f.button :submit,"SUBMIT", class: 'btn btn-custom-blue'

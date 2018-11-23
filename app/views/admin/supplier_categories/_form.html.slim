@@ -1,0 +1,18 @@
+= simple_form_for [:admin, @supplier_category] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :description
+    = f.input :image
+    = f.input :provider_id, :input_html => { :value => "#{current_user.provider.id}" }, :as => :hidden
+
+	label Category
+	select.form-control name="supplier_category[parent_id]" value=""
+		option value=""
+		- SupplierCategory.where(provider_id: current_user.provider.id).each do |a|
+				option value="#{a.id}" #{parent_loop(a)}
+	br
+
+  .form-actions
+    = f.button :submit

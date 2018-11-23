@@ -1,0 +1,35 @@
+= stylesheet_link_tag "application-landing"
+.col-sm-12
+  center
+    = simple_form_for(User.new,  url: registration_path(User.new), :html => {:class => 'Login'}) do |f|
+      = f.error_notification 
+      
+      = f.hidden_field :is_supplier, value: true
+      .col-md-6
+        = f.text_field :first_name, placeholder: "First Name"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :last_name, placeholder: "Last Name"
+        i.fa.fa-user
+      .col-md-6
+        = f.email_field :email, placeholder: "E Mail"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :mobile, placeholder: "Phone Number"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :company, placeholder: "Company"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :location, placeholder: "Location"
+        i.fa.fa-user
+      .col-md-6
+        = f.password_field :password, placeholder: "Password"
+        i.fa.fa-key
+      .col-md-6
+        = f.password_field :password_confirmation, placeholder: " Confirm Password"
+        i.fa.fa-key
+      = f.submit "Sign Up", :style => "margin-right: 230px",class: "btn btn-info"
+      .forgot
+        |  #{link_to 'Already have an account?',user_registration_path}
+        

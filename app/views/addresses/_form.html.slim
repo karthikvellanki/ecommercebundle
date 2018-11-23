@@ -1,0 +1,19 @@
+= simple_form_for(@address) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :mobile
+    = f.input :line_1
+    = f.input :line_2
+    = f.input :line_3
+    = f.input :city
+    = f.input :state
+    = f.input :pincode, label: "ZIP code"
+    = f.input :name
+    = f.input :address_type
+    = f.input :default, :collection => ['false','true']
+
+  .form-actions
+    = f.button :submit

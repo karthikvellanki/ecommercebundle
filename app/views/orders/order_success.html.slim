@@ -1,0 +1,43 @@
+.row.text-center.mt45
+  h2 THANK YOU
+  p We’ll get started on your order right away. You will be receiving an order confirmation mail and message shortly. If you have any questions you can reach us on 1800 313 2468 
+          <br><br><br> We love to make you happy,so for every friend who gets here our items, we’ll send you fun surprises.
+          <br>   Go ahead & get tagging. 
+/ .content
+  / .row.text-center
+
+    / - if @order.payment_mode == 'Cash On Delivery'
+  / p We’ll get started on your order right away. You will be receiving an order confirmation mail and message shortly. If you have any questions you can reach us on 1800 313 2468 <br> For Orders- You will receive a call from us confirming the order details in the next 24 hours.
+  /         <br><br><br><br> Hey, it makes us really happy when you spread the word. Be a part of our growth story & tag one friend who would love our items!
+  /         <br>   We love to make you happy,so for every friend that gets our items, we’ll send you fun surprises.
+  /         <br>   Go ahead & get tagging. 
+  
+  / - else
+  /     p We’ll get started on your order right away. You will be receiving an order confirmation mail and message shortly. If you have any questions you can reach us on 1800 313 2468
+  /       <br><br> Hey, it makes us really happy when you spread the word. Be a part of our growth story & tag one friend who would love our cases!
+  /     <br>   Go ahead & get tagging. 
+  / 
+
+
+.container.share-content
+    .row.text-center
+      h2 Help spread the word
+    hr
+    .row
+      - @order.order_items.each do |order_item|
+          .col-md-8.col-md-offset-2
+            .row
+              .col-md-5
+                .cart-image
+                    img src="#{order_item.product.image.url(:medium)}"
+              .col-md-7
+                h4.text-left '#{order_item.product.name}'
+                br
+                p.text-left '#{order_item.product.description}'
+    .row
+      .col-md-3.col-md-offset-3
+        h4#share share with friends
+      .col-md-3.mt20
+          i.fa.fa-facebook.fs20
+          i.fa.fa-twitter.fs20
+          i.fa.fa-instagram.fs20

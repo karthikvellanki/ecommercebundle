@@ -1,0 +1,28 @@
+.providers-container {
+  border:1px solid #AAA;
+  margin-left:30px;
+  margin-right:30px;
+  margin-bottom:50px;
+}
+
+.provider {
+  height:105px;
+  border-bottom:1px solid #AAA;
+  border-right:1px solid #AAA;
+  padding:15px;
+}
+
+.provider .center-vertical {
+  margin-top:15px;
+}
+
+.provider img {
+  max-height:60px;
+}
+
+.provider btn-default {
+  color:#777;
+  padding-left:40px;
+  padding-right:40px;
+}
+

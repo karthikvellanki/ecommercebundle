@@ -1,0 +1,162 @@
+.revamp-category#product-show
+	.div style="padding-left: 0;"
+		.col-md-12 style="display: flex;flex-wrap: wrap;"
+		    - if request.url.include? "supplier_categories"
+				.col-md-12#product-show
+					ol.breadcrumb
+						li.breadcrumb-item.list-border-none 
+							a href="/categories" home
+						- @breadcrumb_array.reverse.each do |sc|
+						    li.breadcrumb-item.list-border
+						      a href="/#{request.referrer.split("/").fourth}/#{request.referrer.split("/").fifth}/#{sc.first}"  #{sc.last}
+		    - products.each do |product|
+			    .feature-product-flex
+				    	.feature-product-image
+				    		=image_tag  product.image, width: "100%", class:"product-img-show", style:"height: 270px;"
+					    	.quickview-btn
+					    		button.btn.btn-default data-target="#quickviewModal_#{product.id}" data-toggle="modal" Quick View
+				    	.feature-product-category-description style="margin-left: -8px;"
+		   					= link_to product_path(product)
+					    		p style="margin-bottom: 0px; margin: 10px auto; font-size: 20px; color: #444; font-weight: bold;"#{product.name}
+				    		-if product.price.present? && current_user.present?
+				    			p style="color:#e74c3c; font-weight: bold;"#{humanized_money_with_symbol product.group_price(current_user.id)}
+				    		- else
+				    			p style="color:#e74c3c; font-weight: bold;"#{humanized_money_with_symbol product.price}
+				    		.div id="product-#{product.id}" style="display: flex; align-items: center;"
+					    		span
+					    			| Qty&nbsp;&nbsp;
+					    		span
+					    			input.text-center.form-control#input-quantity name="quantity" type="number" value="1" min="1" style="width:50px;margin-right:10px;display:inline;border-radius: 2px;font-family: Lato;	font-size: 14px;"
+					    		span
+					    			button.btn.btn-default#add_to_cart type="submit" style="margin-right:10px;font-size:16px; font-weight: bold;" onclick="add_to_cart(#{product.id});return false;"
+										= image_tag asset_path('loading.gif') , :width => "20", style: "display:none;margin-right:3px;", id: "icon-working"
+										i.fa.fa-shopping-cart.fnt-16 &nbsp;&nbsp;
+										| Add to Cart
+
+				    		/ -if request.url.include? 'supplier_categories'
+				    		/ 	p #{product.supplier_category.name}
+				    		/ - if not request.url.include? 'supplier_categories'
+				    		/ 	-if not product.category.nil?
+				    		/ 		p #{product.category.name}
+				    		/ -if not product.sku.nil?
+				    		/ 	p #{product.sku}
+				    		/ -if product.brand.present?
+				    		/ 	p #{product.brand}
+
+				.modal.fade id="quickviewModal_#{product.id}" aria-hidden="true" aria-labelledby="exampleModalLabel" role="dialog" tabindex="-1" 
+				  .modal-dialog role="document" style="width: 900px; top: 22%;"
+				    .modal-content
+				        .modal-body
+				        	.div style="width: 100%; display:flex;"
+				        		.product-image-modal style="width: 60%; display:flex;justify-content: center;"
+						        	= image_tag product.image, width:"70%", height:"450px",class: "modal-image-border"
+						        .product-desc-modal style="width: 40%; display:flex; flex-direction: column;justify-content: center;"
+						        	p style="font-size: 25px;font-weight: bold;"#{product.name}
+						        	p style="font-size: 18px;color:#e74c3c;font-weight: bold;" #{humanized_money_with_symbol product.price}
+						        	.div style="border-left: 3px solid  #F4A137"
+							        	- if product.sku.present?
+											p style="padding-top: 10px; padding-left: 5px;"
+												span style="font-weight: bold;"SKU:  
+												span #{product.sku}
+										- if product.description.present?
+											p style="padding-top: 10px; padding-left: 5px;"
+												span style="font-weight: bold;" Description: 
+												span #{product.description}
+										- if product.brand.present?
+											p style="padding-top: 10px; padding-left: 5px;"
+												span style="font-weight: bold;" Brand: 
+												span #{product.brand}
+										- if product.unit.present?
+											p style="padding-top: 10px; padding-left: 5px;"
+												span style="font-weight: bold;" Unit: 
+												span #{product.unit}
+									.div style=" display: flex; align-items: center;margin-top: 25px;"
+										span
+											| QTY&nbsp;&nbsp;&nbsp;
+										span 
+											input.text-center.form-control#input-quantity name="quantity" type="number" value="1" min="1" style="width:75px;margin-right:10px;display:inline;border-radius: 2px;font-family: Lato;	font-size: 14px;" 
+										span 
+											button.btn.btn-default#add_to_cart type="submit" style="margin-right:10px;font-size:15px;font-weight: bold;" onclick="add_to_cart(#{product.id});return false;"
+												i.fa.fa-shopping-cart.fnt-16 &nbsp;&nbsp;	
+												|ADD TO CART
+					
+        
+
+						    		
+/ - products.each do |product|
+/ 	div.row.single-product id="product-#{product.id}"
+/ 	  .col-xs-12.col-md-2
+/ 	    .product-image-wrapper
+/ 	      div
+/ 	        =link_to (image_tag product.image, class:"img-responsive product-image", style:"height:160px;"), product_path(product)
+/ 	        -if product.is_aggregatable?
+/ 	          .ribbon
+/ 	          span Aggregatable
+/ 	  .col-md-6.col-xs-12.caption-full.title-area
+/ 	    h3.product-title style="margin-top:27px; margin-bottom: 20px"
+/ 	      =link_to product.name, product_path(product), class: 'prod_name'
+/ 	    -if request.url.include? 'supplier_categories'
+/ 	    	p style="display:inline-block; color: #4A4A4A;	font-family: Lato;	font-size: 14px; 	border-radius: 2px;	background-color: #F2F2F2; padding: 3px; margin-bottom: 20px" #{product.supplier_category.name}
+/ 	    - if not request.url.include? 'supplier_categories'
+/ 		    -if not product.category.nil?
+/ 		      p style="display:inline-block; color: #4A4A4A;	font-family: Lato;	font-size: 14px; 	border-radius: 2px;	background-color: #F2F2F2; padding: 3px; margin-bottom: 20px"
+/ 		        = product.category.name
+/ 	    -if not product.sku.nil?
+/ 	      p style="display:inline-block; color: #888888;	font-family: Lato;	font-size: 14px;"
+/ 	      	|&nbsp; &nbsp; |&nbsp;
+/ 	        | SKU #
+/ 	        = product.sku
+/ 	    -if product.brand.present?
+/ 	      p style="display:inline-block; color: #888888;	font-family: Lato;	font-size: 14px;"
+/ 	        |&nbsp; &nbsp;| Brand: &nbsp;
+/ 	        = product.brand
+/ 	    p
+/ 			  span style="color: #4A4A4A;	font-family: Lato;	font-size: 14px;	font-weight: bold;" Price:
+/ 			  span style="color: #17AB5B;	font-family: Lato;	font-size: 18px;	font-weight: bold;" #{humanized_money_with_symbol product.price}
+/ 	    br.hidden
+/ 	    p.hidden style="margin-bottom:40px;" #{raw product.description}
+/ 	  .col-md-4.col-xs-12
+/ 	    div
+/ 	      div.row id="div-quote-#{product.id}" style="margin-top: 50px;"
+/ 	      	div.col-md-12
+/ 		      	div.col-md-6
+/ 		        div.col-md-6.form-group style="padding-left: 0px;"
+/ 		          div style="padding:10px 0px 0 0px;"
+/ 		            / - if current_user.present?
+/ 		            /   span
+/ 		            /     -if product.has_inventory?(current_user)
+/ 		            /        button.btn.btn-success.add-to-cart#products_index_add_to_cart.btncart style="background-color:#00943e;color:#FFF;width: 160px;height: 34px;"
+/ 		            /          | Dashboard
+/ 		            /     -else
+/ 		                  / button.btn.btn_border.add-to-cart#products_index_add_to_cart.btncart onclick="import_product(#{product.id})" data-product="product-import-#{product.id}"
+/ 		                  /   i.glyphicon.glyphicon-plus.fnt-16 &nbsp;&nbsp;
+/ 		                  /   | Add to Dashboard
+
+/ 	        div.col-md-12.form-group.cart-parent-flex
+/ 	        	.col-md-6.cart-child
+/ 		          div.alert.alert-danger style="display:none;"
+/ 		          p style="color: #4A4A4A;	font-family: Lato;	font-size: 14px;" Quantity:
+/ 		          input.text-center.form-control#input-quantity name="quantity" type="number" value="1" min="1" style="width:75px;margin-right:10px;display:inline;border-radius: 2px;font-family: Lato;	font-size: 14px;"
+/ 		        .col-md-6 style="padding-left: 0px;"
+/ 							button.btn.cart_btn_style#add_to_cart type="submit" style="margin-right:10px;font-size:12px;" onclick="add_to_cart(#{product.id});return false;"
+/ 								= image_tag asset_path('loading.gif') , :width => "20", style: "display:none;margin-right:3px;", id: "icon-working"
+/ 								i.fa.fa-shopping-cart.fnt-16 &nbsp;&nbsp;
+/ 								| Add to Cart
+
+/ 	      div.row.hidden
+/ 	        div.col-md-3
+/ 	          - if not product.provider.nil? and product.provider.image.exists?
+/ 	            = image_tag product.provider.image, class:"img-responsive"
+/ 	        div.col-md-9
+/ 	          - if not product.provider.nil?
+/ 	            h3 #{product.provider ? product.provider.user.company : ""}
+/ 	            h5 #{product.provider && product.provider.user ? product.provider.user.location : ""}
+/ 	          - if current_user.present?
+/ 	            input.text-center#input-quantity name="quantity" type="number" value="0" min="0" style="width:75px;margin-right:10px;"
+/ 	            button.btn.btn-default#add_to_cart type="submit" style="margin-left:10px;font-size:12px;" onclick="add_to_cart(#{product.id});return false;"
+/ 	              = image_tag asset_path('loading.gif') , :width => "30", style: "display:none;", id: "icon-working"
+/ 	              | Add to Cart
+/ 	          - else
+/ 	            button.btn.btn-default type="submit" style="margin-left:10px;font-size:12px;" onclick='window.location.href="/users/sign_up"'
+/ 	              | Login to Order
+/ 	  hr.col-xs-12.hidden-md.hidden-sm.hidden-lg

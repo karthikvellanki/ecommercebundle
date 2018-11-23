@@ -1,0 +1,23 @@
+h1 Listing subscriptions
+
+table
+  thead
+    tr
+      th Email
+      th Product
+      th
+      th
+      th
+
+  tbody
+    - @subscriptions.each do |subscription|
+      tr
+        td = subscription.email
+        td = subscription.product_id
+        td = link_to 'Show', subscription
+        td = link_to 'Edit', edit_subscription_path(subscription)
+        td = link_to 'Destroy', subscription, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Subscription', new_subscription_path

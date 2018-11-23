@@ -1,0 +1,137 @@
+.single-product {
+  min-height: 181px;
+  box-shadow: 0 1px 10px 0 rgba(0,0,0,0.14);
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid #DEDEDE;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.product-image {
+  max-height: 200px;
+}
+
+@media screen and (max-width: 768px) {
+  .single-product {
+    min-height: auto;
+  }
+  .product-image {
+    margin:0 auto;
+  }  
+  .single-product .title-area {
+    text-align: center;
+  }
+  .single-product .product-title {
+    font-size: 18px;
+  }
+  .resp_cart_btn{
+  	margin-top: 15px;
+  }
+}
+.prod_name{
+	font-family: Lato;
+  color: #4A4A4A !important;
+	font-size: 20px;
+	font-weight: bold;
+}
+.cart-parent-flex{
+	display: flex;
+	align-items: flex-start;
+}
+.cart-child{
+	display: flex;
+  align-items: flex-end;
+  padding-left: 0px !important;
+}
+.btn_border{
+	height: 34px;
+  width: 160px;
+  background-color: #FFFFFF !important;
+  border: 1px solid #4A4A4A !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  font-family: Lato;
+  font-weight: bold;
+}
+.cart_btn_style{
+  width: 160px;
+  height: 34px;
+  background-color: #4A4A4A;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: Lato;
+}
+.fnt-16{
+	font-size: 16px;
+}
+.category_side_nav{
+	color: #4A4A4A;	
+	font-family: Lato;	
+	font-size: 16px;
+	padding: 8px 0;
+	/*display: flex;*/
+	cursor: pointer;
+}
+/*.category_name_loop{
+	display: flex;
+	width: 90%;
+	justify-content: 
+	flex-start;
+}*/
+.right_arrow_hover{
+	display: flex;
+	width: 10%;
+	color: #E95656;
+	align-items: center;
+}
+.wdt-100{
+	width: 100%;
+}
+.prdt-show h3{
+	background-color: #3F3F3F;
+	color: #ffffff;
+	padding:10px 0 10px 10px;	
+}
+.mt-50px{
+	margin-top: 50px;
+}
+.head-fnt-size{
+	color: #4A4A4A;	
+	font-family: Lato;	
+	font-size: 14px;	
+	font-weight: bold;
+}
+.table-flx {
+ display: flex ;
+ flex-flow: row ;
+ flex-wrap: wrap;
+ width: 100%;
+} 
+
+.table-head-parent {
+	width: 50%;
+	padding-left: 10px;
+	border-bottom: 1px solid rgba(222,222,222,0.6);
+}
+/*.table-head-parent:nth-child(4n-2) {
+	background-color: #eee;
+}
+.table-head-parent:nth-child(4n-3) {
+	background-color: #eee;
+}
+.table-head-parent:nth-child(4n-1) {
+	background-color: #fff;
+}
+.table-head-parent:nth-child(4n) {
+	background-color: #fff;
+}
+*/
+
+.black{
+	color: black;
+}
+.cart-added{
+	background-color: #4CAF50 !important; 
+}

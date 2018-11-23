@@ -1,0 +1,29 @@
+.hidden-xs.col-md-4
+.col-xs-12.col-md-4
+  form#product-request style="border: 1px solid #ddd;border-radius:4px;padding:10px;box-sizing: border-box;" 
+    h5 
+      p.text-info Didn’t find what you were looking for? 
+      p Add the product below and we'll find it for you within 24 hours
+    div.alert.alert-danger style="display:none;"
+    div.form-group
+      label#name-label for="product_name" Product Name
+      input.form-control type="name" id="product_name" placeholder="Product Name"
+    div.form-group
+      label#quantity-label for="quantity" Quantity
+      input.form-control type="number" min="1" id="quantity" placeholder="Quantity"
+    div.form-group.hidden
+      label#description-label for="description" Description
+      textarea.form-control#description placeholder="Description" 
+    - if not current_user.present?
+      div.form-group
+        label#email-label for="email" Email
+        input.form-control type="email" id="email" placeholder="Email"
+      div.form-group
+        label#phone-label for="phone" Phone (optional)
+        input.form-control type="text" id="phone" placeholder="Phone No"
+    div.form-group
+      = image_tag asset_path('loading.gif') , :width => "32", style: "display:none;margin-right:3px;", id: "icon-working"
+      button#submit.btn.btn-primary type="submit" onclick="request_product();return false;" Submit
+.hidden-xs.col-md-4
+
+

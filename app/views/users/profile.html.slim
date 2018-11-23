@@ -1,0 +1,42 @@
+.container.bootstrap.snippet.resp-mac-profile
+  br
+  .row.mt-115
+    .col-sm-10
+      h1 Hello #{@user.first_name}
+    .col-sm-2
+        =image_tag @user.avatar.url, class:"img-circle img-responsive pull-right wdt-50-mbl mr70-mbl"
+  .row.wd400-mbl
+    .col-sm-12.col-md-12
+      ul#myTab.nav.nav-tabs.mb10
+        li.active
+          a data-toggle="tab" href="#profile"  Profile
+        li
+          a data-toggle="tab" href="#company"  Company Details
+        li
+          a data-toggle="tab" href="#address"  Address
+        li
+          a data-toggle="tab" href="#password"  password
+        li
+          a data-toggle="tab" href="#payments" Payments
+        li
+          a data-toggle="tab" href="#cname" Cname records
+      .tab-content.mb20
+        #profile.tab-pane.active
+          = render 'form'
+        #company.tab-pane
+          h3 Company
+          = render 'admin/providers/form'
+        #address.tab-pane
+          h3 Address
+          = render 'admin/users/address_section'
+        #password.tab-pane
+          h3 Password
+          = render 'dashboard/users/update_password_form'
+        #payments.tab-pane
+          - if current_user.stripe_user_id.present?
+            = render partial: '/users/stripe_details'
+          - else
+            = render partial: '/users/connect'
+        #cname.tab-pane
+					h3 Cname
+					= render partial: 'admin/providers/namespace'

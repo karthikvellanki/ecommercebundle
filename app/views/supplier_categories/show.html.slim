@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @supplier_category.name
+p
+  strong Description:
+  = @supplier_category.description
+
+= link_to 'Edit', edit_supplier_category_path(@supplier_category)
+'  |
+= link_to 'Back', supplier_categories_path

@@ -1,0 +1,25 @@
+.col-md-12.p0
+  = link_to 'New Supplier', new_provider_path, class:"btn btn-default pull-right"
+  h1.m0 Suppliers (Total #{@providers.count})
+
+table.table.table-bordered.table-striped.col-md-12#inventories_table
+  br
+  br
+  thead
+    tr
+      th Name
+      th Phone
+      th Email
+      th Products
+
+  tbody
+    - @providers.each do |provider|
+      tr
+        td = provider.name
+        td
+          - if not provider.user.nil?
+            = provider.user.mobile
+        td = provider.user.email
+        td
+          = link_to 'View', provider_path(provider), class:"btn btn-default"
+    br

@@ -1,0 +1,21 @@
+- if notice.present?
+  h1#notice = notice
+h1.pull-left style="	color: #4A4A4A;	font-family: Lato;	font-size: 20px;" Checkout
+.col-md-12 style=" margin-top: 80px; width: 530px; background-color: #FAFAFA;"
+  div.payment_alert.alert.alert-danger style="display:none;"
+  p#shipping_address_form_error style="margin-top: -14px;"
+    .row.margin_top.form-group#card-div class="#{@order.total_price_cents == 0 ? "hidden" : ""}"
+      p.shipping_head 2.Payment Method
+      .col-xs-6#bank-area
+        label style="text-align:left;padding-left:20px; color: #4A4A4A;	font-family: Lato;	font-size: 14px;	font-weight: bold;"
+          | Bank Account
+        button.btn.pay_btn.pull-left#cart_pay_with_bank style="margin-left:20px;" onclick='pay_for_cart(#{@order.id}, #{current_user.bank_accounts.first.nil?});return false;' Pay using Bank
+        br
+        br
+        br
+        br
+      .col-xs-6
+        = render 'pay'
+
+= javascript_include_tag "stripe-bundle"
+= javascript_include_tag "https://cdn.plaid.com/link/v2/stable/link-initialize.js"

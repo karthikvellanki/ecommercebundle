@@ -1,0 +1,187 @@
+input#cart_id_for_ajax type="hidden" value="#{@cart.id}"
+.container-with-padding.white-bg.pt40
+  - if @cart.cart_items.count > 0
+    section.ls.ms.section_padding_top_100.section_padding_bottom_75.columns_padding_25#cart
+    .container
+      .row
+        .col-md-12.text-center.mt30
+          ul.hidden#progressbar
+            li.active Your cart
+            li#shipping_bar Shipping
+            li#payment_bar Payment
+          br
+          br
+          .top-padding.mt20
+            .tab-pane#carts-tab style="display:none"
+              .row
+                section
+                  #cart_items
+                    =render 'cart_items/cart_items'
+                  br
+            .tab-pane#shipping-tab
+              .row
+                - if notice.present?
+                  h1#notice = notice
+                h1.pull-left style="	color: #4A4A4A;	font-family: Lato;	font-size: 20px;" Checkout
+                .col-md-12
+                  .row#shipping_details
+                    .col-md-7 style="height: 540px; width: 530px; border-radius: 2px; background-color: #FAFAFA; padding-left: 0; padding-right: 0"
+                      p.shipping_head 1.Shipping Address
+                      form#new_order.plr-30 method="POST" action="/orders" autocomplete="on"
+                        input#total_cents name="total_cents" type="hidden" value="#{@cart.total_price}"
+                        input#cart_id name="cart_id" type="hidden" value="#{@cart.id}"
+                        - if current_user.present? && current_user.addresses.count > 0
+                          input#old_address_id name="old_address_id" type="hidden" value="#{current_user.addresses.first.id}"
+                        - else
+                          input#old_address_id name="old_address_id" type="hidden" value=""
+                        .row
+                          .col-md-12
+                            p#shipping_address_form_error.yellow
+                              .row.mb10
+                                .col-md-6
+                                  - current_address = current_user.addresses.first
+                                  - if current_user.present? && current_address && !current_address.first_name.blank?
+                                  	label.shipping_label_style First Name*
+                                    input.wide100.form-control type='text' name="first_name" value='#{current_address.first_name}'
+                                    .new_order_errors.red
+                                  - else
+                                  	label.shipping_label_style First Name*
+                                    input.wide100.form-control type='text' name='first_name' value='#{current_user.first_name}'
+                                    .new_order_errors.red
+                                .col-md-6
+                                  - if current_user.present? && current_address  && !current_address.last_name.blank?
+                                  	label.shipping_label_style Last Name*
+                                    input.wide100.form-control type='text' name="last_name" value='#{current_address.last_name}'
+                                    .new_order_errors.red
+                                  - else
+                                  	label.shipping_label_style Last Name*
+                                    input.wide100.form-control type='text' name='last_name' value='#{current_user.last_name}'
+                                    .new_order_errors.red
+                              .row.mb10
+                                .col-md-6
+                                  - if current_user.present? && current_user.email.present?
+                                  	label.shipping_label_style Email*
+                                    input.wide100.form-control type='text' name="email" value='#{current_user.email}'
+                                    .new_order_errors.red
+                                  - else
+                                  	label.shipping_label_style Email*
+                                    input.wide100.form-control type='text' name='email'
+                                    .new_order_errors.red
+                                .col-md-6
+                                  - if current_user.present? && current_address && !current_address.mobile.blank?
+                                  	label.shipping_label_style Mobile Number*
+                                    input.wide100.form-control type='number' onkeypress='' maxlength="10" name="mobile_number" id="input_phone_no" value='#{current_user.addresses.first.mobile}'
+                                    .new_order_errors.red id="phone_alert"
+                                  - else
+                                  	label.shipping_label_style Mobile Number*
+                                    input.wide100.form-control  type='number' onkeypress='' maxlength="10" name="mobile_number" id="input_phone_no" value='#{current_user.mobile}'
+                                    .new_order_errors.red id="phone_alert"
+                              .row
+                                .col-md-12.mb10
+                                  - if current_user.present? && current_user.addresses.count > 0
+                                  	label.shipping_label_style Address Line 1*
+                                    input.wide100.form-control type='text' name="line_1" value='#{current_user.addresses.first.line_1}' id='input_address' maxlength="36"
+                                    .new_order_errors.red id='address_alert'
+                                  - else
+                                  	label.shipping_label_style Address Line 1*
+                                    input.wide100.form-control type='text' name='line_1' style="margin-bottom:10px  !important" id='input_address' maxlength="32"
+                                    .new_order_errors.red id='address_alert'
+
+                                .col-md-12.mb10
+                                  - if current_user.present? && current_user.addresses.count > 0
+                                  	label.shipping_label_style Address Line 2*
+                                    input.wide100.form-control type='text' name="line_2" value='#{current_user.addresses.first.line_2}' maxlength="32"
+                                    .new_order_errors.red
+                                  - else
+                                  	label.shipping_label_style Address Line 2*
+                                    input.wide100.form-control placeholder="Line2" type='text' name='line_2' style="margin-bottom:10px !important" maxlength="32"
+                                    .new_order_errors.red
+                                .col-md-12.mb10.hidden
+                                  - if current_user.present? && current_user.addresses.count > 0
+                                    input.wide100.form-control placeholder="Line 3 (12 characters only)" type='text' name="line_3" value='#{current_user.addresses.first.line_3}' maxlength="32"
+                                    .new_order_errors.red
+                                  - else
+                                    input.wide100.form-control placeholder="Line 3" type='text' name='line_3' maxlength="32" <br>
+                                    .new_order_errors.red
+
+                              .row.mb10
+                                .col-md-4
+                                  - if current_user.present? && current_user.addresses.first
+                                  	label.shipping_label_style Zip Code*
+                                    input.wide100.form-control data-behavior="new_order_pincode" type='text' id='input_pin_code' name='pincode' value="#{current_user.addresses.first.pincode}"
+                                    .new_order_errors.red id="pin_alert"
+                                    <br> <br>
+                                  - else
+                                  	label.shipping_label_style Zip Code*
+                                    input.wide100.form-control data-behavior="new_order_pincode" placeholder="ZIP Code"  type='text' name='pincode' id='input_pin_code'
+                                    .new_order_errors.red id="pin_alert"
+
+                                .col-md-4.text-left
+                                  - if current_user.present? && current_user.addresses.count > 0
+                                  	lable.shipping_label_style City*
+                                    input.wide100.form-control type='text' name='city' value="#{current_user.addresses.first.city}" data-behavior="new_order_city" id='input_city'
+                                    .new_order_errors.red id='city_alert'
+                                    <br>
+                                  - else
+                                  	lable.shipping_label_style City*
+                                    input.wide100.form-control type='text' name='city' data-behavior="new_order_city" id='input_city'
+                                    .new_order_errors.red id='city_alert'
+                                    br
+                                .col-md-4.text-left
+                                  - if current_user.present? && current_user.addresses.count > 0
+                                  	lable.shipping_label_style State*
+                                    input.wide100.form-control type='text' name='state' value="#{current_user.addresses.first.state}" data-behavior="new_order_state" id='input_state'
+                                    .new_order_errors.red id='state_alert'
+                                    <br>
+                                  - else
+                                  	lable.shipping_label_style State*
+                                    input.wide100.form-control type='text' name='state' data-behavior="new_order_state" id='input_state'
+                                    .new_order_errors.red id='state_alert'
+                              / button.btn-sm.btn-info.pull-right onclick="clear_address();return false;" Clear
+
+                              - if not current_user.addresses.count < 1
+                                .row.margin_top style="text-align:left;"
+                                  h3 Recently used
+                                  - i = 1
+                                  - current_user.addresses.limit(3).order('updated_at DESC').each do |address|
+                                    - if address.line_1 == nil && address.line_2 == nil && address.line_3 == nil && address.city == nil
+                                    - else
+                                      .col-md-4
+                                        .panel.panel-default
+                                          .p10
+                                            .panel-head
+                                              h4  #{address.name} Address ##{i}
+                                            .panel-body
+                                              p Line 1: #{address.line_1}
+                                              p Line 2: #{address.line_2}
+                                              p Line 3: #{address.line_3}
+                                              p City: #{address.city}
+                                              p State: #{address.state}
+                                              p Zip Code: #{address.pincode}
+                                              = content_tag :div, id: "address-data-#{address.id}", data: {address: address} do
+
+                                              button.btn-sm.btn-info data-id="#{address.id}" onclick="select_address('#{address.id}');return false;" Select
+                                              - i = i + 1
+                              input#user_is_invoice type="hidden" value="#{current_user.is_invoice}"
+                              - if current_user.is_invoice
+                                .row.margin_top.form-group
+                                  button.btn.place_order_btn#proceed_to_payment type="Submit" Place Order
+                              - else
+                                .row.margin_top.form-group
+                                  button.btn.place_order_btn#proceed_to_payment type="Submit" Make Payment
+
+                    .col-md-5.margin_top_19#small_cart style="border-left: 1px solid rgba(222,222,222,0.4); margin-left: 30px; height: 90vh;"
+											.row style="border-bottom: 1px solid #F2F2F2; width: 400px; margin-left: 10px;padding-bottom: 10px; margin-bottom: 20px;"
+												.col-md-5
+													h3.pull-left Cart
+												.col-md-5
+													h3.pull-right.btn style="border-radius: 50%;background-color: #17AB5B; box-shadow: 0 2px 7px 0 rgba(120,137,149,0.25); text-align: right; height: 34px;color: #ffffff; text-shadow: none;" #{@cart.cart_items.count}
+											= render 'carts/cart_small'
+
+          br
+          br
+          br
+  - else
+    p No items in your cart.
+= javascript_include_tag "stripe-bundle"
+= javascript_include_tag "https://cdn.plaid.com/link/v2/stable/link-initialize.js"

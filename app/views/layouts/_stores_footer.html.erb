@@ -1,0 +1,95 @@
+<!--FOOTER-->
+<%= stylesheet_link_tag "application-landing" %>
+<!--===============================================================-->
+
+<!-- <footer>
+
+	<div class="contain-footer text-center">
+    <br />
+    <br />
+    <br />
+    <div class="contact-details"><span class="pr-23">Powered By&nbsp;<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>&nbsp;</span>
+    <% if !provider.blank? %>
+			<div class="contact-details" style="margin: 0 auto; display: flex;
+    justify-content: center; width: 50%;height: auto;padding: 36px 36px 0;align-items: start;"><span class="pr-23" style="width: 60%; display: flex; justify-content: flex-end;"><%= image_tag 'icon-email.svg' if provider.user.email.present? %>&nbsp;&nbsp; <%= provider.user.email %></span> <span style="display: flex; width: 40%; align-items: start;"><%= image_tag 'icon-location.svg' if provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).present? %>&nbsp;&nbsp;<%= provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(' ') %></span></div></span>
+		<% end %>
+		<div style="margin-top: -10px;margin-bottom: 15px;"><span class="pr-23"><br><br><%= image_tag 'icon-phone.svg' if provider.present? && provider.user.addresses.pluck(:mobile).present?%>&nbsp;&nbsp;
+				<%= provider.user.addresses.pluck(:mobile).flatten.join(' ') if provider.present? %></span>
+		</div>
+		<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+	</div>
+
+</footer><!--/footer-->
+
+<!-- Footer -->
+<footer class="page-footer font-small blue-grey lighten-5 mt-4">
+
+  
+  <div class="text-center text-md-left mt-5" style="background-color: #eee;">
+
+    <div class="row mt-3 dark-grey-text">
+      <div class="col-md-3 col-lg-4 col-xl-3 mb-4"> </div>
+
+      <div class="col-md-offset-5 col-md-7 text-left text-align-center" style="margin-top: 15px;">
+      	<span>Powered By&nbsp;&nbsp;<%= image_tag 'logo.png', class:"resp-logo-footer" %>&nbsp;</span>
+      </div>
+
+      <div class="col-md-12"></div>
+      
+      <div class="col-md-offset-5 col-md-5 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4 text-left text-align-center" style="margin-top: 15px;">
+      	<% if request.url.include? "supplier_categories" %>
+		    <% user = Provider.find_by(slug: provider.slug).user %>
+        	<% if user.addresses.pluck(:line_1, :line_2, :city, :pincode).present?  %>
+		        <p>
+		          <i class="fa fa-home mr-3"></i>  <%= user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(', ') %>
+	        	</p>
+	        <% end %>
+        	<% if user.email.present? %>
+		        <p>
+		          <i class="fa fa-envelope mr-3"></i> <%= user.email %> 
+		        </p>
+	    	<% end %>
+        	<% if user.mobile.present? %>
+		        <p>
+		          <i class="fa fa-phone mr-3"></i> <%= user.mobile %>
+		         </p>
+		    <% end %>
+	    <% else %>
+		    <% if provider.present? %>
+	        	<% if provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).present?  %>
+			        <p>
+			          <i class="fa fa-home mr-3"></i>  <%= provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(', ') %>
+		        	</p>
+		        <% end %>
+		    <% end %>
+	        <% if provider.present? %>
+	        	<% if provider.user.email.present? %>
+			        <p>
+			          <i class="fa fa-envelope mr-3"></i> <%= provider.user.email %> 
+			        </p>
+		    	<% end %>
+		    <% end %>
+	        <% if provider.present? %>
+	        	<% if provider.user.mobile.present? %>
+			        <p>
+			          <i class="fa fa-phone mr-3"></i> <%= provider.user.mobile %>
+			         </p>
+			    <% end %>
+		    <% end %>     
+		<% end %>     
+
+      </div>
+      <div class="col-md-offset-5 col-md-7 text-left"> 
+		  <div class="footer-copyright text-align-center  text-black-50 py-3" style="margin: 15px auto; padding-bottom: 20px;">© Copyright 2018 Bundle. All Rights Reserved.
+		  </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer -->
+
+<a href="#" id="scrollToTop"><i class="fa fa-angle-up"></i></a>
+
+<script>
+	logged_in_user = <%= current_user.present? %>;
+</script>

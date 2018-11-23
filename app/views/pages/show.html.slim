@@ -1,0 +1,35 @@
+p#notice = notice
+.revamp-category style="margin-top: -67px; min-height: 90vh;"
+	.container style="padding-left: 0; margin-left: 2%;"
+		.col-md-3 style="padding: 0;"
+			#category-list-tab.hide-mobile style="border: 1px solid #eee; border-top: 2px solid #F4A137; padding: 0;"
+	    		-@categories.uniq.each do |category|
+					ul style="list-style-type: none; padding-left: 0;"
+						.div class="dropdown"
+							li class="dropbtn" style="display: flex; width: 100%;"
+								span style="width: 97%; word-wrap: break-word; padding-right: 10px;"
+									| #{category.name}
+								- if category.children.present?
+									span
+										.fa.fa-caret-right
+							- if category.children.present?
+								.dropdown-content
+									.parent style="display: flex;"
+										- category.children.each do |a|
+											.child
+												- if a.products.present?
+													a href="/supplier_categories/#{a.id}/products" style="font-weight: bold; font-size: 15px;"   #{a.name}
+												- else
+													a href="/categories/#{provider.slug}/#{a.id}" style="font-weight: bold; font-size: 15px;"   #{a.name}
+												ul style="list-style-type: none; margin:0; padding: 0;"
+													- if a.children.present?
+														- a.children.each do |child|
+															li style="margin:0; padding: 0;"
+															- if child.products.present?
+																a href="supplier_categories/#{child.id}/products" #{child.name}
+															- else
+																a href="/categories/#{provider.slug}/#{child.id}" #{child.name}
+		.col-md-9
+			p style="font-size: 20px; font-weight: bold; text-align:center; margin-bottom: 20px;"
+			  = @page.title
+			= sanitize @page.content

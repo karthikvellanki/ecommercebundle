@@ -1,0 +1,19 @@
+.mt-115
+	p#notice = notice
+
+	p
+	  strong Name:
+	  = @supplier_category.name
+	p
+	  strong Description:
+	  = @supplier_category.description
+	p
+	  strong Description:
+	  = @supplier_category.parent_id
+	p
+	  strong Description:
+	  = @supplier_category.image
+
+	= link_to 'Edit', edit_admin_supplier_category_path(@supplier_category)
+	'  |
+	= link_to 'Back', admin_supplier_category_path

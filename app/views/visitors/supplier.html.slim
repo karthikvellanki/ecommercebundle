@@ -1,0 +1,72 @@
+= stylesheet_link_tag "application-landing"
+.landing-content
+  .main-land.contain.mb135
+    .row
+      .col-md-6.col-xs-12
+        .row
+          p.fs40 Offer
+            <a class="typewrite" data-period="1000" data-type='[ "Online ordering", "Dynamic pricing", "Invoicing", "RFQ Submission" ]'>
+            <span class="wrap"></span></a><span class="blink-cursor">|</span>
+        .row.mt60
+          p.landing-text.w80 Offer online ordering without lifting a finger. Manage all your customers and orders on one platform!
+        .row.mt60
+          .btn.btn-get-started.mr15 #{link_to 'Request a Demo', href="http://orderbundle.typeform.com/to/HZh6bB", class: 'text-white'}
+          .sign-in
+            | Already a member? #{link_to 'Sign in', user_registration_path, class: 'text-color'}
+      .col-md-6.text-right.xs-hide
+        = image_tag 'hero.png', width: '141%', class: 'img-shadow'
+          
+  #features.bg-grey.landing-contain.pt60
+    .row.mb40
+      .col-md-12.text-center
+        p.red-sub-head FEATURES
+        / p.landing-head.wow.animate_2s.fadeInUp Industrial Supplies Marketplace for the 21st Century
+    hr.w40
+    .row.mt90.mb100
+      .col-xs-12.md-hide.mb30
+        = image_tag 'for-buyer.jpg', width: '100%'
+      .col-md-6.col-xs-12.wow.animate_2s.fadeInLeft
+        ul
+          li.landing-text-content Setup your online store instantly
+          li.landing-text-content Provide customer specific catalogs and pricing
+          li.landing-text-content Receive and respond to Requests for Quote
+          li.landing-text-content Accept payments instantly via ACH and Credit card
+          li.landing-text-content Invoice your customers and provide payment terms
+      .col-md-6.col-xs-12.text-right.xs-hide.wow.animate_2s.fadeInRight
+        = image_tag 'customer-supplier.PNG', width: '100%'
+    hr.w40 
+.col-sm-12
+  center
+    = simple_form_for(User.new,  url: registration_path(User.new), :html => {:class => 'Login'}) do |f|
+      = f.error_notification 
+      
+      = f.hidden_field :is_supplier, value: true
+      .col-md-6
+        = f.text_field :first_name, placeholder: "First Name"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :last_name, placeholder: "Last Name"
+        i.fa.fa-user
+      .col-md-6
+        = f.email_field :email, placeholder: "E Mail"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :mobile, placeholder: "Phone Number"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :company, placeholder: "Company"
+        i.fa.fa-user
+      .col-md-6
+        = f.text_field :location, placeholder: "Location"
+        i.fa.fa-user
+      .col-md-6
+        = f.password_field :password, placeholder: "Password"
+        i.fa.fa-key
+      .col-md-6
+        = f.password_field :password_confirmation, placeholder: " Confirm Password"
+        i.fa.fa-key
+      = f.submit "Sign Up", :style => "margin-right: 230px",class: "btn btn-info"
+      .forgot
+        |  #{link_to 'Already have an account?',user_registration_path}
+        
+        

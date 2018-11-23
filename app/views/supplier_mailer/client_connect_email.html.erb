@@ -1,0 +1,11 @@
+<p>Hi <%= @user.name %>,</p>
+
+<p><%= @client.name %> has joined Bundle.
+
+<p>You’re all set to start receiving orders from <%= @client.name %>.</p>
+
+<p>Login to your account here:</p>
+
+<p><%= link_to 'Login', new_user_session_url %></p>
+
+<p>The Bundle Team</p>

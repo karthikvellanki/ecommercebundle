@@ -1,0 +1,31 @@
+.container
+  h2 Banner Details
+  p#notice = notice
+  .col-md-12
+   .col-md-6
+     table.table 
+      tr
+        td
+          strong Title:
+        td = @banner.title
+      tr
+        td
+          strong Description:
+        td= @banner.description
+      tr
+        td
+          strong Link:
+        td= @banner.link
+      tr
+        td
+          strong Button text:
+        td= @banner.button_text
+     tr
+       
+
+   .col-md-6
+      =image_tag @banner.image, width:"300px"   
+
+  = link_to 'Edit', edit_admin_banner_path(@banner), class:"btn btn-default"
+  '
+  = link_to 'Back', admin_banners_path, class:"btn btn-default ga"

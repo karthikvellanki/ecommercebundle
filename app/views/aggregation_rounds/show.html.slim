@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Start date:
+  = @aggregation_round.start_date
+p
+  strong End date:
+  = @aggregation_round.end_date
+p
+  strong Qty limit:
+  = @aggregation_round.qty_limit
+p
+  strong Product:
+  = @aggregation_round.product
+
+= link_to 'Edit', edit_aggregation_round_path(@aggregation_round)
+'|
+= link_to 'Back', aggregation_rounds_path

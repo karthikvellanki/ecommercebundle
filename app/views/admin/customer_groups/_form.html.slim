@@ -1,0 +1,9 @@
+= simple_form_for [:admin, CustomerGroup] do |f|
+	= f.error_notification
+
+	.form-inputs
+		= f.association :user
+		= f.input :group_id, :input_html => { :value => "#{@group.id}" }
+
+	.form-actions
+		= f.button :submit

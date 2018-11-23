@@ -1,0 +1,23 @@
+- if @order.order_items.last.provider.user.can_accept_charges?
+  = form_tag stripe_pay_order_path( @order ) do
+    = hidden_field_tag :token
+    .pay-flex
+	    .pay-card-flex
+		    button.btn.btn-primary.pay-by-card-btn.pay-button Pay by Credit Card
+		    select.hidden  name='charge_on'
+		      option  value='connected'   Connected Account
+		      option  value='platform'   Platform Account
+	    .pay-bank-flex  
+			button.btn.btn-primary.ml10.pay-by-bank-btn onclick='pay_for_order(#{@order.id},#{current_user.bank_accounts.first.nil?});return false;' Pay using Bank
+
+
+- else
+  .panel.panel-danger
+    .panel-body
+      h3 Nope
+
+= javascript_include_tag 'https://checkout.stripe.com/checkout.js'
+= javascript_tag "window.payPath = #{stripe_pay_order_path( @order ).to_json};"
+= javascript_tag "window.publishable = #{Rails.application.secrets.stripe_publishable_key.to_json}"
+= javascript_tag "window.currentUserEmail = #{current_user.email.to_json};"
+= javascript_tag "window.order_price = #{@order.total_price_cents.to_json};"

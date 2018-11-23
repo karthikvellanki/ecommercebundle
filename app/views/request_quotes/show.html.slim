@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Product name:
+  = @request_quote.product_name
+p
+  strong Item number:
+  = @request_quote.item_number
+p
+  strong Description:
+  = @request_quote.description
+p
+  strong Quantity:
+  = @request_quote.quantity
+
+= link_to 'Edit', edit_request_quote_path(@request_quote)
+'  |
+= link_to 'Back', request_quotes_path

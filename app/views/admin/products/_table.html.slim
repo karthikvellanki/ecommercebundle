@@ -1,0 +1,3 @@
+- @products.each do |product|
+  tr id="product-#{product.id}"
+    = render partial: 'product_table_partial',  locals: {product: product}

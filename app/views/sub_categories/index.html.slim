@@ -1,0 +1,25 @@
+h1 Listing sub_categories
+
+table
+  thead
+    tr
+      th Name
+      th Description
+      th Category
+      th
+      th
+      th
+
+  tbody
+    - @sub_categories.each do |sub_category|
+      tr
+        td = sub_category.name
+        td = sub_category.description
+        td = sub_category.category
+        td = link_to 'Show', sub_category
+        td = link_to 'Edit', edit_sub_category_path(sub_category)
+        td = link_to 'Destroy', sub_category, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Sub category', new_sub_category_path

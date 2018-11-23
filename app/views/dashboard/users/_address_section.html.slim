@@ -1,0 +1,54 @@
+-if request.fullpath == "/admin/users/#{@user.id}"
+  |
+- else
+  button.btn.btn-sm.btn-warning#add_address.pull-right.mb10 Add address
+.col-md-12
+    .new_address_form.hidden
+        = simple_form_for @user.addresses.new,  url: users_addresses_path, method: :post  do |f|
+            br
+            = f.input :first_name
+            = f.input :last_name
+            = f.input :mobile
+            = f.input :line_1
+            = f.input :line_2
+            = f.input :city
+            = f.input :state
+            = f.input :pincode, label: "ZIP code"
+            = f.submit "Create Address", class: 'btn btn-primary btn-block do'
+    - if @user.addresses.count < 1
+
+    - else
+      - i = 1
+      - @user.addresses.each do |address|
+        - if address.line_1 == nil && address.line_2 == nil && address.line_3 == nil && address.city == nil
+        - else
+          .col-md-6
+            .panel.panel-default
+              .p10
+                .panel-head
+                  h4  #{address.name} Address ##{i}
+                .panel-body
+                  p First Name: #{address.first_name}
+                  p Last Name: #{address.last_name}
+                  p Mobile: #{address.mobile}
+                  p Line 1: #{address.line_1}
+                  p Line 2: #{address.line_2}
+                  p Line 3: #{address.line_3}
+                  p City: #{address.city}
+                  p State: #{address.state}
+                  p Zip Code: #{address.pincode}
+                  button.btn-sm.btn-info.pull-right.edit_address data-id="#{address.id}" Edit
+                  = simple_form_for address, url: users_address_path(address.id), method: :delete do |f|
+                    = f.button :submit, class:"btn btn-sm btn-danger" ,value: "Delete"
+                  - i = i + 1
+                  .col-md-12.hidden id="edit_address_#{address.id}"
+                    = simple_form_for address, remote: true, url: users_address_path(address.id), method: :patch, html: {class: 'edit_address_form'} do |f|
+                        = f.input :first_name
+                        = f.input :last_name
+                        = f.input :mobile
+                        = f.input :line_1
+                        = f.input :line_2
+                        = f.input :city
+                        = f.input :state
+                        = f.input :pincode
+                        = f.submit "Update Address", class: 'btn btn-primary btn-block'

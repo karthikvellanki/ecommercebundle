@@ -1,0 +1,31 @@
+.pl30.mt-115
+  h3 Customers
+.row.hide-on-admin-desktop.position-fxt-mbl
+	.col-md-3.pl70-mbl.mb-5px
+      input#users_search.form-control name="search_term_for_users" placeholder="Search Users" type="text" /
+    .col-md-9.pl70-mbl
+      = link_to 'New Customer', new_admin_user_path, class:"btn btn-default wd220px-mbl"
+
+.p30.m20.card-contain-supplier.w300
+  .row.w500
+    .col-md-3.p0.mb-5px.hide-on-mbl-resp
+      input#users_search.form-control name="search_term_for_users" placeholder="Search Users" type="text" /
+    .col-md-9.hide-on-mbl-resp
+      = link_to 'New Customer', new_admin_user_path, class:"btn btn-default pull-right"
+    br
+    br
+    br
+
+    table.wdth-auto-mbl.table.table-hover.table-striped.product-border-top#users_table
+      thead
+        tr
+          th Name
+          th Email
+          th Company
+          th Products
+
+      tbody
+        = render 'table'
+
+    br
+

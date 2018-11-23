@@ -1,0 +1,152 @@
+.container#product-show style="margin-top: 100px;"
+	/ .row
+	/ 	ol.breadcrumb
+	/ 		li.list-border-none.breadcrumb-item  Home
+	/ 		li.list-border.breadcrumb-item.active Library
+	/ 		li.list-border.breadcrumb-item.active product
+	/ 		li.list-border.breadcrumb-item.active category
+	.div
+		.col-md-5 style="padding-left: 0; border: 1px solid #F4A137; padding: 10px"
+			= image_tag @product.image, width: "100%", height: "500px"
+		.col-md-7
+			h2 #{@product.name}
+			-if @product.price.present? && current_user.present?
+				h3 style="color:#e74c3c;font-weight: bold;"#{humanized_money_with_symbol @product.group_price(current_user.id)}
+			- else
+				h3 style="color:#e74c3c;font-weight: bold;"#{humanized_money_with_symbol @product.price}
+			end
+			hr
+			- if @product.sku.present?
+				.div style="display: flex; align-items: center;border-left: 3px solid #F4A137"
+					.key-title style="display: flex; width: 30%; padding-left: 5px;"
+						p style="margin-top: 10px; font-size: 17px; font-weight: bold;"SKU:
+					.value-description style="font-size: 17p6; margin-top: 10px;display: flex; width: 80%;"
+						p #{@product.sku}
+			- if @product.description.present?
+				.div style="display: flex; align-items: center;border-left: 3px solid #F4A137"
+					.key-title style="display: flex; width: 30%; padding-left: 5px;"
+						p style="margin-top: 10px; font-size: 17px; font-weight: bold;"Description:
+					.value-description style="font-size: 17px; margin-top: 10px;display: flex; width: 80%;"
+						p  #{@product.description}
+			- if @product.brand.present?
+				.div style="display: flex; align-items: center;border-left: 3px solid #F4A137"
+					.key-title style="display: flex; width: 30%; padding-left: 5px;"
+						p style="margin-top: 10px; font-size: 17px; font-weight: bold;"Brand:
+					.value-description style="font-size: 17px; margin-top: 10px;display: flex; width: 80%;"
+						p  #{@product.brand}
+			- if @product.unit.present?
+				.div style="display: flex; align-items: center;border-left: 3px solid #F4A137"
+					.key-title style="display: flex; width: 30%; padding-left: 5px;"
+						p style="margin-top: 10px; font-size: 17px; font-weight: bold;"Unit:
+					.value-description style="font-size: 17px; margin-top: 10px;display: flex; width: 80%;"
+						p  #{@product.unit}
+			hr
+			.div id="product-#{@product.id}" style=" margin-top: 25px; padding-left: 10px;"
+				span
+					| QTY&nbsp;&nbsp;&nbsp;
+				span 
+					input.text-center.form-control#input-quantity name="quantity" type="number" value="1" min="1" style="width:75px;margin-right:10px;display:inline;border-radius: 2px;font-family: Lato;	font-size: 14px;" 
+				span 
+					button.btn.btn-default#add_to_cart type="submit" style="margin-right:10px;font-size:15px;font-weight: bold;" onclick="add_to_cart(#{@product.id});return false;"
+						i.fa.fa-shopping-cart.fnt-16 &nbsp;&nbsp;	
+						|ADD TO CART
+
+	.div
+		.col-md-12 style="margin-top: 25px;"
+			.div style="padding: 30px;border: 1px solid #eee; min-height: 40vh;"
+			    h4 style="margin-bottom: 30px;background-color: #F4A137; color: #fff;text-align: center; width: 220px; padding: 10px;" Technical Specification
+			    - if not @product.technical_specifications.nil?
+						.table-flx
+							-if not @product.technical_specifications.nil?
+								- @product.technical_specifications.each do |key, val|
+									.table-head-parent 
+										p
+											span.head-fnt-size #{key}:
+											span.head-fnt-size &nbsp;#{val}
+										
+
+						    
+				  
+
+
+
+
+= render "request_quote_modal"
+
+javascript:
+  product_id = #{@product.id}
+  user_id= '#{current_user.present? ? current_user.id : ""}'
+= javascript_include_tag "product-bundle"
+= javascript_include_tag "product-import-bundle"
+
+css:
+  .navbar-default {
+    padding-right:30px; 
+  }
+/ .section style="background: white;"
+/   .container.row style="border: 1px solid #DEDEDE; padding: 70px; margin-top: 40px;"
+	/ 		div.row.single-product id="product-#{@product.id}"
+	/ 		  .col-xs-12.col-md-2
+	/ 		    .product-image-wrapper
+	/ 		      div 
+	/ 		        =link_to (image_tag @product.image, class:"img-responsive product-image", style:"max-height:165px;")
+	/ 		        -if @product.is_aggregatable?
+	/ 		          .ribbon
+	/ 		          span Aggregatable
+	/ 		  .col-md-6.col-xs-12.caption-full.title-area
+	/ 		    h3.product-title style="margin-top:27px; margin-bottom: 20px"
+	/ 		      =link_to @product.name, class: 'prod_name'
+	/ 		    -if not @product.category.nil?
+	/ 		      p style="display:inline-block; color: #4A4A4A;	font-family: Lato;	font-size: 14px; 	border-radius: 2px;	background-color: #F2F2F2; padding: 3px; margin-bottom: 20px"
+	/ 		        = @product.category.name
+	/ 		    -if not @product.sku.nil?
+	/ 		      p style="display:inline-block; color: #888888;	font-family: Lato;	font-size: 14px;"
+	/ 		      	|&nbsp; &nbsp; |&nbsp;
+	/ 		        | SKU #
+	/ 		        = @product.sku
+	/ 		    -if @product.brand.present?
+	/ 		      p style="display:inline-block; color: #888888;	font-family: Lato;	font-size: 14px;"
+	/ 		        |&nbsp; &nbsp;| Brand: &nbsp;
+	/ 		        = @product.brand
+	/ 		    p
+	/ 				  span style="color: #4A4A4A;	font-family: Lato;	font-size: 14px;	font-weight: bold;" Price: 
+	/ 				  span style="color: #17AB5B;	font-family: Lato;	font-size: 18px;	font-weight: bold;" #{humanized_money_with_symbol @product.price}
+	/ 		    br.hidden
+	/ 		    p.hidden style="margin-bottom:40px;" #{raw @product.description}
+	/ 		  .col-md-4.col-xs-12
+	/ 		    div
+	/ 		      div.row id="div-quote-#{@product.id}" style="margin-top: 50px;"
+	/ 		      	div.col-md-12
+	/ 			      	div.col-md-6
+	/ 			        div.col-md-6.form-group style="padding-left: 0px;"
+	/ 			          div style="padding:10px 0px 0 0px;"
+	/ 			            / - if current_user.present?
+	/ 			            /   span
+	/ 			            /     -if @product.has_inventory?(current_user) 
+	/ 			            /        button.btn.btn-success.add-to-cart#products_index_add_to_cart.btncart style="background-color:#00943e;color:#FFF;width: 160px;height: 34px;"
+	/ 			            /          | Dashboard
+	/ 			                / -else
+	/ 			                  / button.btn.btn_border.add-to-cart#products_index_add_to_cart.btncart onclick="import_product(#{@product.id})" data-product="product-import-#{@product.id}"
+	/ 			                  /   i.glyphicon.glyphicon-plus.fnt-16 &nbsp;&nbsp;
+	/ 			                  /   | Add to Dashboard
+			                 
+	/ 		        div.col-md-12.form-group
+	/ 		        	.col-md-6.cart-child
+	/ 			          div.alert.alert-danger style="display:none;"
+	/ 			          p style="color: #4A4A4A;	font-family: Lato;	font-size: 14px;" Quantity:
+	/ 			          input.text-center.form-control#input-quantity name="quantity" type="number" value="1" min="1" style="width:75px;margin-right:10px;display:inline;border-radius: 2px;font-family: Lato;	font-size: 14px;" 
+	/ 			        .col-md-6.resp_cart_btn style="padding-left: 0px;"
+	/ 								button.btn.cart_btn_style#add_to_cart type="submit" style="margin-right:10px;font-size:12px;" onclick="add_to_cart(#{@product.id});return false;"
+	/ 									= image_tag asset_path('loading.gif') , :width => "20", style: "display:none;margin-right:3px;", id: "icon-working"
+	/ 									i.fa.fa-shopping-cart.fnt-16 &nbsp;&nbsp;	
+	/ 									| Add to Cart
+	/ 		.prdt-show
+				/ - if not @product.technical_specifications.nil?
+				/ 	h3 style="border: 1px solid #DEDEDE; background-color: #F2F2F2; padding: 15px;color: #000000;	font-family: Lato;	font-size: 16px;	font-weight: bold;" TECHNICAL SPECIFICATION
+				/ .table-flx
+				/ 	-if not @product.technical_specifications.nil?
+				/ 		- @product.technical_specifications.each do |key, val|
+				/ 			.table-head-parent 
+				/ 				p
+				/ 					span.head-fnt-size #{key}:
+				/ 					span &nbsp #{val}

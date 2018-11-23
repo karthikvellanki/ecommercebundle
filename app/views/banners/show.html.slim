@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @banner.title
+p
+  strong Description:
+  = @banner.description
+p
+  strong Link:
+  = @banner.link
+p
+  strong Button text:
+  = @banner.button_text
+
+= link_to 'Edit', edit_banner_path(@banner)
+'|
+= link_to 'Back', banners_path

@@ -1,0 +1,9 @@
+= simple_form_for(@demand) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :qty
+    = f.association :aggregation_round
+
+  .form-actions
+    = f.button :submit

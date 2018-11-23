@@ -1,0 +1,10 @@
+- @collections.each do |collection|
+  tr
+    td = check_box_tag 'collection_ids[]', collection.id, false, :id => "collection_#{collection.id}"
+    td = link_to collection.name, edit_dashboard_collection_path(collection)
+    - if not collection.picture.nil?
+      td = image_tag collection.picture.picture_file, style: "max-width:100px;"
+    - else
+      td
+    td
+      = link_to 'Show', dashboard_collection_path(collection), style: "margin-right:20px"

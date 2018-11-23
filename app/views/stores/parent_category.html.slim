@@ -1,0 +1,142 @@
+.revamp-category style="margin-top: -70px; min-height: 90vh;"
+
+	.container style="padding-left: 0; margin-left: 2%;"
+		.col-md-3 style="padding: 0;"
+			#category-list-tab.hide-mobile style="border: 1px solid #eee; border-top: 2px solid #F4A137; padding: 0;"
+	    		- supplier_name = SupplierCategory.where.not(parent_id: nil).pluck(:name)
+	    		-@categories.each do |category|
+					ul style="list-style-type: none; padding-left: 0;"
+						.div class="dropdown"
+							li class="dropbtn" style="display: flex; width: 100%;"
+								span style="width: 97%; word-wrap: break-word; padding-right: 10px;"
+									| #{category.name}
+								- if category.children.present?
+									span
+										.fa.fa-caret-right
+
+							- if category.children.present?
+								.dropdown-content
+									.parent style="display: flex;"
+										- category.children.each do |a|
+											.child
+												- if a.products.present?
+													a href="/supplier_categories/#{a.id}/products" style="font-weight: bold; font-size: 15px;"   #{a.name}
+												- else
+													a href="/categories/#{provider.slug}/#{a.id}" style="font-weight: bold; font-size: 15px;"   #{a.name}
+
+												ul style="list-style-type: none; margin:0; padding: 0;"
+													- if a.children.present?
+														- a.children.each do |child|
+															li style="margin:0; padding: 0;"
+															- if child.products.present?
+																a href="/supplier_categories/#{child.id}/products" #{child.name}
+															- else
+																a href="/categories/#{provider.slug}/#{child.id}" #{child.name}
+
+			#category-list.hide-on-desktop.collapse style="top: -360px; position: absolute; width: 80%; padding-left: 0;"
+				.nav-side-menu.override-sidenav style="background-color: #fff; padding: 10px;"
+
+				    -@categories.each do |category|
+						ul style="list-style-type: none; padding-left: 0;"
+							.div class="dropdown"
+								li class="dropbtn" style="display: flex; width: 100%;"
+									span style="width: 97%; word-wrap: break-word; padding-right: 10px;"
+										| #{category.name}
+									- if category.children.present?
+										span
+											.fa.fa-caret-down
+								- if category.children.present?
+									.dropdown-content
+										.parent style="display: flex;"
+											- category.children.each do |a|
+												.child
+													- if a.products.present?
+														a href="/supplier_categories/#{a.id}/products" style="font-weight: bold; font-size: 15px;"   #{a.name}
+													- else
+														a href="/categories/#{provider.slug}/#{a.id}" style="font-weight: bold; font-size: 15px;"   #{a.name}
+													ul style="list-style-type: none; margin:0; padding: 0;"
+														- if a.children.present?
+															- a.children.each do |child|
+																li style="margin:0; padding: 0;"
+																- if child.products.present?
+																	a href="supplier_categories/#{child.id}/products" #{child.name}
+																- else
+																	a href="/categories/#{provider.slug}/#{child.id}" #{child.name}
+
+
+
+
+
+		.col-md-9 style="display: flex;flex-wrap: wrap;"
+			.col-md-12#product-show
+				ol.breadcrumb
+					li.breadcrumb-item.list-border-none
+						a href="/categories" home
+					- @breadcrumb_array.drop(1).reverse.each do |sc|
+					    li.breadcrumb-item.list-border
+					      a href="/categories/#{provider.slug}/#{sc.first}"  #{sc.last}
+		    - if !provider.blank?
+			  	- @categories.each do |category|
+			  		- if Product.where(supplier_category_id: category.id).present?
+						    .feature-product-flex
+					   			a href="/supplier_categories/#{category.id}/products"
+							    	.feature-product-image
+							    		=image_tag category.image, width: "100%", height: "270px"
+							    	.feature-product-category-description
+							    		p style="margin-bottom: 0px; margin-top: 10px; font-size: 20px; text-decration: none;text-align:center; color: #444; font-weight: bold;"#{category.name}
+
+					- else
+							.feature-product-flex
+								a href="/categories/#{provider.slug}/#{category.id}"
+							    	.feature-product-image
+							    		=image_tag category.image, width: "100%", height: "270px"
+							    	.feature-product-category-description
+							    		p style="margin-bottom: 0px; margin-top: 10px;font-size: 20px; text-decration: none; text-align:center; color: #444; font-weight: bold;"#{category.name}
+
+
+
+
+
+
+
+.div style="margin: 150px 20px 20px 90px;"
+	.row
+		/ - supplier_category = SupplierCategory.find(params[:supplier_category_id])
+		/ nav aria-label="breadcrumb"
+
+		/ ol.breadcrumb
+		/ 	li.breadcrumb-item
+		/ 		a href="/stores" home
+		/ 	- @breadcrumb_array.drop(1).reverse.each do |sc|
+		/ 	    li.breadcrumb-item
+		/ 	      a href="/#{provider.slug}/#{sc.first}"  #{sc.last}
+
+
+		/ .col-md-4.category-dropdown
+		/ 	p.bg-style CATEGORIES
+		/ 	p.category_sidenav_provider #{supplier_category.name}
+		/ 	- @categories.all.each do|category|
+		/ 		- if Product.where(supplier_category_id: category.id).present?
+		/ 			a href="/supplier_categories/#{category.id}/products"
+		/ 				p.category_sidenav_name id="#{category.id}" #{category.name.capitalize}
+		/ 		- else
+		/ 			a href="/#{provider.slug}/#{category.id}"
+		/ 				p.category_sidenav_name id="#{category.id}" #{category.name.capitalize}
+
+		/ - if !provider.blank?
+		/ 	- @categories.each do |category|
+		/ 		- if Product.where(supplier_category_id: category.id).present?
+		/ 			a.col-xs-12.col-md-3.decorate_none href="/supplier_categories/#{category.id}/products"
+		/ 				.block.item-man
+		/ 					.col-md-6
+		/ 						= image_tag category.image, class:"image", style:"height:200px;width: 200px;min-height:200px;padding: 20px 20px 20px 5px;"
+		/ 					.text-center.col-md-6
+		/ 						h4.cat-title style="height:34px; color: #4A4A4A;	font-family: Lato;	font-size: 20px;	font-weight: bold;" #{category.name}
+
+		/ 		- else
+		/ 			a.col-xs-12.col-md-3.decorate_none href=  "/#{provider.slug}/#{category.id}"
+		/ 				.block.item-man
+		/ 					.col-md-6
+		/ 						= image_tag category.image, class:"image", style:"height:200px;width: 200px;min-height:200px;padding: 20px 20px 20px 5px;"
+		/ 					.text-center.col-md-6
+		/ 						h4.cat-title style="height:34px; color: #4A4A4A;	font-family: Lato;	font-size: 20px;	font-weight: bold;" #{category.name}

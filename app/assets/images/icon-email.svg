@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="12px" viewBox="0 0 16 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>email</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Store---Footer" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-752.000000, -123.000000)">
+        <g id="Footer" fill="#000000" fill-rule="nonzero">
+            <g id="Contents" transform="translate(503.000000, 59.000000)">
+                <g id="Contact" transform="translate(0.000000, 54.000000)">
+                    <g id="Links" transform="translate(249.000000, 5.000000)">
+                        <g id="Email">
+                            <g id="email" transform="translate(0.000000, 5.000000)">
+                                <path d="M14.9018182,-8.52651283e-14 L8.51665455,6.33004762 C8.23190303,6.61238095 7.76814545,6.61238095 7.48334545,6.33004762 L1.09818182,-8.52651283e-14 L14.9018182,-8.52651283e-14 Z M0,10.4184286 L0,0.941142857 L4.80227879,5.70195238 L0,10.4184286 Z M1.02850909,11.4285714 L5.82598788,6.71680952 L6.45003636,7.33547619 C7.30453333,8.18257143 8.69561212,8.18247619 9.55001212,7.33547619 L10.1740606,6.71680952 L14.9714909,11.4285714 L1.02850909,11.4285714 Z M16,10.4184762 L11.1977212,5.70195238 L16,0.941142857 L16,10.4184762 Z"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

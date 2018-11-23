@@ -1,0 +1,33 @@
+p#notice = notice
+
+h1 = @provider.user.company
+
+table.table.table-bordered.table-striped.col-md-12#products_table
+  thead
+    tr
+      th Name
+      th SKU
+      th Price
+      th Import
+
+  tbody
+    - @products.each do |product|
+      tr
+        td = product.name
+        td = product.sku
+        td = humanized_money_with_symbol product.price
+        td
+          -if product.has_inventory?(current_user)
+            button.btn.btn-success#products_index_add_to_cart.btncart style="background-color:#00943e;color:#FFF;"
+              i.glyphicon.glyphicon-ok
+              | Dashboard
+          -else
+            button.btn.btn-default#products_index_add_to_cart.btncart onclick="import_product(#{product.id})" data-product="product-import-#{product.id}"
+              i.glyphicon.glyphicon-plus
+              | Dashboard
+
+br
+= will_paginate @products
+javascript:
+  user_id= #{current_user.id}
+= javascript_include_tag "product-import-bundle"

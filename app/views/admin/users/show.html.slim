@@ -1,0 +1,22 @@
+.p30
+	.col-md-12
+		.col-md-6
+			h2 User details
+			table.table.table-striped
+				tbody
+					tr
+						td Username:
+						td =@user.try(:first_name)
+					tr
+						td Mobile:
+						td = @user.try(:mobile)
+					tr
+						td Email:
+						td = @user.try(:email)
+					br
+					br
+		.col-md-6.user_address_section
+			= render 'address_section'
+
+
+	=link_to 'Back', admin_users_path, class:"btn btn-info"

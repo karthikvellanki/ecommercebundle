@@ -1,0 +1,23 @@
+h1 Listing pictures
+
+table
+  thead
+    tr
+      th Picturable
+      th Picturable type
+      th
+      th
+      th
+
+  tbody
+    - @pictures.each do |picture|
+      tr
+        td = picture.picturable_id
+        td = picture.picturable_type
+        td = link_to 'Show', picture
+        td = link_to 'Edit', edit_picture_path(picture)
+        td = link_to 'Destroy', picture, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Picture', new_picture_path

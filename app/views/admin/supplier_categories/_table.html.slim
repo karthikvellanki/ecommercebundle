@@ -1,0 +1,18 @@
+table.table.table-striped.mt-187-mbl.product-border-top.wdth-auto-mbl
+  thead
+    tr
+      th Name
+      th Description
+      th Path
+      th
+      th
+
+  tbody
+    - @supplier_categories.where(provider_id: current_user.provider.id).each do |supplier_category|
+      tr
+        td = supplier_category.name
+        td = supplier_category.description
+        td = parent_loop(supplier_category)
+        td = link_to 'Edit', edit_admin_supplier_category_path(supplier_category)
+        td = link_to 'Destroy', admin_supplier_category_path(supplier_category), data: { confirm: 'Are you sure?' }, method: :delete
+

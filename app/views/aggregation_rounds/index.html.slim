@@ -1,0 +1,27 @@
+h1 Listing aggregation_rounds
+
+table
+  thead
+    tr
+      th Start date
+      th End date
+      th Qty limit
+      th Product
+      th
+      th
+      th
+
+  tbody
+    - @aggregation_rounds.each do |aggregation_round|
+      tr
+        td = aggregation_round.start_date
+        td = aggregation_round.end_date
+        td = aggregation_round.qty_limit
+        td = aggregation_round.product
+        td = link_to 'Show', aggregation_round
+        td = link_to 'Edit', edit_aggregation_round_path(aggregation_round)
+        td = link_to 'Destroy', aggregation_round, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Aggregation round', new_aggregation_round_path

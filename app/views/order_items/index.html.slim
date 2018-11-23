@@ -1,0 +1,25 @@
+h1 Listing order_items
+
+table
+  thead
+    tr
+      th Order
+      th Product
+      th Price cents
+      th
+      th
+      th
+
+  tbody
+    - @order_items.each do |order_item|
+      tr
+        td = order_item.order_id
+        td = order_item.product_id
+        td = order_item.price_cents
+        td = link_to 'Show', order_item
+        td = link_to 'Edit', edit_order_item_path(order_item)
+        td = link_to 'Destroy', order_item, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Order item', new_order_item_path

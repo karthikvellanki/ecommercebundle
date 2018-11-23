@@ -1,0 +1,17 @@
+p#notice = notice
+.p30.mt-115
+  h1 #{@provider.name}
+  hr
+  .col-md-12
+    .col-md-6.pull-right
+      = image_tag @provider.image , width:"100%"
+    .col-md-6
+      table.table-striped.table
+        tbody
+          tr
+            td Name
+            td = @provider.name
+  .col-md-12
+    = link_to 'Edit', edit_admin_provider_path(@provider), class:"btn btn-default"
+    | &nbsp;
+    = link_to 'Back', admin_providers_path, class:"btn btn-default"

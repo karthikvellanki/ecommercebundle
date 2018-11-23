@@ -1,0 +1,21 @@
+- @orders.each do |order|
+  tr class="status-partial-#{order.id}"
+    = render partial: 'status_partial',  locals: {order: order}
+
+div#modal-invoice.modal.fade tabindex="-1" role="dialog"
+  div.modal-dialog role="document"
+    div.modal-content
+      div.modal-header
+        button.close type="button" data-dismiss="modal"
+          span &times;
+        h3.modal-title Charges
+      div.modal-body
+        = simple_form_for Order.new do |f|
+          input type="hidden" name="id" id="order_id"
+          = f.input :sales_tax, label: "Sales Tax %"
+          = f.input :shipping_charges, label: "Shipping Charges in USD", input_html: {value: "0.00"}
+          = f.input :other_charges_name
+          = f.input :other_charges, label: "Other Charges in USD", input_html: {value: "0.00"}
+          = f.button :submit, value: "Generate Invoice"
+
+

@@ -1,0 +1,27 @@
+= simple_form_for [:dashboard, @user] do |f|
+  - if @user.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@user.errors.count, "error")
+        | prohibited this user from being saved:
+      ul
+        - @user.errors.full_messages.each do |message|
+          li= message
+  .form-inputs
+
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :mobile
+    = f.input :email
+    = f.input :company
+    = f.input :location
+    = f.input :avatar, as: :file
+    = f.input :shipping_choice, as: :select,collection:[['Use my Shipping Account Number','use_my_shipping_account_number'], ['Use supplier’s shipping method','use_supplier_shipping_method']], input_html: {class: 'form-control', id:'shipping_value'}, :include_blank => true
+    .shipping_detail.hidden
+	    = f.input :shippers_name
+	    = f.input :shipping_account_number
+    / .div
+		/ label Domain Name:
+	 /   	input type="text" placeholder="Domain name" name="domain" class="form-control mb10"
+  .actions
+    = f.submit 'Submit',class: 'btn btn-primary do'

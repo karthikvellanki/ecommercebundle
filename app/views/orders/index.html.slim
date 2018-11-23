@@ -1,0 +1,27 @@
+.pl30.mt50
+  h1 Order History
+
+.card-contain-user#order_table.w300
+  table.wdth-auto-mbl.table.table-hover.table-striped.product-border-top
+    thead
+      tr
+        th Order Placed
+        th Order Total
+        th Delivery To
+        th Status
+        th View 
+         
+
+    tbody
+      - @orders.each do |order|
+        tr
+          td = order.created_at.strftime("%m/%d/%Y")
+          td = humanized_money_with_symbol order.total_price
+          td
+            - address = order.addresses.first
+            - if not address.nil?
+              = address.line_1 + ", " + address.city 
+          td
+            = order.status.try(:capitalize )
+          td = link_to 'Order Details', order
+

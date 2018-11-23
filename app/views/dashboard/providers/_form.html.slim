@@ -1,0 +1,11 @@
+= simple_form_for [:dashboard, @provider] do |f|
+  = f.error_notification
+
+  .form-inputs
+  = f.input :email
+  = f.input :name
+  br
+  br
+  br
+  .form-actions
+    = f.button :submit

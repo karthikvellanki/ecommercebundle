@@ -1,0 +1,36 @@
+.pl30#request-pge.mt50
+  h1 Requests
+
+.card-contain-user.w300
+  .row.position-fxt-only
+    .col-md-4.col-md-offset-8
+      #modalWidth4.button.btn.btn-default.pull-right.add-btn data-target="#myModal4" data-toggle="modal" type="button"  Add Request
+  br
+  div
+    table.wdth-auto-mbl.table.table-hover.table-striped.col-md-12.product-border-top cellpadding="10"
+      thead
+        tr
+          th Product Name
+          th Item Number
+          th Description
+          th Quantity
+          th Quotes
+          th Delete
+
+      tbody
+        = render 'dashboard/request_quotes/table'
+
+#myModal4.modal.fade role="dialog"
+  .modal-dialog
+    /! Modal content
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"  &times;
+        h4.modal-title Add Requests
+      .modal-body
+        #example4.hot.handsontable.htRowHeaders.htColumnHeaders data-originalstyle=("height: 320px; overflow: hidden; width: 500px;") style=("height: 320px; overflow: hidden; width: 500px;")
+        br
+        button.btn.btn-primary.btn_right data-dismiss="modal" data-dump="#example4" data-instance="hot4" name="dump4"  Add Requests
+br
+.txt-cntr
+ = paginate @request_quotes

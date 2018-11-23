@@ -1,0 +1,21 @@
+.p30
+  h1 New product
+
+== render 'form'
+
+= link_to 'Back', admin_products_path
+/ .col-md-12.mb20 
+/ 	#modalWidth5.add_product_show  
+
+/ .col-md-12.mb20
+/ 	button.btn.btn-primary.ml68.hidden#create-product-btn data-dismiss="modal" data-dump="#example5" data-instance="hot5" name="dump5"  Submit
+/ 	input.category_names type="hidden" name="sq1[]" value="#{Category.pluck(:name)}"	style="margin: 50px;"
+/ 	- final = []
+/ 	- SupplierCategory.where(provider_id: current_user.provider.id).each do |a|
+/ 		- temp = parent_loop(a)
+/ 		- if a.children.blank?
+/ 			- final << temp
+/ 	input.supplier_category_names type="hidden" name="sq2[]" value="#{final}"	style="margin: 50px;"
+/ .container
+/ 	#example5.hot.handsontable.htRowHeaders.htColumnHeaders data-originalstyle=("height: 620px; overflow: hidden; width: 920px;") style=("height: 620px; overflow: hidden; width: 920px;")
+/ 	br

@@ -1,0 +1,35 @@
+.pl30.col-md-12.w300 class=('mt-115' if request.fullpath == "/admin/quote_requests")
+  h1 Listing Quote Requests
+
+  table.wdth-auto-mbl.table.table-striped.col-md-12.product-border-top
+    thead
+      tr
+        th Name
+        th Email
+        th Mobile number
+        th Category
+        th Image
+        th
+        th
+        th
+
+    tbody
+      - @quote_requests.each do |quote_request|
+        tr
+          td = quote_request.name
+          td = quote_request.email
+          td = quote_request.mobile_number
+          td = quote_request.category
+          td 
+            - if quote_request.upload_file.content_type == 'image/png' || quote_request.upload_file.content_type == 'image/gif' || quote_request.upload_file.content_type == 'image/jpeg' || quote_request.upload_file.content_type == 'image/jpg' || quote_request.upload_file.content_type == 'image/bmp'
+              = image_tag quote_request.upload_file, width:"80px", class: "update-product-image"
+            - else
+              = link_to quote_request.upload_file_file_name, quote_request.upload_file.url, download: '' 
+                 
+          td = link_to 'Show', admin_quote_request(quote_request)
+          td = link_to 'Edit', edit_admin_quote_request_path(quote_request)
+          td = link_to 'Destroy', admin_quote_request, data: { confirm: 'Are you sure?' }, method: :delete
+
+  br
+
+  = link_to 'New Quote request', new_admin_quote_request_path

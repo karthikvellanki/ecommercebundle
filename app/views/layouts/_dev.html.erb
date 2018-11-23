@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<%= html_tag :lang => "en" do %>
+  <head>
+    <meta charset="utf-8">
+    <title><%= [@title, app_name].compact.join(" - ") %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Ensure devices display responsive pages properly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- Le fonts -->
+    <%= stylesheet_link_tag "http://fonts.googleapis.com/css?family=Droid+Sans:400,700" %>
+
+    <!-- Le styles -->
+    <%= stylesheet_link_tag "sign", :media => "all" %>
+    <%= yield :styles %>
+
+    <!-- Le fav and touch icons -->
+      <%= favicon_link_tag 'favicon.png' %>
+    <%# favicon_link_tag "apple-touch-icon.png", :rel => "apple-touch-icon" %>
+
+    <%= yield :head %>
+  </head>
+  <body class="<%= yield (:body_class) %>">
+    <div id="main" class='vertical-center'>
+      <div class="container">
+        <div class='row'>
+        </div>
+        <%= yield %>
+      </div> <!-- /.container -->
+    </div> <!-- /#main -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "signin" %>
+    <%= yield :javascript %>
+
+  </body>
+<% end %>

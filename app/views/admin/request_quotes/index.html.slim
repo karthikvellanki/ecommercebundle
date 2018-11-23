@@ -1,0 +1,21 @@
+.pl30.mt-115
+  h1 Request
+.p30.card-contain-supplier.m20.w300
+  
+  .row
+    table.wdth-auto-mbl.table.table-striped.col-md-12.product-border-top#products_table  
+      thead
+        tr.tw
+          th Product
+          th Item number
+          th Description
+          th Quantity
+          th Customer
+          th Location
+          th Your Quote
+          
+
+      tbody
+        #request_table
+          == render 'admin/request_quotes/table'
+  

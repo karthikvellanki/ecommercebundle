@@ -1,0 +1,110 @@
+<!--FOOTER-->
+<%= stylesheet_link_tag "application-landing" %>
+<!--===============================================================-->
+
+<!-- Footer -->
+<footer class="page-footer font-small blue-grey lighten-5 mt-4">
+
+
+  <!-- Footer Links -->
+  <div class="text-center text-md-left mt-5" style="background-color: #eee;">
+
+    <!-- Grid row -->
+    <div class="row mt-3 dark-grey-text">
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+      </div>
+      <!-- Grid column -->
+       <% if @current_supplier.present? %>
+			<% if request.referer.include? @current_supplier.slug_name %>
+			      <!-- Grid column -->
+			      <div class="col-md-offset-5 col-md-7 text-left" style="margin-top: 15px;">
+			      	<span>Powered By&nbsp;&nbsp;<%= image_tag 'logo.png', width: '12%', height: '40px' %>&nbsp;</span>
+			      </div>
+			      <div class="col-md-12"></div>
+			      <div class="col-md-offset-5 col-md-5 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4 text-left" style="margin-top: 15px;">
+			      	<% if provider.present? %>
+			        	<% if provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).present?  %>
+					        <p>
+					          <i class="fa fa-home mr-3"></i>  <%= provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(', ') %>
+				        	</p>
+				        <% end %>
+				    <% end %>
+			        <% if provider.present? %>
+			        	<% if provider.user.email.present? %>
+					        <p>
+					          <i class="fa fa-envelope mr-3"></i> <%= provider.user.email %>
+					        </p>
+				    	<% end %>
+				    <% end %>
+			        <% if provider.present? %>
+			        	<% if provider.user.addresses.pluck(:mobile).any? %>
+					        <p>
+					          <i class="fa fa-phone mr-3"></i> <%= provider.user.addresses.pluck(:mobile).flatten.join(' ') %>
+					         </p>
+					    <% end %>
+				    <% end %>
+
+			      </div>
+			      <!-- Grid column -->
+			<% else %>
+			      <!-- Grid column -->
+			        <div class="col-md-offset-5 col-md-7 text-left" style="margin-top: 15px;">
+			      	   <span><%= image_tag 'logo.png', width: '12%', height: '40px' %>&nbsp;</span>
+			        </div>
+			         <div class="col-md-12"></div>
+			         <div class="col-md-offset-5 col-md-5 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4 text-left" style="margin-top: 15px;">
+				        <p>
+				          <i class="fa fa-home mr-3"></i>  <%= provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(', ') %>
+			        	</p>
+				        <p>
+				          <i class="fa fa-envelope mr-3"></i> <%= provider.user.email %>
+				        </p>
+
+				        <p>
+				          <i class="fa fa-phone mr-3"></i> <%= provider.user.addresses.pluck(:mobile).flatten.join(' ') %>
+				         </p>
+			         </div>
+			      <!-- Grid column -->
+			<% end %>
+		<% else %>
+		      <!-- Grid column -->
+		        <div class="col-md-offset-5 col-md-7 text-left" style="margin-top: 15px;">
+		      	   <span><%= image_tag 'logo.png', width: '12%', height: '40px' %>&nbsp;</span>
+		        </div>
+		         <div class="col-md-12"></div>
+		         <div class="col-md-offset-5 col-md-5 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4 text-left" style="margin-top: 15px;">
+
+			        <p>
+			          <i class="fa fa-envelope mr-3"></i>  hello@orderbundle.com
+			        </p>
+
+			        <p>
+			          <i class="fa fa-phone mr-3"></i> (415) 742-9890
+			         </p>
+		         </div>
+		      <!-- Grid column -->
+		<% end %>
+
+
+	    </div>
+    <!-- Grid row -->
+	  <div class="footer-copyright text-center text-black-50 py-3" style="margin: 15px auto; padding-bottom: 20px; padding-right: 45px;">© Copyright 2018 Bundle. All Rights Reserved.
+	  </div>
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+<!--back to top-->
+
+<a href="#" id="scrollToTop"><i class="fa fa-angle-up"></i></a>
+
+<script>
+	logged_in_user = <%= current_user.present? %>;
+</script>

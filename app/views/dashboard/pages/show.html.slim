@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @page.title
+p
+  strong Content:
+  = @page.content
+p
+  strong Url:
+  = @page.url
+p
+  strong Provider:
+  = @page.provider.name
+
+= link_to 'Edit',  edit_dashboard_page_path(@page)
+'  |
+= link_to 'Back', dashboard_pages_path

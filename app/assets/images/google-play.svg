@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="456px" height="506px" viewBox="0 0 456 506" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>google-play</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="google-play" fill-rule="nonzero" fill="#2D2D2D">
+            <path d="M446.497,234.466 L354.415,181.331 L278.682,254.538 L347.897,321.445 L446.496,264.535 C451.928,261.402 455.174,255.779 455.174,249.505 C455.175,243.23 451.929,237.607 446.497,234.466 Z" id="Shape"></path>
+            <polygon id="Shape" points="338.785 172.301 237.453 113.803 15.375 0 266.203 242.471"></polygon>
+            <polygon id="Shape" points="19.063 505.499 237.834 384.988 332.268 330.473 266.203 266.604"></polygon>
+            <polygon id="Shape" points="0.559 9.815 0.324 499.486 253.721 254.533"></polygon>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,26 @@
+.p30.mt-115.w300
+  table.table.product-border-top.wdth-auto-mbl
+    thead
+      tr
+        th Title
+        th Description
+        th Link
+        th Button text
+        th
+        th
+        th
+
+    tbody
+      - @banners.each do |banner|
+        tr
+          td = banner.title
+          td = banner.description
+          td = banner.link
+          td = banner.button_text
+          td = link_to 'Show', admin_banner_path(banner)
+          td = link_to '', edit_admin_banner_path(banner), class:"i fa fa-pencil btn btn-outline-primary"
+          td = link_to '', admin_banner_path(banner), data: { confirm: 'Are you sure?' }, method: :delete, class:"i fa fa-trash btn btn-outline-primary"
+
+  br
+
+  = link_to 'New Banner', new_admin_banner_path,  class:"btn btn-default" 

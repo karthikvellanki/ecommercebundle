@@ -1,0 +1,12 @@
+.col-md-12
+	= simple_form_for(@quote_request) do |f|
+	  = f.error_notification
+
+	  .form-inputs
+		= f.input :name
+		= f.input :email
+		= f.input :mobile_number
+		= f.association :category
+		= f.input :upload_file
+	  .form-actions
+		= f.button :submit

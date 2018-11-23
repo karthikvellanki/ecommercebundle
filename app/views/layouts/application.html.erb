@@ -1,0 +1,32 @@
+<% content_for :navbar, render("layouts/user_nav") %>
+
+<%= render :layout => "layouts/minimal" do %>
+  <div>
+    <div class='container'>
+      <div class="row row-same-height">
+        <div class="col-md-12 col-sm-height col-middle">
+          <h2 class='m0'><%= @title %></h2>
+          <%= yield :description %>
+        </div>
+        <div class="col-md-2 col-sm-height col-middle">
+          <%= yield :actions %>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.page-header -->
+
+  <div class='container'>
+    <div class='row' style="margin-top:20px;margin-bottom:0;">
+      <%= render "layouts/flashes" %>
+    </div>
+  </div>
+
+  <div class='height_55'>
+      <div id="content" class="">
+        <%= yield %>
+          <%= render "layouts/footer" %>
+      </div> <!-- /#content -->
+
+  </div>
+
+<% end %>

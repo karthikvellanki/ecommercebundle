@@ -1,0 +1,144 @@
+- if not @cart.nil?
+  - cart = @cart
+- if cart.cart_items.count > 0
+  = simple_form_for cart do |f|
+    =hidden_field_tag form_authenticity_token
+    .container-with-padding style="text-align: initial"
+      .padding-around.row
+        - if cart.provider.nil?
+          h1 style="color: #4A4A4A;	font-family: Lato;	font-size: 20px;	line-height: 14px; margin-top: 40px;"Your Cart
+        - else
+          - if cart.provider.image.exists?
+            =image_tag cart.provider.image, style: "max-height:100px;"
+          - else
+            h1 #{cart.provider.user.company}
+        .col-md-12.mb10
+          .col-md-6
+            h5.text-muted.pull-right
+              span.hidden
+                a.decorate_none href="#{root_path}" Home
+                | &nbsp;\&nbsp;
+                | your cart
+
+        .show.w300
+          - if cart.cart_items_instant.count > 0
+            table.table.w380px
+            	thead
+		        		tr.table_heading
+		        			th.bg_color Product
+		        			th.bg_color Price
+		        			th.bg_color Quantity
+		        			th.bg_color Total
+							tbody
+							  - cart.cart_items_instant.each do |cart_item|
+							    tr style="padding-bottom:25px;" id="cart-item-#{cart_item.id}"
+							      td.border-none style="border:0;display:none;"
+							        img.margin_tb src="#{cart_item.product.image.url(:medium)}" style="max-width:200px;max-height:165px;"
+							      td.border-none.mbl-wdt-30 style="border:0; width: 15%; padding-top: 40px;"
+							          p.cart_product_color #{cart_item.product.name}
+							          .col-md-6 style="border-right: 1px solid #F2F2F2; height: 19px;"
+							          	p.mbl_resp_test style="border-radius: 2px;background-color: #F2F2F2; padding: 2px 25px;" #{cart_item.product.category.nil? ? "" : cart_item.product.category.name}
+							          .col-md-6	
+								          - if not cart_item.provider.nil?
+								            p.mar-tp-20 Supplier: #{cart_item.provider.user.company}
+							      td.border-none.mbl-wdt-30 style="border:0; width: 10%"
+							      	p style="	color: #4A4A4A;	font-family: Lato;	font-size: 18px;	line-height: 22px;" = humanized_money_with_symbol cart_item.price
+								  td.border-none style="border:0; width: 10%;"
+									span
+										span
+											span.hidden
+												input type="number" name="id" value="#{cart_item.id}"
+											label
+												= image_tag asset_path('loading.gif') ,id: "loading-#{cart_item.id}" , :width => "30", style: "display:none;"
+											input.quan.text-center type="number" min="0" name="quantity" data-id="#{cart_item.id}" value="#{cart_item.quantity}" style="color: #4A4A4A;	font-family: Lato;	font-size: 14px; height: 34px; width: 70px;"
+											a.hidden.fa.fa-trash.remove_cart_item.pointer data-cart_item_id="#{cart_item.id}"
+							      td.mbl-wdt-30.border-none style="border:0;width:10%"
+							        p style="	color: #4A4A4A;	font-family: Lato;	font-size: 18px;	line-height: 22px;"
+							          = humanized_money_with_symbol cart_item.price * cart_item.quantity
+							      
+											
+
+          - if cart.cart_items_invoice.count > 0
+            table.table
+              tbody.col-md-12
+                p Supplier will confirm the order and send an invoice for these products (Total: #{humanized_money_with_symbol cart.invoice_total_price})
+                - cart.cart_items_invoice.each do |cart_item|
+                  tr.col-md-6 style="padding-bottom:25px;" id="cart-item-#{cart_item.id}"
+                    td.border-none style="width: 25%;border:0;display:none;"
+                      img.margin_tb src="#{cart_item.product.image.url(:medium)}" style="max-width:200px;max-height:165px;"
+                    td.border-none style="width: 55%;border:0;"
+                        p.cart_color #{cart_item.product.name}
+                        - if not cart_item.provider.nil?
+                          p Supplier: #{cart_item.provider.user.company}
+                        p #{cart_item.product.category.nil? ? "" : cart_item.product.category.name}
+                    td.border-none style="border:0;width:25%"
+                      span
+                        span
+                          span.hidden
+                            input type="number" name="id" value="#{cart_item.id}"
+                          label
+                            | Quantity &nbsp;
+                            = image_tag asset_path('loading.gif') ,id: "loading-#{cart_item.id}" , :width => "30", style: "display:none;"
+                          input.quan.text-center type="number" name="quantity" data-id="#{cart_item.id}" value="#{cart_item.quantity}"
+                          a.hidden.fa.fa-trash.remove_cart_item.pointer data-cart_item_id="#{cart_item.id}"
+                    td.border-none style="border:0;width:20%"
+                      span.text-muted
+                        = humanized_money_with_symbol cart_item.price
+                        | &nbsp;x&nbsp;
+                        = cart_item.quantity
+                      p
+                        = humanized_money_with_symbol cart_item.price * cart_item.quantity
+               
+        .col-md-12
+          .col-md-12 style="font-size:20px;padding-top:16px;" 
+            / span Total Price: 
+            / = humanized_money_with_symbol cart.total_price
+            / span  You need to pay #{humanized_money_with_symbol cart.instant_total_price} now
+            /= link_to "CONTINUE SHOPPING", products_path, class: "btn btn-lg btn-block btn-black"
+          .col-md-3.hidden
+            = f.button :submit, class:"btn btn-lg btn-block btn-primary tab-q-next responsive-mb", value: "SAVE"
+  br
+  .row
+    .col-md-4.col-md-offset-7.hide-on-mobile
+			span style="color: #233539;	font-family: Lato;	font-size: 20px;" Subtotal &nbsp; &nbsp; &nbsp; &nbsp; 
+			span.pl-40 style="color: #4A4A4A;	font-family: Lato;	font-size: 20px;"
+				= humanized_money_with_symbol cart.total_price
+			br
+			br
+			br
+			span style="color: #233539;	font-family: Lato;	font-size: 20px; font-weight: bold;" Total &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+			span.pl-40 style="	color: #17AB5B;	font-family: Lato;	font-size: 20px;	font-weight: bold;"
+				= humanized_money_with_symbol cart.total_price
+				br
+				br
+			- if false and current_user.addresses.count > 0
+			  form method="POST" action="/orders/create_with_default_address"
+			    input type="hidden" name="cart_id" value="#{cart.id}"
+			    button.btn.btn-lg.btn-block.btn-primary.tab-1-next.responsive-mb#confirm_cart class=(cart.cart_items.count == 0 ? "disabled":"") CHECKOUT 
+			-else
+			  button.btn.btn-lg.btn-block.btn-grn-clr.tab-1-next.responsive-mb#confirm_cart class=(cart.cart_items.count == 0 ? "disabled":"") onclick='window.location.href = "/carts/#{cart.id}";return false;' 
+				span.fa.fa-shopping-cart	&nbsp;&nbsp;
+				|CHECKOUT
+	.row
+    .col-md-12.hide-on-desktop style="margin-left: 30px;"
+			span style="color: #233539;	font-family: Lato;	font-size: 20px;" Subtotal &nbsp; &nbsp; &nbsp; &nbsp; 
+			span.pl-40 style="color: #4A4A4A;	font-family: Lato;	font-size: 20px;"
+				= humanized_money_with_symbol cart.total_price
+			br
+			br
+			br
+			span style="color: #233539;	font-family: Lato;	font-size: 20px; font-weight: bold;" Total &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+			span.pl-40 style="	color: #17AB5B;	font-family: Lato;	font-size: 20px;	font-weight: bold;"
+				= humanized_money_with_symbol cart.total_price
+				br
+				br
+			- if false and current_user.addresses.count > 0
+			  form method="POST" action="/orders/create_with_default_address"
+			    input type="hidden" name="cart_id" value="#{cart.id}"
+			    button.btn.btn-lg.btn-block.btn-primary.tab-1-next.responsive-mb#confirm_cart class=(cart.cart_items.count == 0 ? "disabled":"") CHECKOUT 
+			-else
+			  button.btn.btn-lg.btn-block.btn-grn-clr.tab-1-next.responsive-mb#confirm_cart class=(cart.cart_items.count == 0 ? "disabled":"") onclick='window.location.href = "/carts/#{cart.id}";return false;' 
+				span.fa.fa-shopping-cart	&nbsp;&nbsp;
+				|CHECKOUT
+              
+

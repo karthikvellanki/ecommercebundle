@@ -1,0 +1,32 @@
+.p30.mt-115
+  h1 Add product to your user's catalog
+.col-md-3.w280.mb-15px
+	.input-group.search-group
+		input.form-control#customer_catalog type="text" placeholder="Customer catalog.." data-id="#{@user.id}"
+		span.input-group-addon
+			i.fa.fa-search
+input.hidden name="user_id_in_catalog" value="#{@user.id}" class="user_id_in_catalog"
+.col-md-4
+	- if @user.is_invoice == false
+		button.btn.btn-primary#change_invoice data-id="#{@user.id}" Enable Invoice Pay
+	- else
+		button.btn.btn-primary#change_invoice data-id="#{@user.id}" Disable Invoice Pay
+
+form method="POST" action="/admin/users/#{@user.id}/post_catalog"
+  table.table#users_table
+    thead
+      tr
+        th Add
+        th Name
+        th Discount
+
+    tbody
+      == render 'catalog_table'
+
+  br
+  br
+  .form-actions
+    button.btn.btn-default type="submit" Submit
+
+/ .pagination-customer
+/  = will_paginate @products

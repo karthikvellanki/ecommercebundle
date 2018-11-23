@@ -1,0 +1,17 @@
+- if not @address.nil?
+  - address = @address
+p.mb5
+  = address.line_1
+-if !address.line_2.blank?
+  p.mb5
+    = address.line_2
+-if !address.line_3.blank?
+  p.mb5
+    = address.line_3
+p.mb5
+  = address.city
+p.mb5
+  = address.state
+p.mb5
+  = address.pincode
+

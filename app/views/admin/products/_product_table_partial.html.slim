@@ -1,0 +1,23 @@
+td.w10 = check_box_tag 'product_ids[]', product.id, false, :id => "product_#{product.id}", class: "delete-checkbox"
+td = product.name
+td = product.sku
+td = product.brand
+td = humanized_money_with_symbol product.price
+- if product.supplier_category.present?
+	td = product.supplier_category.name
+- else
+	td	
+td 
+  - if product.image.present?
+    a href="#" 
+      = image_tag product.image, width:"80px",height:"80px" ,class: "update-product-image", :data => { id: "#{product.id}" } 
+
+  - else
+    button.btn.btn-info.image-upload-button data-id="#{product.id}" Upload
+  = simple_form_for [:admin, product], url: upload_product_image_admin_product_path(product), method: :patch do |f|
+    = f.input :image, as: :file, label: false,input_html: {class: 'upload-width supplier-product-image hidden', id: 'choose-btn', name: "image-upload-#{product.id}", data: {id: "#{product.id}"} }
+td
+  = button_to edit_admin_product_path(product), class: "btn btn-primary", method: :get do
+    span.fa.fa-pencil 
+
+product.supplier_category.name

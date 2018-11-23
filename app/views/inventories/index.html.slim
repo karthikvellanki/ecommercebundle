@@ -1,0 +1,26 @@
+.col-md-12.p0
+  = link_to 'Add Products', new_inventory_path, class:"btn btn-default pull-right add-btn"
+
+  .input-group.search-group
+    input.form-control#inventory_search type="text" placeholder="Search Products.."
+    span.input-group-addon
+      i.fa.fa-search
+
+div
+  table.table.table-hover.table-striped.col-md-12#inventories_table cellpadding="10"
+    thead 
+      tr 
+        th
+        th Name
+        th SKU
+        th Price
+        th On Hand/Par Level
+        th Cart
+
+
+    tbody
+      = render 'inventories/table'
+      br
+      = form_tag destroy_multiple_inventories_path, method: :delete do
+        input.hidden#inventory_ids type="text" name="inventory_ids" value="[]"
+        = submit_tag 'Delete Products',id: "delete-multiple-inventories", class:"btn btn-default pull-left", style:"margin-right:1em; margin-bottom:1em;"

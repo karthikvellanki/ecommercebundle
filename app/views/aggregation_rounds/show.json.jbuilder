@@ -1,0 +1,1 @@
+json.partial! "aggregation_rounds/aggregation_round", aggregation_round: @aggregation_round

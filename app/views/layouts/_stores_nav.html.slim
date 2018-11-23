@@ -1,0 +1,237 @@
+.revamp-category style="margin-top: -61px;"
+	.header-center.left
+	  .div style="margin: 0 30px;"
+	    .row
+	      /! Logo
+	      .navbar-logo.col-md-1.col-sm-12.col-xs-12.text-align-center.mb20resp
+	        a href="/categories"
+		        -if user_signed_in? && current_user.provider.present? && params[:provider_id].present?
+	            	=image_tag Provider.friendly.find(params[:provider_id]).image, width:"90px",height:"50px; object-fit: cover;", class:"logo"
+		        - elsif !provider.blank?
+		          =image_tag provider.image, width:"100px",height:"50px;object-fit: cover;", class:"logo"
+		        - else
+		          - supplier_url = request.referer.split('/').fourth
+		          - supplier_slug = Provider.find_by(slug: supplier_url).image
+		          =image_tag supplier_slug, width:"100px",height:"50px;object-fit: cover;", class:"logo"
+		        end
+	      /! //end Logo
+
+	      /! Search
+	      #sosearchpro.col-md-offset-1.col-md-3.search-pro style=""
+	        = form_tag products_path,method: "get",id: "search-form",class: "navbar-form navbar-left navbar-search"
+	          #search0.search.input-group style="width: 350px;"
+	            = text_field_tag :q,params[:q],class: "input-search form-control", style: "display:inline;"
+        		= text_field_tag :provider_id, params[:provider_id], style: "display:none;"
+	            span.input-group-btn
+	              button.button-search.btn.btn-primary name="Search" type="submit"
+	                i.fa.fa-search
+	      /! //end Search
+	      .col-md-2#navbar-link-text.hide-on-mobile style="padding-top: 15px;"
+				ul style=" list-style-type: none; display:flex; float: right;"
+					- if current_user.present?
+						li
+							span = image_tag 'list.svg', width: '22px'
+							a href="/dashboard/products"  &nbsp;Account
+	      /! Secondary menu
+	      .col-md-2.col-sm-5.col-xs-12.shopping_cart style="padding-top: 10px;"
+
+	      	- if user_signed_in?
+		        /! cart
+		        #cart.btn-shopping-cart
+		          .shopcart
+		            	=image_tag "Shopping cart.png", width: "33px", height: "35px"
+		          .cart-text#cart_partial
+		          	= render 'carts/carts_partial'
+
+		  .col-md-3 style=" padding-top: 15px;"
+		  		- if current_user.present?
+					ul.hide-on-mobile  style="list-style-type: none; float: right;"
+				        li.dropdown.prof-mt style="padding: 0 10px;"
+				          a.dropdown-toggle.icon_flex aria-expanded="false" data-toggle="dropdown" href="#" role="button" style=" padding-top: 10; padding-bottom: 0; text-decoration: none;"
+				          	= image_tag current_user.avatar(:medium ), class: 'img-circle profile-image'
+				            .profile-username.icon_flex
+				              = current_user.name
+				              br/
+				              -if current_user.is_provider
+				               = current_user.company
+				              b.caret.visible-xs
+				          ul.dropdown-menu role="menu" style="margin-left: 25px;"
+				            - if current_user.present? && current_user.is_provider
+				              li
+				                a href="#{admin_products_path}" SUPPLIER PANEL
+				            - if current_user.present? && current_user.admin
+				              li
+				                a href="#{admin_users_path}" Admin panel
+
+				            - if current_user.present?
+				              li
+				                a Hi, #{current_user.first_name}
+				              / li
+				              /   a href="#{profile_dashboard_users_path}" Edit Profile
+				              / li
+				              /   =link_to 'Change Password',  edit_user_registration_path
+				              li.hidden
+				                =link_to 'Add payments',  visitors_payment_path
+				              li
+				                = link_to 'Logout', destroy_user_session_path, :method => :delete, class:"pink_text"
+				            - else
+				              li
+				                = link_to 'Sign In', new_user_session_path
+			    - if not current_user.present?
+			    	.row style="display: flex; justify-content: space-around;"
+						.div
+							button.btn.btn-default style="background-color: #F4A137; border: none; border-radius: 0; color: #fff;" data-target="#modal-login" data-toggle="modal" type="button" Login
+
+			    		.div
+							button.btn.btn-default style="background-color: #F4A137; border: none; border-radius: 0; color: #fff;" data-target="#modal-sign-up" data-toggle="modal" type="button" Register
+						.div#cart_count
+							= render 'carts/carts_count'
+
+	nav.navbar.navbar-inverse style="margin-bottom: 1px; margin-top: 10px; border: none;"
+		      .container style="margin-left: 2%;"
+		        .navbar-header
+		          a.navbar-brand.hide-on-mobile style="background-color: #444444; width: 290px; color: #FFF;" href="#"  &#9776; &nbsp;&nbsp;All Categories
+		          a.hide-on-desktop.navbar-brand data-parent="#accordion" data-toggle="collapse"  style=" width: 290px; color: #FFF;" href="#category-list"  &#9776; &nbsp;&nbsp;All Categories
+		          a.hide-only-desktop.navbar-brand data-target="#store-front-nav" data-toggle="collapse"  style=" width: 290px; color: #FFF;" href="#category-list"  &#9776; &nbsp;&nbsp; Navigation
+		        .div style="display: flex; height: 50px;"
+			        - pages = @current_supplier.pages
+			        - pages.each do |page|
+			        	- if page.url.present?
+			        		a href="#{page.url}"
+			        			p style=" display: flex; align-items: center; padding-top: 15px; margin-left: 30px; color: #fff;"#{page.title}
+			        	- else
+				        	a href="/pages/#{page.id}"
+				        		p style=" display: flex; align-items: center; padding-top: 15px; margin-left: 30px; color: #fff;"#{page.title}
+
+#store-front-nav.collapse style="top: 30px; position: absolute; width: 80%; padding-left: 0;"
+	.nav-side-menu.override-sidenav style="background-color: #fff; padding: 10px;"
+
+	  ul.nav
+	  	li
+	        a href="#{root_path}"
+	          | Home
+        li
+	        a href="#{categories_path}"
+	          | catalog
+
+        - if current_user.present?
+		    - if current_user.admin
+		      li
+		 			- if current_user.present? && current_user.admin
+			 			li style="padding-bottom: 20px;"
+			 				= link_to 'ADMIN PANEL', admin_users_path, class:"hide-on-admin-desktop btn btn-primary"
+	        li
+		        - if current_user.present?
+		        	li style="padding-bottom: 20px;"
+				        a href="/dashboard/products"
+				          | Account
+		          	li style="padding-bottom: 20px;"
+		          		= link_to 'Logout', destroy_user_session_path, :method => :delete, class:"btn btn-primary hide-on-admin-desktop mt10px-mbl w231-btn"
+		        - else
+		        	li
+		            = link_to 'Sign In', new_user_session_path,class:"btn btn-primary hide-on-admin-desktop"
+
+
+
+/ div.navbar.navbar-default.navbar-fixed-top.landing-nav.dashboard-user.pd-100#store_navbar
+/   .navbar-header
+/     button.navbar-toggle data-target=".js-navbar-collapse" data-toggle="collapse" type="button"
+/       span.sr-only Toggle navigation
+/       span.icon-bar
+/       span.icon-bar
+/       span.icon-bar
+/     button.btn-green.navbar-toggle style="padding:6.5px 10px;margin-right:7px;"
+/       a href="#{stores_path}" onclick='window.location.href="#{stores_path}"'
+/         span.text-white.fs12 Catalog
+/     a.navbar-brand.scroll-nav href="#{categories_path}" style="padding: 0px;"
+/         -if user_signed_in? && current_user.provider.present? && params[:provider_id].present?
+/             =image_tag Provider.friendly.find(params[:provider_id]).image, width:"90px",height:"50px; object-fit: cover;", class:"logo"
+/         - elsif !provider.blank?
+/             =image_tag provider.image, width:"100px",height:"50px;object-fit: cover;", class:"logo"
+
+
+/   .nav.visible-xs style="background:white;"
+/     = form_tag products_path,method: "get",id: "search-form",class: "navbar-form navbar-left navbar-search"
+/       div.form-group
+/         = text_field_tag :q,params[:q],class: "input-search form-control", style: "display:inline;"
+/         = text_field_tag :provider_id, params[:provider_id], style: "display:none;"
+/         = submit_tag "Search",style: "height:32px;margin-top:3px;margin-left:10px;",name: nil, class: "btn btn-default"
+
+
+
+/   .collapse.navbar-collapse.js-navbar-collapse.color
+/     ul.nav.navbar-nav.hidden-xs
+/       = form_tag products_path,method: "get",id: "search-form",class: "navbar-form navbar-left", style: "width:450px;"
+/         div.form-group
+/           = text_field_tag :q,params[:q],class: "form-control", style: "width:300px;"
+/           = text_field_tag :provider_id, params[:provider_id], style: "display:none;"
+/         = submit_tag "Search",style: "height:32px;margin-top:3px;margin-left:10px;",name: nil, class: "btn btn-default"
+
+
+
+/     ul.nav.navbar-nav.navbar-right.mr15
+/       - if current_user.present?
+/         li
+/           a.navbar_button href="/dashboard/products"
+/           	span = image_tag 'list.svg', width: '22px'
+/             span.navbar_button_text&nbsp; Account
+/         li.cat.hidden
+/           a href="#{categories_path}" Categories
+/         li.cat.hidden
+/           a href="#{products_path}" Products
+/         li.hidden
+/           a.navbar_button href="/credentials"
+/               span.navbar_button_text VENDORS
+
+/       / li.cat
+/       /   a.navbar_button.features-btn href="#{categories_path}" onclick='window.location.href="#{categories_path}"'
+/       /     span.navbar_button_text CATALOG
+
+/       - if controller.controller_name == "visitors_controller"
+/         li.cat
+/           a.navbar_button.contact-btn href="#contact"
+/               span.navbar_button_text Contact us
+/       - if not current_user.present?
+/         li
+/           a.navbar_button data-toggle="modal" data-target="#modal-login" style="cursor: pointer;"
+/               span.navbar_button_text Login
+/         li.btn-green.mr0.hidden-xs
+/           a.navbar_button data-toggle="modal" data-target="#modal-sign-up"
+/               span.text-white.fs12 Get started
+
+/       - if current_user.present?
+/         li.mr0#cart_partial
+/           = render 'carts/carts_partial'
+/         li.dropdown.prof-mt
+/           a.dropdown-toggle.icon_flex aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+/           	= image_tag current_user.avatar(:medium ), class: 'img-circle profile-image'
+/             .profile-username.icon_flex
+/               = current_user.name
+/               br/
+/               -if current_user.is_provider
+/                = current_user.company
+/               b.caret.visible-xs
+/           ul.dropdown-menu role="menu"
+/             - if current_user.present? && current_user.is_provider
+/               li
+/                 a href="#{admin_products_path}" SUPPLIER PANEL
+/             - if current_user.present? && current_user.admin
+/               li
+/                 a href="#{admin_users_path}" Admin panel
+
+/             - if current_user.present?
+/               li
+/                 a Hi, #{current_user.first_name}
+/               / li
+/               /   a href="#{profile_dashboard_users_path}" Edit Profile
+/               / li
+/               /   =link_to 'Change Password',  edit_user_registration_path
+/               li.hidden
+/                 =link_to 'Add payments',  visitors_payment_path
+/               li
+/                 = link_to 'Logout', destroy_user_session_path, :method => :delete, class:"pink_text"
+/             - else
+/               li
+/                 = link_to 'Sign In', new_user_session_path
+
+= render "products/request_quote_modal"

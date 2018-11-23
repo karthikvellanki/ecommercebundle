@@ -1,0 +1,15 @@
+<p>Hi <%= @user.name %>,</p>
+
+<p>Welcome to Bundle. We are thrilled to have you on board</p>
+
+<% if @from_quote %>
+<p>You can <%= link_to 'set your password', edit_password_url(@user, reset_password_token: @token) %></p>
+<% end %>
+
+<p>Have any questions? Contact us at <a href="mailto:hello@orderbundle.com">hello@orderbundle.com</a> or call us at <a href="tel:4157429890">(415) 742-9890</a> </p>
+
+<% if @from_quote %>
+<p>You can view quotes <%= link_to 'here',dashboard_request_quotes_url()  %>.</p>
+<% end %>
+
+<p>The Bundle Team</p>

@@ -1,0 +1,28 @@
+.col-md-12.p0
+  = link_to 'New Category', new_dashboard_collection_path, class:"btn btn-default pull-right"
+  h1.m0 Categories (Total #{current_user.collections.count})
+
+= form_tag destroy_multiple_dashboard_collections_path, method: :delete do
+  table.table.table-bordered.table-striped
+    thead
+      tr
+        th.w10
+        th style= "width:300px;" Name
+        th style= "min-width:200px;" Image
+        th style= "min-width:200px;" Products
+
+    tbody
+      = render 'table'
+      br
+      = submit_tag 'Remove Categories', class:"btn btn-default pull-left", style:"margin-right:1em; margin-bottom:1em;"
+        td = collection.name
+        - if not collection.picture.nil?
+          td = image_tag collection.picture.picture_file, style: "max-width:100px;"
+        - else
+          td
+        td
+          = link_to 'Show', collection, style: "margin-right:20px"
+          = link_to 'Edit', edit_collection_path(collection), style: "margin-right:20px"
+          = link_to 'Destroy', collection, data: { confirm: 'Are you sure?' }, method: :delete
+
+br

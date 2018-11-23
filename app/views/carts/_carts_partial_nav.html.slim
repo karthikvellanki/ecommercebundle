@@ -1,0 +1,3 @@
+- cart = Cart.find_by(user_id: current_user.id).try(:cart_items)
+- if cart.present?
+	p.text-shopping-cart.cart-total-full #{cart.count} item(s) - #{cart.pluck(:price_cents).sum}	

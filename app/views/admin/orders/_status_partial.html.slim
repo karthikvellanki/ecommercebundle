@@ -1,0 +1,19 @@
+td = order.email
+td = order.first_name
+td = order.last_name
+td = order.mobile_number
+td = order.status.try(:capitalize)
+td = humanized_money_with_symbol order.total_price
+td = local_date(order.order_date, '%B %e, %Y')
+
+td = link_to 'Show', admin_order_path(order)
+th
+  - if order.status ==  'placed' && order.user.is_invoice
+     button.btn.btn-default#update_status value=order.id Create Invoice
+- if current_user.admin
+  td
+      = button_to edit_admin_order_path(order), class: "btn btn-primary", method: :get do
+          span.fa.fa-pencil
+  td
+      = button_to admin_order_path(order), class: "btn btn-primary",data: { confirm: 'Are you sure?' },method: :delete do
+                      span.fa.fa-trash

@@ -1,0 +1,24 @@
+.bootstrap.snippet.resp-mac-profile
+  br
+  .row.mt-115
+    .col-sm-10
+      h1 #{@group.name}
+      p#notice = notice
+
+  .row.wd400-mbl
+    .col-sm-12.col-md-12
+      ul#myTab.nav.nav-tabs.mb10
+        li.active
+          a data-toggle="tab" href="#information"  Information
+        li
+          a data-toggle="tab" href="#customer"  Customer
+        li
+          a data-toggle="tab" href="#price"  Pricing
+
+      .tab-content.mb20
+        #information.tab-pane.active
+          = render 'form'
+        #customer.tab-pane
+          = render 'admin/customer_groups/index', group: @group
+        #price.tab-pane
+          = render 'admin/group_products/index', group: @group

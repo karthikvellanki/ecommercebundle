@@ -1,0 +1,167 @@
+<!--FOOTER-->
+<%= stylesheet_link_tag "application-landing" %>
+<!--===============================================================-->
+
+<% unless request.referer == nil  %>
+	<% if request.referer.include? "supplier_categories"  %>
+		<footer class="page-footer font-small blue-grey lighten-5 mt-4">
+		  <div class="text-center text-md-left mt-5" style="background-color: #eee;">
+
+		    <!-- Grid row -->
+		    <div class="row mt-3 dark-grey-text">
+		      <!-- Grid column -->
+		      <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+		      </div>
+			      <!-- Grid column -->
+			        <div class="col-md-offset-5 col-md-7 text-left" style="margin-top: 15px;">
+			      	   <span>Powered By&nbsp;&nbsp;<%= image_tag 'logo.png', width: '12%', height: '40px', class:"responsive-logo-footer" %>&nbsp;</span>
+			        </div>
+
+			         <div class="col-md-12"></div>
+
+			         <div class="col-md-offset-5 col-md-5 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4 text-left" style="margin-top: 15px;">
+				        <% url = request.url.split('/').last %>
+					    <% provider_id = Product.find(url).supplier_category.provider_id%>
+					    <% user = Provider.find(provider_id).user%>
+			        	<% if user.addresses.pluck(:line_1, :line_2, :city, :pincode).present?  %>
+					        <p>
+					          <i class="fa fa-home mr-3"></i>  <%= user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(', ') %>
+				        	</p>
+				        <% end %>
+			        	<% if user.email.present? %>
+					        <p>
+					          <i class="fa fa-envelope mr-3"></i> <%= user.email %>
+					        </p>
+				    	<% end %>
+			        	<% if user.mobile.present? %>
+					        <p>
+					          <i class="fa fa-phone mr-3"></i> <%= user.mobile %>
+					         </p>
+					    <% end %>
+			         </div>
+			      <!-- Grid column -->
+
+			    </div>
+		    <!-- Grid row -->
+			  <div class="footer-copyright text-center text-black-50 py-3" style="margin: 15px auto; padding-bottom: 20px; padding-right: 45px;">© Copyright 2018 Bundle. All Rights Reserved.
+			  </div>
+		  </div>
+		</footer>
+	<% else %>
+		<footer>
+			<% unless request.referer == nil %>
+				<% if @current_supplier.present? %>
+					<% if request.referer.include? @current_supplier.slug %>
+						<div class="contain-footer text-center">
+					    <br />
+					    <br />
+					    <br />
+					    <div class="contact-details"><span class="pr-23">Powered By&nbsp;<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>&nbsp;</span>
+					    <% provider = @current_supplier%>
+					    <% if !provider.blank? %>
+								<div class="contact-details" style="margin: 0 auto; display: flex;
+					    justify-content: center; width: 50%;height: auto;padding: 36px 36px 0;align-items: start;"><span class="pr-23" style="width: 60%; display: flex; justify-content: flex-end;"><%= image_tag 'icon-email.svg' if provider.user.email.present? %>&nbsp;&nbsp; <%= provider.user.email %></span> <span style="display: flex; width: 40%; align-items: start;"><%= image_tag 'icon-location.svg' if provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).present? %>&nbsp;&nbsp;<%= provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(' ') %></span></div></span>
+							<% end %>
+							<div style="margin-top: -10px;margin-bottom: 15px;"><span class="pr-23"><br><br><%= image_tag 'icon-phone.svg' if provider.present? && provider.user.addresses.pluck(:mobile).present?%>&nbsp;&nbsp;
+									<%= provider.user.addresses.pluck(:mobile).flatten.join(' ') if provider.present? %></span>
+							</div>
+							<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+						</div>
+					<% else %>
+						<div class="contain-footer text-center">
+
+					    <br />
+					    <br />
+					    <br />
+							<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>
+							<div class="contact-details"><span class="pr-23"><%= image_tag 'icon-email.svg', width: '1%' %>&nbsp;&nbsp;hello@orderbundle.com</span> <span><%= image_tag 'icon-phone.svg', width: '1%' %>&nbsp;&nbsp;(415) 742-9890</div></span>
+							<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+						</div>
+					<% end %>
+				<% else %>
+					<div class="contain-footer text-center">
+
+				    <br />
+				    <br />
+				    <br />
+						<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>
+						<div class="contact-details"><span class="pr-23"><%= image_tag 'icon-email.svg', width: '1%' %>&nbsp;&nbsp;hello@orderbundle.com</span> <span><%= image_tag 'icon-phone.svg', width: '1%' %>&nbsp;&nbsp;(415) 742-9890</div></span>
+						<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+					</div>
+				<% end %>
+			<% else %>
+				<div class="contain-footer text-center">
+
+			    <br />
+			    <br />
+			    <br />
+					<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>
+					<div class="contact-details"><span class="pr-23"><%= image_tag 'icon-email.svg', width: '1%' %>&nbsp;&nbsp;hello@orderbundle.com</span> <span><%= image_tag 'icon-phone.svg', width: '1%' %>&nbsp;&nbsp;(415) 742-9890</div></span>
+					<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+				</div>
+			<% end %>
+		</footer>
+	<% end %>
+<% else %>
+	<footer>
+		<% unless request.referer == nil %>
+			<% if @current_supplier.present? %>
+				<% if request.referer.include? @current_supplier.slug %>
+					<div class="contain-footer text-center">
+				    <br />
+				    <br />
+				    <br />
+				    <div class="contact-details"><span class="pr-23">Powered By&nbsp;<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>&nbsp;</span>
+				    <% provider = @current_supplier%>
+				    <% if !provider.blank? %>
+							<div class="contact-details" style="margin: 0 auto; display: flex;
+				    justify-content: center; width: 50%;height: auto;padding: 36px 36px 0;align-items: start;"><span class="pr-23" style="width: 60%; display: flex; justify-content: flex-end;"><%= image_tag 'icon-email.svg' if provider.user.email.present? %>&nbsp;&nbsp; <%= provider.user.email %></span> <span style="display: flex; width: 40%; align-items: start;"><%= image_tag 'icon-location.svg' if provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).present? %>&nbsp;&nbsp;<%= provider.user.addresses.pluck(:line_1, :line_2, :city, :pincode).flatten.join(' ') %></span></div></span>
+						<% end %>
+						<div style="margin-top: -10px;margin-bottom: 15px;"><span class="pr-23"><br><br><%= image_tag 'icon-phone.svg' if provider.present? && provider.user.addresses.pluck(:mobile).present?%>&nbsp;&nbsp;
+								<%= provider.user.addresses.pluck(:mobile).flatten.join(' ') if provider.present? %></span>
+						</div>
+						<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+					</div>
+				<% else %>
+					<div class="contain-footer text-center">
+						<% if current_page?(root_path) %>
+							<div class="btn btn-get-started pull-right" style="margin-right:25px"><a class="text-white" href="/stores"> Suppliers</a></div>
+						<% end %>
+				    <br />
+				    <br />
+				    <br />
+						<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>
+						<div class="contact-details"><span class="pr-23"><%= image_tag 'icon-email.svg', width: '1%' %>&nbsp;&nbsp;hello@orderbundle.com</span> <span><%= image_tag 'icon-phone.svg', width: '1%' %>&nbsp;&nbsp;(415) 742-9890</div></span>
+						<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+					</div>
+				<% end %>
+			<% else %>
+				<div class="contain-footer text-center">
+
+			    <br />
+			    <br />
+			    <br />
+					<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>
+					<div class="contact-details"><span class="pr-23"><%= image_tag 'icon-email.svg', width: '1%' %>&nbsp;&nbsp;hello@orderbundle.com</span> <span><%= image_tag 'icon-phone.svg', width: '1%' %>&nbsp;&nbsp;(415) 742-9890</div></span>
+					<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+				</div>
+			<% end %>
+		<% else %>
+			<div class="contain-footer text-center">
+
+		    <br />
+		    <br />
+		    <br />
+				<%= image_tag 'logo.png', width: '7%', class: 'footer-logo' %>
+				<div class="contact-details"><span class="pr-23"><%= image_tag 'icon-email.svg', width: '1%' %>&nbsp;&nbsp;hello@orderbundle.com</span> <span><%= image_tag 'icon-phone.svg', width: '1%' %>&nbsp;&nbsp;(415) 742-9890</div></span>
+				<div class="foot-text">Copyright 2018 Bundle. All Rights Reserved.</div>
+			</div>
+		<% end %>
+	</footer>
+<% end %>
+
+<a href="#" id="scrollToTop"><i class="fa fa-angle-up"></i></a>
+
+<script>
+	logged_in_user = <%= current_user.present? %>;
+</script>

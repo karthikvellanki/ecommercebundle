@@ -1,0 +1,33 @@
+.pl30.mt-115
+  h1 Order History
+.p30.m20.card-contain-supplier.w380
+  .row
+    .col-md-3.w350.mb-5px
+      input.inline.form-control#orders_search type="text" placeholder="Search Orders.."
+    .col-md-3.w280.mb-5px
+      input.inline.datepicker.form-control#start_date type="string"  placeholder="Start date"
+    .col-md-3.w280.mb-5px
+      input.inline.datepicker.form-control#end_date type="string" placeholder="End date"
+  .col-md-12.mt10
+    .col-md-3
+    .col-md-3
+  table.wdth-auto-mbl.table.table-hover.table-striped.product-border-top#orders_table
+    thead
+      tr
+        th Email
+        th First Name
+        th Last Name
+        th Mobile Number
+        th Status
+        th Order Total
+        th Order Date
+        th
+        th
+
+    tbody
+      = render 'table'
+  br
+  - if current_user.admin  
+    = link_to 'New Order', new_admin_order_path, class:"btn btn-default"
+= paginate @orders
+

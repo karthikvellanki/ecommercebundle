@@ -1,0 +1,27 @@
+= simple_form_for [:admin, current_user.provider] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :domain_name, label: "Domain Name"
+    - if current_user.admin
+      = f.input :ns1, label: "Namespace 1"
+      = f.input :ns2, label: "Namespace 2"
+      = f.input :ns3, label: "Namespace 3"
+      = f.input :ns4, label: "Namespace 4"
+    - elsif current_user.provider.ns1.present?
+      h3 Nameserver records
+      p
+        | ns1: #{current_user.provider.ns1}
+      p
+        | ns2: #{current_user.provider.ns2}
+      p
+        | ns3: #{current_user.provider.ns3}
+      p
+        | ns4: #{current_user.provider.ns4}
+    - else
+      h3 Nameserver records will be updated here soon.
+
+
+
+  .actions
+    = f.button :submit, value: "Update"

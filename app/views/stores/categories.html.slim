@@ -1,0 +1,103 @@
+.container-spacing
+	/ .row style="min-height: 55vh"
+	/ 	- if !provider.blank?
+	/ 		- @categories.uniq.each do |category|
+	/ 			- if Product.where(supplier_category_id: category.id).present?
+	/ 				a.col-xs-12.col-md-3.decorate_none href=  "/#{provider.slug}/products?product_type_filter=#{category.id}"
+	/ 			-else
+	/ 			  a.col-xs-12.col-md-3.decorate_none href=  "/#{provider.slug}/#{category.id}"
+	/ 			    .block.item-man
+	/ 			      .col-md-6
+	/ 			        = image_tag category.image, class:"image", style:"height:200px;width: 200px;min-height:200px;padding: 20px 20px 20px 5px;"
+	/ 			      .text-center.col-md-6
+	/ 			        h4.cat-title style="height:34px; color: #4A4A4A;	font-family: Lato;	font-size: 20px;	font-weight: bold;" #{category.name}
+
+	/ 	- else
+	/ 		- @categories.uniq.each do |category|
+	/ 		  a.col-xs-12.col-md-4.decorate_none href= products_path(product_type_filter: category.id )
+	/ 		    .block.item-man
+	/ 		      .col-md-6
+	/ 		        = image_tag category.image, class:"image", style:"height:200px;min-height:200px;padding: 20px 20px 20px 5px;"
+	/ 		      .text-center.col-md-6
+	/ 		        h4.cat-title style="height:34px; color: #4A4A4A;	font-family: Lato;	font-size: 20px;	font-weight: bold;" #{category.name}
+.revamp-category style="margin-top: -140px; min-height: 90vh;"
+
+	.container style="padding-left: 0; margin-left: 2%;"
+		.col-md-3 style="padding: 0;"
+			#category-list-tab.hide-mobile style="border: 1px solid #eee; border-top: 2px solid #F4A137; padding: 0;"
+	    		-@categories.uniq.each do |category|
+					ul style="list-style-type: none; padding-left: 0;"
+						.div class="dropdown"
+							li class="dropbtn" style="display: flex; width: 100%;"
+								span style="width: 97%; word-wrap: break-word; padding-right: 10px;"
+									| #{category.name}
+								- if category.children.present?
+									span
+										.fa.fa-caret-right
+							- if category.children.present?
+								.dropdown-content
+									.parent style="display: flex;"
+										- category.children.each do |a|
+											.child
+												- if a.products.present?
+													a href="/supplier_categories/#{a.id}/products" style="font-weight: bold; font-size: 15px;"   #{a.name}
+												- else
+													a href="/categories/#{provider.slug}/#{a.id}" style="font-weight: bold; font-size: 15px;"   #{a.name}
+												ul style="list-style-type: none; margin:0; padding: 0;"
+													- if a.children.present?
+														- a.children.each do |child|
+															li style="margin:0; padding: 0;"
+															- if child.products.present?
+																a href="supplier_categories/#{child.id}/products" #{child.name}
+															- else
+																a href="/categories/#{provider.slug}/#{child.id}" #{child.name}
+			#category-list.hide-on-desktop.collapse style="top: -360px; position: absolute; width: 80%; padding-left: 0;"
+				.nav-side-menu.override-sidenav style="background-color: #fff; padding: 10px;"
+
+				    -@categories.uniq.each do |category|
+						ul style="list-style-type: none; padding-left: 0;"
+							.div class="dropdown"
+								li class="dropbtn" style="display: flex; width: 100%;"
+									span style="width: 97%; word-wrap: break-word; padding-right: 10px;"
+										| #{category.name}
+									- if category.children.present?
+										span
+											.fa.fa-caret-down
+								- if category.children.present?
+									.dropdown-content
+										.parent style="display: flex;"
+											- category.children.each do |a|
+												.child
+													- if a.products.present?
+														a href="/supplier_categories/#{a.id}/products" style="font-weight: bold; font-size: 15px;"   #{a.name}
+													- else
+														a href="/categories/#{provider.slug}/#{a.id}" style="font-weight: bold; font-size: 15px;"   #{a.name}
+													ul style="list-style-type: none; margin:0; padding: 0;"
+														- if a.children.present?
+															- a.children.each do |child|
+																li style="margin:0; padding: 0;"
+																- if child.products.present?
+																	a href="supplier_categories/#{child.id}/products" #{child.name}
+																- else
+																	a href="/categories/#{provider.slug}/#{child.id}" #{child.name}
+
+
+
+		.col-md-9 style="display: flex;flex-wrap: wrap;"
+		    - if !provider.blank?
+			  	- @categories.uniq.each do |category|
+			  		- if Product.where(supplier_category_id: category.id).present?
+						    .feature-product-flex
+					   			a href="/supplier_categories/#{category.id}/products"
+							    	.feature-product-image
+							    		=image_tag category.image, width: "100%", height: "270px"
+							    	.feature-product-category-description
+							    		p style="margin-bottom: 0px; margin-top: 10px; font-size: 20px; text-decration: none;text-align:center; color: #444; font-weight: bold;"#{category.name}
+
+					- else
+							.feature-product-flex
+								a href="/categories/#{provider.slug}/#{category.id}"
+							    	.feature-product-image
+							    		=image_tag category.image, width: "100%", height: "270px"
+							    	.feature-product-category-description
+							    		p style="margin-bottom: 0px; margin-top: 10px;font-size: 20px; text-decration: none; text-align:center; color: #444; font-weight: bold;"#{category.name}

@@ -1,0 +1,11 @@
+= content_for :navbar do
+  = render "layouts/user_nav"
+
+= render :layout => "layouts/minimal" do
+  .main-content.dashboard-user.mt50 
+    ul.nav.navbar-nav
+      span#notice style="text-align:center;" #{notice} 
+    br
+    = yield
+
+= render partial: "layouts/dashboard_sidenav"

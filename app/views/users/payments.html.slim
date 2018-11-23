@@ -1,0 +1,30 @@
+.container
+  h1 Manage your payment methods
+  
+  div.row
+    .col-xs-12
+      button.btn.btn-primary onclick="linkHandler.open();return false;" Add Bank Account
+
+  div.row.hidden
+    h2 Your Bank Account
+    form.col-md-4.col-xs-12#bank_account
+      div.alert.alert-danger style="display:none;"
+      div.form-group
+        label for="account_number" Account Number
+        input.form-control#account_number type="number" placeholder="Account Number"
+      div.form-group
+        label for="routing_number" Routing Number
+        input.form-control#routing_number type="number" placeholder="Routing Number"
+      div.form-group
+        label for="name" Account Holder Name
+        input.form-control#name type="text" placeholder="Name"
+      div.form-group
+        label for="type" Account Type
+        select.form-control#type
+          option value="individual" Individual
+          option value="company" Company
+      div.form-group
+        button.btn.btn-primary#submit type="Submit" Submit
+
+= javascript_include_tag "stripe-bundle"
+= javascript_include_tag "https://cdn.plaid.com/link/v2/stable/link-initialize.js"

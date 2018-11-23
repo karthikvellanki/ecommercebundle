@@ -1,0 +1,11 @@
+= simple_form_for(@request_quote) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :product_name
+    = f.input :item_number
+    = f.input :description
+    = f.input :quantity
+
+  .form-actions
+    = f.button :submit

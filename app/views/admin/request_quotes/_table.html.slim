@@ -1,0 +1,59 @@
+- @request_quotes.each do |request_quote|
+  tr
+    td style="width:40%;" = request_quote.product_name
+    td = request_quote.item_number
+    td = request_quote.description
+    td = request_quote.quantity
+    td #{request_quote.user.name.blank? ? request_quote.user.email : request_quote.user.name}
+    td = request_quote.user.location.present? ? request_quote.user.location : "NA"
+    td 
+      - bids = SupplierBid.where(supplier_id: current_user.id, request_quote_id: request_quote.id)
+      span#price
+        - bids.each do |bid|
+          - if not bid.product.nil?
+            a href="#{product_url(bid.product)}" target="_window"
+              = humanized_money_with_symbol bid.price
+          - else
+            = humanized_money_with_symbol bid.price
+          br
+      br
+      button.btn.btn-modal class='#{bids.present? ? "btn-success" : "btn-default"}' data-id="#{request_quote.id}" style="font-size:12px;" #{bids.present? ? "Add" : "Submit"}
+
+div#modal-quote.modal.fade tabindex="-1" role="dialog"
+  div.modal-dialog role="document"
+    div.modal-content
+      div.modal-header
+        button.close type="button" data-dismiss="modal"
+          span &times;
+        h3.modal-title Select Product to Quote
+      div.modal-body
+        div.form-group
+          label#product-label for="product_id" Your Product
+          select.form-control#product_id name="product_id" style="width:100%;"
+            - if not @products.nil?
+              - @products.each do |product|
+                option value="#{product.id}" #{product.name}
+      div.modal-footer
+        button#submit.btn.btn-success type="button" Submit
+
+= javascript_include_tag "request-quote-bundle"
+javascript:
+  $(document).ready(function() {
+    $('#product_id').select2({
+      dropdownParent: $('#modal-quote'),
+      ajax: {
+        url: '/admin/products',
+        dataType: 'json',
+        processResults: function (data) {
+          $.map(data, function (obj) {
+            obj.text = obj.text || obj.name;
+            return obj;
+          });
+          return {
+            results: data
+          };
+        }
+        // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+      }
+    });
+  });

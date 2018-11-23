@@ -1,0 +1,33 @@
+section.contact-section.mt50
+  .container
+    .row
+      .col-lg-12.text-center
+        h2.section-heading Contact Us
+        i.fa.fa-envelope-o
+          .font-fix <a href="mailto:info@getthebundle.com">info@getthebundle.com</a> |&nbsp
+        i.fa.fa-phone
+          .font-fix  <a href="tel:4076559073">+14076559073</a>
+        h3.section-subheading.text-muted At bundle we are always happy to receive your messages and host conversations with our customers
+    .row
+      .col-lg-12
+        form#contactForm name="sentMessage"
+          .row
+            .col-md-6
+              .form-group
+                h4.text-muted What should we call you?
+                input#name.form-control data-validation-required-message=("Please enter your name.") placeholder=("Your Name ") required="" type="text" /
+                p.help-block.text-danger
+              .form-group
+                h4.text-muted How can we get back to you?
+                input#email.form-control data-validation-required-message=("Please enter your email address.") placeholder=("Enter your email address here,we promise to keep it safe") required="" type="email" /
+                p.help-block.text-danger
+              .form-group
+                h4.text-muted How can we be of help?
+                textarea#message.form-control data-validation-required-message=("Please enter a message.") placeholder=("Enter your query/concern/feedback/moment of joy") required=""
+                p.help-block.text-danger
+                br
+                button.btn.sign.btn-block#contact_submit_button Send Message <span class="glyphicon glyphicon-send"></span>
+                br
+                br
+            .col-md-6
+              #map

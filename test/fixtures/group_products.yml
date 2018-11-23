@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price_cents: 1
+  sku: MyString
+  product: one
+  group: one
+
+two:
+  price_cents: 1
+  sku: MyString
+  product: two
+  group: two

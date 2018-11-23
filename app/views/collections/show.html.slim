@@ -1,0 +1,32 @@
+p#notice = notice
+
+- if not @collection.picture.nil?
+  = image_tag @collection.picture.picture_file, style: "max-width:200px;", class: "pull-right"
+h2 = @collection.name
+p = @collection.description
+
+br
+br
+
+table.table.table-bordered.table-striped.col-md-12#inventories_table
+  thead
+    tr
+      th Name
+      th Image
+      th Category
+      th Quantity
+      th View
+      th Edit
+      th Destroy
+      th Inventory
+
+  tbody
+    = render 'inventories/table'
+
+.col-md-12 
+  br
+  br
+  br
+  = link_to 'Edit', edit_collection_path(@collection)
+  '|
+  = link_to 'Back', collections_path

@@ -1,0 +1,7 @@
+- @group.customer_groups.each do |customer|
+	tr id="customer-#{customer.id}"
+		td.w10 = check_box_tag 'customer_ids[]', customer.id, false, :id => "customer-#{customer.id}", class: "delete-checkbox"
+		td = customer.user.try(:name)
+		td = customer.user.try(:email)
+		td = customer.user.try(:company)
+		

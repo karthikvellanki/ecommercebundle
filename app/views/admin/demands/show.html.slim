@@ -1,0 +1,15 @@
+p#notice = notice
+.p30
+  .col-md-6
+    table.table.table-striped
+      tbody
+        tr
+          td Qty
+          td = @demand.qty
+        tr
+          td Aggregation round:
+          td = @demand.aggregation_round.id
+
+    = link_to 'Edit', edit_admin_demand_path(@demand), class:"btn btn-default"
+    | &nbsp;
+    = link_to 'Back', admin_demands_path, class:"btn btn-default"

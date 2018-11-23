@@ -1,0 +1,14 @@
+.mlr120 style="min-height: 55vh"
+  .col-md-12.mar-tp-100 style="margin-top: 20px;"
+    p style="	font-family: Lato;font-size: 20px;font-weight: bold; padding-left: 17px;"
+    - @stores.each do |store|
+      a.col-xs-12.col-md-3.decorate_none href= "/#{store.slug}"
+        .block.item-man
+          .col-md-6
+            = image_tag store.image, class:"image", style:"height:180px;width: 170px;min-height:200px;padding: 20px 20px 20px 5px;"
+          .text-center.col-md-6
+            h4 style="height:34px; text-transform: uppercase; letter-spacing: 0; font-family: Lato; font-weight: bold; color: #4A4A4A;font-size: 20px;line-height: 1.1; margin: 83px auto 0 auto; word-wrap: break-word;" #{store.name}
+
+= render "products/request_quote_modal"
+
+/ stores_products_path(provider_id: store.id)

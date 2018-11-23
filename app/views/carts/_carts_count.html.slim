@@ -1,0 +1,5 @@
+.div style="position: relative"
+	=image_tag "Shopping cart.png", width: "33px", height: "35px", data: { toggle: 'modal', target: '#modal-login' }
+.div style="position: absolute; right: 18%; bottom: 10px; "
+	- if session[:cart].present?
+		p style="border-radius: 50%; background-color: #F4A137; color: #fff; padding: 2px 4px; border: 2px solid #FFF;" #{session[:cart].count}

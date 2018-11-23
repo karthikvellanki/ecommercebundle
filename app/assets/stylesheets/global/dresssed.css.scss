@@ -1,0 +1,335 @@
+// Dresssed Theme config file
+// ==========================
+@import "dresssed/colors";
+
+
+// To get started customizing, comment out this line...
+@import "dresssed/styles/defaults";
+
+// STYLE
+// -----
+// Comment out these lines if customizing
+@import "dresssed/styles/blue";
+// @import "dresssed/styles/black";
+// @import "dresssed/styles/white";
+// @import "dresssed/styles/amber";
+
+
+// And uncomment all of the following:
+
+// // Default style variables
+// // Variables to customize the look and feel of Bootstrap
+// // -----------------------------------------------------
+
+// // GLOBAL VALUES
+// // --------------------------------------------------
+
+// // Colors
+// $altTextColor:          #fff;
+// $altBackgroundColor:    #2866AA;
+
+// $inverse-base: #2C323B;
+
+// // Links
+// $link-color:             #08c;
+// $link-color-hover:        darken($link-color, 15%);
+
+// // States
+
+// $primary: $altBackgroundColor;
+// $warning: color($orange, 900);
+// $danger:  color($red, 900);
+// $success: color($green, 'a700');
+// $info:    color($light-blue, 400);
+
+// $brand-primary: $primary;
+// $brand-success: $success;
+// $brand-info:    $info;
+// $brand-warning: $warning;
+// $brand-danger:  $danger;
+
+// $white: #fff;
+
+// // Typography
+// $font-size-base:        16px;
+// $padding-base-vertical: 6px;
+
+// $font-family-sans-serif:        "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+// $font-family-sans-serif-light:  "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+// $font-family-serif:             "Avenir", "Lato", Arial, Helvetica, sans-serif;
+// $font-family-monospace:         "Andale Mono", "Lucida Console", monospace;
+
+// $line-height-base:        (21/13);
+// $line-height-computed:    floor(($font-size-base * $line-height-base));
+
+// $input-height-base:       ($line-height-computed + ($padding-base-vertical * 2) + 2);
+
+// // Buttons
+// $primaryButtonBackground:     $altBackgroundColor;
+// $primaryButtonText:           $altTextColor;
+// $callToActionBackgroundColor: $altBackgroundColor;
+// $callToActionTextColor:       $altTextColor;
+// $buttonBorderRadius:          4px;
+// $largeButtonBorderRadius:     $buttonBorderRadius;
+// $buttonTransparentBorder:     rgba(0, 0, 0, 0.35);
+
+
+// // COMPONENT VARIABLES
+// // --------------------------------------------------
+
+// // Z-index master list
+// // Used for a bird's eye view of components dependent on the z-axis
+// // Try to avoid customizing these :)
+// $zindexDropdown:          1000;
+// $zindexPopover:           1010;
+// $zindexTooltip:           1020;
+// $zindexFixedNavbar:       1030;
+// $zindexModalBackdrop:     1040;
+// $zindexModal:             1050;
+
+// // Input placeholder text color
+// $placeholderText:         color($grey, 300);
+
+// // Hr border color
+// $hrBorder:                color($grey, 100);
+
+
+// $navbar-height: 55px;
+// $navBorderRadius: 2px;
+// $generalBorderRadius: 2px;
+
+
+// // Form states and alerts
+// $warningText:             color($orange, 400);
+// $warningBackground:       color($orange, 900);
+// $warningBorder:           darken(adjust-hue($warningBackground, -10), 3%);
+
+// $errorText:               color($red, 400);
+// $errorBackground:         color($red, 900);
+// $errorBorder:             darken(adjust-hue($errorBackground, -10), 3%);
+
+// $successText:             color($green, 400);
+// $successBackground:       color($green, 'a700');
+// $successBorder:           darken(adjust-hue($successBackground, -10), 5%);
+
+// $infoText:                color($light-blue, 400);
+// $infoBackground:          color($light-blue, 900);
+// $infoBorder:              darken(adjust-hue($infoBackground, -10), 7%);
+
+// $primaryText:                #3a87ad;
+// $primaryBackground:          #d9edf7;
+// $primaryBorder:              darken(adjust-hue($primaryBackground, -10), 7%);
+
+// // Side Nav
+// $side-nav-width: 250px;
+// $sub-menu-item-height: 40px;
+// $side-nav-menu-background-color: #192227;
+// $side-nav-text-color: color($light-blue, 400);
+// $side-nav-menu-item-background-color: #3D4857;
+// $side-nav-menu-item-color: desaturate($brand-primary, 40%);
+// $side-nav-header-bg-color: #23282e;
+// $side-nav-header-bg-link-color: $brand-primary;
+
+// // Typography
+// $text-color:            desaturate(darken($brand-primary, 25%), 40%);
+// $quietColor:            #A6BDC5;
+// $altTextColor:          #1FAFE7;
+// $altBackgroundColor:    #d0ab5f;
+
+// // Backgrounds
+// $backgroundColor:       color($blue-grey, 50);
+// $footerBackgroundColor: #16333f;
+// $activeBackgroundColor: darken($backgroundColor, 5%);
+
+// // Links
+// $link-color:             color($light-blue, 500);
+// $link-color-hover:       color($light-blue, 300);
+
+// // Buttons
+// $buttonTransparentBorder:     rgba(8, 23, 28, 0.35);
+
+// // COMPONENT VARIABLES
+// // --------------------------------------------------
+
+// // Input placeholder text color
+// $placeholderText:         color($blue-grey, 300);
+
+// // Navbar links
+// $navbar-default-link-color:                lighten($brand-primary, 25%);
+// $navbar-default-link-hover-color:          lighten($brand-primary, 45%);
+// $navbar-default-link-hover-bg:             transparent !default;
+// $navbar-default-link-active-color:         lighten($brand-primary, 45%);
+// $navbar-default-link-active-bg:            darken($brand-primary, 6.5%);
+// $navbar-default-link-disabled-color:       #ccc !default;
+// $navbar-default-link-disabled-bg:          transparent !default;
+
+// $dropdown-caret-color: lighten($brand-primary, 25%);
+
+// // Borders
+// $dividerColor:            #dae8ec;
+// $borderColor:             #cbdcde;
+
+// // Header
+// $headerColor:             #16333f;
+// $featuredHeaderColor:     #d9f0f9;
+
+
+
+
+// RULES
+// -----
+// You can optionally remove some imports to end up with a tidier file. But keep in mind some
+// rules in a file might depend on rules in another one.
+
+// Import Bootstrap rules using your variables.
+// CSS Reset
+// Core variables and mixins
+@import "twitter/bootstrap/variables";
+@import "twitter/bootstrap/mixins";
+
+// Reset and dependencies
+@import "twitter/bootstrap/normalize";
+@import "twitter/bootstrap/print";
+@import "twitter/bootstrap/glyphicons";
+
+// Core CSS
+@import "twitter/bootstrap/scaffolding";
+@import "twitter/bootstrap/type";
+@import "twitter/bootstrap/code";
+@import "twitter/bootstrap/grid";
+@import "twitter/bootstrap/tables";
+@import "twitter/bootstrap/forms";
+@import "twitter/bootstrap/buttons";
+
+// Components
+@import "twitter/bootstrap/component-animations";
+@import "twitter/bootstrap/dropdowns";
+@import "twitter/bootstrap/button-groups";
+@import "twitter/bootstrap/input-groups";
+@import "twitter/bootstrap/navs";
+@import "twitter/bootstrap/navbar";
+@import "twitter/bootstrap/breadcrumbs";
+@import "twitter/bootstrap/pagination";
+@import "twitter/bootstrap/pager";
+@import "twitter/bootstrap/labels";
+@import "twitter/bootstrap/badges";
+@import "twitter/bootstrap/jumbotron";
+@import "twitter/bootstrap/thumbnails";
+@import "twitter/bootstrap/alerts";
+@import "twitter/bootstrap/progress-bars";
+@import "twitter/bootstrap/media";
+@import "twitter/bootstrap/list-group";
+@import "twitter/bootstrap/panels";
+@import "twitter/bootstrap/responsive-embed";
+@import "twitter/bootstrap/wells";
+@import "twitter/bootstrap/close";
+
+// Components w/ JavaScript
+@import "twitter/bootstrap/modals";
+@import "twitter/bootstrap/tooltip";
+@import "twitter/bootstrap/popovers";
+@import "twitter/bootstrap/carousel";
+
+// Utility classes
+@import "twitter/bootstrap/utilities";
+@import "twitter/bootstrap/responsive-utilities";
+
+// Font Awesome
+@import "font_awesome/font-awesome";
+
+// Import Dresssed rules.
+@import "dresssed/mixins";
+
+// Page structure
+@import "dresssed/layouts";
+@import "dresssed/header";
+@import "dresssed/featured";
+@import "dresssed/banner";
+@import "dresssed/pricing";
+@import "dresssed/footer";
+
+// Base CSS
+@import "dresssed/type";
+@import "dresssed/tables";
+@import "dresssed/code";
+@import "dresssed/forms";
+@import "dresssed/addons";
+
+// Buttons
+@import "dresssed/buttons";
+@import "dresssed/button-groups";
+
+// Navs
+@import "dresssed/navs";
+@import "dresssed/navs/tabs";
+@import "dresssed/navs/pills";
+@import "dresssed/navs/stacked-tabs";
+@import "dresssed/navs/stacked-pills";
+@import "dresssed/navs/tabbable";
+@import "dresssed/breadcrumbs";
+@import "dresssed/list-groups";
+
+// Misc navs
+@import "dresssed/navbar";
+@import "dresssed/sidenav";
+@import "dresssed/pagination";
+@import "dresssed/pager";
+
+// Misc components
+@import "dresssed/tooltip";
+@import "dresssed/alerts";
+@import "dresssed/dropdowns";
+@import "dresssed/checkboxes";
+@import "dresssed/wells";
+@import "dresssed/sheets";
+@import "dresssed/labels";
+@import "dresssed/thumbnails";
+@import "dresssed/jumbotron";
+@import "dresssed/panels";
+@import "dresssed/progress-bars";
+@import "dresssed/modals";
+@import "dresssed/sprites";
+@import "dresssed/extensions";
+@import "dresssed/switch";
+@import "dresssed/devise";
+@import "dresssed/simple_animations";
+@import "dresssed/font-awesome-icons";
+@import "dresssed/rickshaw";
+@import "dresssed/morris";
+@import "dresssed/metrics";
+@import "dresssed/loaders";
+
+// App Pages
+@import "dresssed/app_pages/user-settings";
+@import "dresssed/app_pages/timeline";
+@import "dresssed/app_pages/user-profile";
+@import "dresssed/landing_pages";
+@import "dresssed/blog";
+
+// Ionicons
+@import "ionicons/ionicons";
+
+// Material Design Icons
+@import "mdiicons/icons-material-design";
+
+
+// CUSTOM RULES
+// ------------
+// Optionally override any rule here. Or do so in another file.
+// ...
+
+// Uncomment to change the logo and its size in the left corner of the top navbar.
+/* .navbar-brand {
+  background-image: url('logo.png');
+  width: 105px;
+  height: 24px;
+}
+*/
+
+// If you don't have a logo yet and prefer to use text instead, uncomment this one:
+/* .navbar-brand {
+  background-image: none;
+  text-indent: 0;
+  width: auto;
+}
+*/

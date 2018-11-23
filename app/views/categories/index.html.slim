@@ -1,0 +1,23 @@
+.container
+  .row.mt30.mb30.text-center style="min-height: 55vh"
+    - if !provider.blank?
+      - @categories.each do |category|
+        a.col-xs-12.col-md-4.decorate_none href= "/products?product_type_filter=#{category.id}"
+  				.block.item-man
+  					.col-md-6
+  						= image_tag category.image, class:"image", style:"height:200px;width: 190px;padding: 20px 20px 20px 5px;"
+  					.text-center.col-md-6
+  						h4.cat-title style="height:34px;" #{category.name}
+    - else
+      - @categories.each do |category|
+        a.col-xs-12.col-md-4.decorate_none href= products_path(product_type_filter: category.id )
+          .block.item-man
+            .col-md-6
+              = image_tag category.image, class:"image", style:"width: 190px;height:200px;padding: 20px 20px 20px 5px;"
+            .text-center.col-md-6
+              h4.cat-title style="height:34px; color: #4A4A4A;	font-family: Lato;	font-size: 20px;	font-weight: bold;" #{category.name}
+
+
+
+
+/ = image_tag category.image, class:"image", style:"height:200px;min-height:200px;"

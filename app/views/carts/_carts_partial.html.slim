@@ -1,0 +1,18 @@
+a href="/carts" style="text-decoration: none; color: #333; padding: 0;"
+	span.title My cart
+	- cart = Cart.find_by(user_id: current_user.id).try(:cart_items)
+	- if cart.present?
+		p.text-shopping-cart.cart-total-full #{cart.count} item(s) - #{cart.pluck(:price_cents).sum  / 100}
+
+
+
+/ - unless request.url.include? 'supplier_categories'
+/ 	a href="/carts/" style="position: relative"
+/ 	  span = image_tag 'cart.svg', width: '22px'
+/ 	  span.navbar_button_text&nbsp; Cart
+/ 	.div style="position: absolute; border-radius: 50%; width: 18px; text-align: center; font-size: 13px; top: 6px; left: 23px; background-color: #E95656; color: #ffffff;"
+/ 		-cart_count = Cart.find_by(user_id: current_user.id).try(:cart_items).try(:count)
+/ 		- if cart_count.present?
+/ 			| #{cart_count}
+/ 		- else
+/ 			= cart_count

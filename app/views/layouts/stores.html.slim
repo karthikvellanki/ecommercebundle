@@ -1,0 +1,13 @@
+= render :layout => "layouts/visitor" do
+  = javascript_include_tag "application-landing"
+  = render "layouts/stores_nav"
+  div.landing-notice
+    = render "layouts/flashes"
+
+
+
+
+
+
+  = yield
+  = render "layouts/stores_footer"

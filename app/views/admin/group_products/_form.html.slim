@@ -1,0 +1,10 @@
+= simple_form_for [:admin, @group_product] do |f|
+  = f.error_notification
+
+  .form-inputs
+  	= f.input :product_id, as: :select, collection: current_user.provider.products.map {|u| [u.name, u.id]}
+    = f.input :sku
+    = f.input :price, label: "Group price"
+
+  .form-actions
+    = f.button :submit

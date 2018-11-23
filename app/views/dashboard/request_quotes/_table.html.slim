@@ -1,0 +1,13 @@
+- @request_quotes.each do |request_quote|
+  tr
+    td style="width:50%;" = request_quote.product_name
+    td = request_quote.item_number
+    td = request_quote.description
+    td = request_quote.quantity
+    td = link_to "view(#{request_quote.supplier_bids.count})", dashboard_request_quote_path(request_quote)
+    td
+    	= button_to dashboard_request_quote_path(request_quote), class: "btn btn-primary",data: { confirm: 'Are you sure?' },method: :delete do
+	        span.fa.fa-trash
+    
+
+    

@@ -1,0 +1,26 @@
+.pl30.mt-115
+  h1 Customer groups
+
+.card-contain-user.w300
+  .row.position-fxt-only
+    .col-md-4.col-md-offset-4.text-right
+      = link_to 'Create Groups',new_admin_group_path, class:"btn btn-default"
+    .col-md-4.text-center
+      = form_tag destroy_multiple_admin_groups_path, method: :delete do
+	        input.hidden#group_id type="text" name="group_ids" value="[]"
+	        = submit_tag 'Delete Group',id: "delete-multiple-group", class:"btn btn-default resp-deletebtn w251-mbl"
+    	
+  br
+  div
+    table.wdth-auto-mbl.table.table-hover.table-striped.col-md-12.product-border-top cellpadding="10"
+      thead
+        tr
+					th
+					th Name
+
+      tbody
+      	- if @groups.present?
+	        - @groups.each do |group|
+			      tr id="group-#{group.id}" 
+			      	td.w10 = check_box_tag 'group_ids[]', group.id, false, :id => "group_#{group.id}", class: "delete-checkbox"
+			        td = link_to "#{group.try(:name)}", admin_group_path(group)

@@ -1,0 +1,27 @@
+h1 Listing request_quotes
+
+table
+  thead
+    tr
+      th Product name
+      th Item number
+      th Description
+      th Quantity
+      th
+      th
+      th
+
+  tbody
+    - @request_quotes.each do |request_quote|
+      tr
+        td = request_quote.product_name
+        td = request_quote.item_number
+        td = request_quote.description
+        td = request_quote.quantity
+        td = link_to 'Show', request_quote
+        td = link_to 'Edit', edit_request_quote_path(request_quote)
+        td = link_to 'Destroy', request_quote, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Request quote', new_request_quote_path

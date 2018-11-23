@@ -1,0 +1,23 @@
+h1 Listing supplier_categories
+
+table
+  thead
+    tr
+      th Name
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @supplier_categories.each do |supplier_category|
+      tr
+        td = supplier_category.name
+        td = supplier_category.description
+        td = link_to 'Show', supplier_category
+        td = link_to 'Edit', edit_supplier_category_path(supplier_category)
+        td = link_to 'Destroy', supplier_category, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Supplier category', new_supplier_category_path

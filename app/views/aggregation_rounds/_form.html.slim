@@ -1,0 +1,11 @@
+= simple_form_for(@aggregation_round) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :start_date
+    = f.input :end_date
+    = f.input :qty_limit
+    = f.association :product
+
+  .form-actions
+    = f.button :submit

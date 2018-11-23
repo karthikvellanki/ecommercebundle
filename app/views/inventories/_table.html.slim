@@ -1,0 +1,50 @@
+- @inventories.each do |inventory|
+  tr id="inventory-#{inventory.id}" 
+    td.w10 = check_box_tag 'inventory_ids[]', inventory.id, false, :id => "inventory_#{inventory.id}", class: "delete-checkbox"
+    td = link_to inventory.name, edit_inventory_url(inventory), style:"white-space:normal;max-width:300px;"
+    td = inventory.product.sku
+    td 
+      = link_to edit_inventory_url(inventory)
+        = humanized_money_with_symbol inventory.price
+        i.glyphicon.glyphicon-pencil style="color:#888;margin-left:5px;"
+
+    td
+      span#quantity = inventory.quantity 
+      |  / 
+      span#capacity = inventory.capacity
+      a.btn-modal.glyphicon.glyphicon-pencil href="#" style="color:#888;margin-left:5px;" threshold="#{inventory.threshold}" capacity="#{inventory.capacity}" quantity="#{inventory.quantity}" inventory-id="#{inventory.id}" 
+    td
+        
+        - cart_quantity = inventory.cart_quantity(current_user)
+        input.text-center#input-quantity name="quantity" type="number" value="#{cart_quantity>0?cart_quantity:0}" min="0" style="width:75px;margin-right:10px;" 
+        button.btn.btn-default style="font-size:12px;" onclick="fill_to_par(#{inventory.id});return false;"
+          | Fill to Par
+        button.btn#add_to_cart type="submit" style="margin-left:10px;font-size:12px;" onclick="add_to_cart(#{inventory.id},#{inventory.product.id});return false;" class='#{cart_quantity>0?"btn-success":"btn-default"}'
+          = image_tag asset_path('loading.gif') , :width => "30", style: "display:none;", id: "icon-working"
+          i.glyphicon.glyphicon-ok#icon-ok style='#{cart_quantity>0?"":"display:none;"}'
+          | Add to Cart
+  
+    /!td = link_to 'Edit', edit_inventory_path(inventory)
+    /!td = link_to 'Delete', inventory, data: { confirm: 'Are you sure?' }, method: :delete
+
+div#modal-inventory.modal.fade tabindex="-1" role="dialog"
+  div.modal-dialog role="document"
+    div.modal-content
+      div.modal-header
+        button.close type="button" data-dismiss="modal"
+          span &times;
+        h3.modal-title Manage Inventory
+      div.modal-body
+        div.form-group
+          label#quantity-label for="quantity" Quantity on hand
+          input.form-control type="number" id="quantity" placeholder="Quantity" min="0"
+        div.form-group
+          label#capacity-label for="capacity" Par Level
+          input.form-control type="number" id="capacity" placeholder="Capacity"
+        div.form-group.hidden
+          label#threshold-label for="threshold" Threshold
+          input.form-control type="number" id="threshold" placeholder="Threshold"
+      div.modal-footer
+        button#submit.btn.btn-success type="button" Save
+
+= javascript_include_tag "inventory-bundle"

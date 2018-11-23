@@ -1,0 +1,39 @@
+.pl30.mt-115
+  h1  #{current_user.admin ? "" : "Profile"}
+.container.bootstrap.snippet.resp-mac-profile
+  br
+  .row
+    .col-sm-10
+      h1 Hello #{@provider.name}
+    / .col-sm-2
+    /     =image_tag @provider.avatar.url, class:"img-circle img-responsive pull-right"
+  .row
+    /! /col-3
+    .col-sm-12.col-md-12
+      ul#myTab1.nav.nav-tabs.mb10
+        - if session[:tab] == nil
+          li.active
+            a data-toggle="tab" href="#home"  Your profile
+        - else
+          li
+            a data-toggle="tab" href="#home"  Your profile
+        - if session[:tab].present? && session[:tab] == 'pass-reg'
+          li.active
+            a data-toggle="tab" href="#update_pwd"  Password
+        -else
+          li
+            a data-toggle="tab" href="#update_pwd"  Password
+
+      .tab-content.mb20
+        - if session[:tab] == nil
+          #home.tab-pane.active
+            = render 'form'
+        - else
+          #home.tab-pane
+            = render 'form'
+        - if session[:tab].present? && session[:tab] == 'pass-reg'
+          #update_pwd.tab-pane.active
+            = render 'update_pwd_form'
+        - else
+          #update_pwd.tab-pane
+            = render 'update_pwd_form'

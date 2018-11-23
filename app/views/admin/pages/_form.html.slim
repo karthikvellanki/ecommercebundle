@@ -1,0 +1,17 @@
+.mt-115
+	= simple_form_for [:admin, @page]  do |f|
+	  = f.error_notification
+	  .col-md-12.text-right.mt50
+		  .form-actions
+		    = f.button :submit, "Save"
+	  
+	  .form-inputs#pages
+	  	.col-md-6
+	    	= f.input :title
+	   	.col-md-6
+	   		 = f.input :url, label: "URL redirect"
+	   	.col-md-12
+	   		label Content
+	    	= f.trix_editor :content
+	    = f.association :provider, :input_html => { :value => "#{current_user.provider.id}" }, :as => :hidden
+

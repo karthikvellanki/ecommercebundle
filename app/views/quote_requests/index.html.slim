@@ -1,0 +1,27 @@
+h1 Listing quote_requests
+
+table
+  thead
+    tr
+      th Name
+      th Email
+      th Mobile number
+      th Category
+      th
+      th
+      th
+
+  tbody
+    - @quote_requests.each do |quote_request|
+      tr
+        td = quote_request.name
+        td = quote_request.email
+        td = quote_request.mobile_number
+        td = quote_request.category
+        td = link_to 'Show', quote_request
+        td = link_to 'Edit', edit_quote_request_path(quote_request)
+        td = link_to 'Destroy', quote_request, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Quote request', new_quote_request_path

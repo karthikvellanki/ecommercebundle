@@ -1,0 +1,28 @@
+.p30.mt-115
+  h1 Listing aggregation_rounds
+
+  table.table.product-border-top
+    thead
+      tr
+        th Start date
+        th End date
+        th Qty limit
+        th Product
+        th
+        th
+        th
+
+    tbody
+      - @aggregation_rounds.each do |aggregation_round|
+        tr
+          td = aggregation_round.start_date
+          td = aggregation_round.end_date
+          td = aggregation_round.qty_limit
+          td = aggregation_round.product.name
+          td = link_to 'Show', admin_aggregation_round_path(aggregation_round)
+          td = link_to 'Edit', edit_admin_aggregation_round_path(aggregation_round), class:"btn btn-default"
+          td = link_to 'Destroy', admin_aggregation_round_path(aggregation_round), data: { confirm: 'Are you sure?' }, method: :delete, class:"btn btn-default"
+
+  br
+
+  = link_to 'New Aggregation round', new_admin_aggregation_round_path, class:"btn btn-default"

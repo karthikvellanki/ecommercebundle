@@ -1,0 +1,30 @@
+.p30.mt-115.w300.content-wdth-mbl
+  h1 Listing categories
+
+  table.wdth-category-mbl.table.product-border-top
+    thead
+      tr
+        th Name
+        th Description
+        th
+        th
+        th
+
+    tbody
+      - @categories.each do |category|
+        tr
+          td = category.name
+          td = category.description
+          td = category.image
+          td = link_to 'Show', admin_category_path(category)
+          td
+             = button_to edit_admin_category_path(category), class: "btn btn-primary", method: :get  do
+               span.fa.fa-pencil
+          td 
+             = button_to admin_category_path(category), class: "btn btn-primary",data: { confirm: 'Are you sure?' },method: :delete do 
+                                                  span.fa.fa-trash
+  br
+
+  = link_to 'New Category', new_admin_category_path,class:"btn btn-default"
+
+

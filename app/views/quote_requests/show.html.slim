@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @quote_request.name
+p
+  strong Email:
+  = @quote_request.email
+p
+  strong Mobile number:
+  = @quote_request.mobile_number
+p
+  strong Category:
+  = @quote_request.category
+p
+  strong Category:
+  = @quote_request.upload_file  
+
+= link_to 'Edit', edit_quote_request_path(@quote_request)
+'  |
+= link_to 'Back', quote_requests_path

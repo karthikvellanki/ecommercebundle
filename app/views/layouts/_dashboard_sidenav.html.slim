@@ -1,0 +1,69 @@
+.js-navbar-collapse.collapse.navbar-collapse.hidden-md-up#dashboard_side_navbar
+	.nav-side-menu.override-sidenav.dashboard-user.position-rel-style
+	  .text-center style="margin-top: 6px;"
+	  ul.nav#nav_border_btm style="margin-top: 100px;"
+
+	    li
+	      a href="#{profile_dashboard_users_path}"
+	        = image_tag 'profile.svg', width: '8%'
+	        span &nbsp;&nbsp;&nbsp;
+	        | Profile
+	    li.hidden
+	      a href="#{dashboard_collections_path}"
+	        = image_tag 'my-products.svg', width: '8%'
+	        span &nbsp;&nbsp;;&nbsp;
+	        | Categories
+	    li
+	      a href="#{dashboard_inventories_path}"
+	        = image_tag 'my-products.svg', width: '8%'
+	        span &nbsp;&nbsp;&nbsp;
+	        | My Products
+	    li
+	      a href="#{orders_path}"
+	        = image_tag 'orders.svg', width: '8%'
+	        span &nbsp;&nbsp;&nbsp;
+	        | Orders
+	    li
+	      a href="#{dashboard_request_quotes_path}"
+	        = image_tag 'requests.svg', width: '8%'
+	        span &nbsp;&nbsp;&nbsp;
+	        | Requests
+	    li
+	      a href="#{invoices_path}"
+	        = image_tag 'invoices.svg', width: '8%'
+	        span &nbsp;&nbsp;&nbsp;
+	        | Invoices
+	  
+
+			- if current_user.present?
+        li.hidden.hide-on-admin-desktop
+          a.navbar_button href="/dashboard/products"
+              span.navbar_button_text.white DASHBOARD
+        li.cat.hidden.hide-on-admin-desktop
+          a href="#{categories_path}" CATEGORIES
+        li.cat.hidden.hide-on-admin-desktop
+          a href="#{products_path}" PRODUCTS
+        li.cat.hidden.hide-on-admin-desktop
+          a href="/credentials" VENDORS
+
+        li.cat
+          a.chk-out-user.btn.btn-clr-resp.hide-on-admin-desktop href="/stores" Catalog
+        li.cat
+          a.chk-out-user.mb-5px.btn.btn-clr-resp.hide-on-admin-desktop href="/carts" Checkout
+
+        / li.checkout-user.mb-5px.hide-on-admin-desktop
+        /   /a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+        /   a.chk-out-user.btn-clr-resp.btn href="/carts/"
+        /     |Checkout
+        /     span &nbsp &nbsp
+        /     span.fa.fa-shopping-cart
+
+
+          ul.dropdown-menu role="menu" style="width: 350px"
+            li
+              = render 'carts/carts_nav'
+	    - if current_user.present?
+	    	li
+	      	= link_to 'Logout', destroy_user_session_path, :method => :delete, class:"btn hide-on-admin-desktop w231-btn btn-clr-resp mb-5px"
+	    - else
+	      = link_to 'Sign In', new_user_session_path,class:"btn btn-clr-resp"

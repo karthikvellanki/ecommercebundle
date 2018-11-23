@@ -1,0 +1,13 @@
+= simple_form_for(@collection) do |f|
+  = f.error_notification
+
+  .form-inputs
+  = f.input :name
+  = f.label :description, "Description"
+  = f.text_area :description, style: "background:white;border:1px solid #ccc;"
+  = f.fields_for :picture do |pf|
+    = pf.input :picture_file
+    - if @collection.picture.present? and @collection.picture.picture_file.file?
+      = image_tag @collection.picture.picture_file
+  .form-actions
+    = f.button :submit

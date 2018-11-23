@@ -1,0 +1,13 @@
+= simple_form_for [:admin, current_user.provider] do |f|
+  = f.error_notification
+  
+  .form-inputs
+    = f.input :name
+    = f.input :image
+    = image_tag current_user.provider.image, width: 50
+    br
+    - if current_user.admin
+      = f.input :user_id 
+
+  .actions
+    = f.button :submit, value: current_user.admin ? "Update provider" : "Update Profile"

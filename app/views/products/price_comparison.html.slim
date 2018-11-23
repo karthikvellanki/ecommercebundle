@@ -1,0 +1,17 @@
+- @results.each do |r|
+  - result = r.result
+  div.row 
+    div.col-md-6
+      =image_tag result[0]["image_url"] , style: "max-width:175px"
+    div.col-md-4
+      - if result[1]
+        =link_to result[4], target: :_blank
+          span $ #{result[2]} 
+          br
+          span #{result[3]}
+      - else
+        span #{result[2]}
+	div.col-md-2
+    - if result[1] and (r.provider.is_manual? or r.provider.is_connected(current_user))
+	  	input type="hidden" name="price-#{result[0]["id"]}" value="#{result[2]}" 
+	  	input.quan.text-center.cart_item_quantity name="quantity-#{result[0]['id']}" type="number" value="0" min="0" style="width:50px;" 

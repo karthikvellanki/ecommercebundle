@@ -1,0 +1,14 @@
+= simple_form_for [:admin, @order] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :user_id
+    = f.input :email
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :mobile_number
+    = f.input :status
+    = f.input :total_price_cents
+    = f.input :order_date
+  .form-actions
+    = f.button :submit, class:"btn btn-default mt5"

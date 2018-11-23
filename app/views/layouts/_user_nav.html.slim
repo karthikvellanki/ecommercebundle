@@ -1,0 +1,87 @@
+#dashbord_navbar_style
+	div.navbar-hgt-mbl.navbar.navbar-inverse.navbar-fixed-top.dashboard-nav
+	  .navbar-header
+	    button.navbar-toggle data-target=".js-navbar-collapse" data-toggle="collapse" type="button"
+	      span.sr-only Toggle navigation
+	      span.icon-bar
+	      span.icon-bar
+	      span.icon-bar
+		a.navbar-brand.scroll-nav href="/#{@current_supplier.try(:slug)}" style="margin-left: 70px;"
+			-if user_signed_in? && @current_supplier.present?
+				=image_tag @current_supplier.image, width:"90px",height:"50px;object-fit: cover;", class:"logo"
+			- elsif !provider.blank?
+				=image_tag provider.image, width:"100px",height:"50px;object-fit: cover;", class:"logo"
+			- else
+				a href="/stores"
+						/ = image_tag current_user.provider.image,height:"50px;object-fit: cover;", class: "dashboard-logo-bundle"
+
+
+
+		.nav.visible-xs style="background:white;"
+			= form_tag products_path,method: "get",id: "search-form",class: "navbar-form navbar-left navbar-search"
+				div.form-group
+					= text_field_tag :q,params[:q],class: "input-search form-control", style: "display:inline;"
+					= submit_tag "Search",style: "height:32px;margin-top:3px;margin-left:10px;",name: nil, class: "btn btn-default"
+
+
+	  .collapse.navbar-collapse.js-navbar-collapse.ml260.hide-on-mbl-resp.color style="padding-right: 100px; padding-top: 10px; margin-left: 10px;"
+	  	ul.nav.navbar-nav.hidden-xs.pull-left
+				= form_tag products_path,method: "get",id: "search-form",class: "navbar-form navbar-left", style: "width:450px;"
+					div.form-group
+						= text_field_tag :q,params[:q],class: "form-control", style: "width:300px;"
+					= submit_tag "Search",style: "height:32px;",name: nil, class: "btn btn-default"
+	    ul.nav.navbar-nav.navbar-right.pull-right.mr33
+	      - if current_user.present?
+	        li
+	          a.navbar_button href="/dashboard/products"
+	          	span = image_tag 'list.svg', width: '22px'
+	            span.navbar_button_text.white&nbsp; Account
+	        li.cat.hidden
+	          a href="#{categories_path}" CATEGORIES
+	        li.cat.hidden
+	          a href="#{products_path}" PRODUCTS
+	        li.cat.hidden
+	          a href="/credentials" VENDORS
+
+			li.mr0
+				#cart.btn-shopping-cart style="display:flex; padding-top: 10px;"
+		          .shopcart style="padding-right: 5px;"
+		            	=image_tag "Shopping cart.png", width: "33px", height: "35px"
+		          .cart-text#cart_partial
+		          	= render 'carts/carts_partial'
+
+			ul.dropdown-menu role="menu" style="width: 350px"
+				li
+					= render 'carts/carts_nav'
+
+	        li.dropdown.prof-mt
+	          a.dropdown-toggle.icon_flex aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+	            = image_tag current_user.avatar(:medium ), class: 'img-circle profile-image'
+	            .profile-username.icon_flex
+	              = current_user.name
+	              br/
+	              -if current_user.is_provider and not current_user.company.blank?
+	               = current_user.company.capitalize
+	          ul.dropdown-menu role="menu"
+	            - if current_user.present? && current_user.is_provider
+	              li
+	                a href="#{admin_products_path}" SUPPLIER PANEL
+	            - if current_user.present? && current_user.admin
+	              li
+	                a href="#{admin_users_path}" ADMIN PANEL
+
+	            - if current_user.present?
+	              -if not current_user.first_name.blank?
+	                li
+	                  a Hi, #{current_user.first_name.capitalize}
+	              / li
+	              /   a href="#{profile_dashboard_users_path}" Edit Profile
+	              / li
+	              /   =link_to 'Change Password',  edit_user_registration_path
+	              li.hidden
+	                =link_to 'Add payments',  visitors_payment_path
+	              li
+	                = link_to 'Logout', destroy_user_session_path, :method => :delete, class:"pink_text"
+	            - else
+	              li
+	                = link_to 'Sign In', new_user_session_path

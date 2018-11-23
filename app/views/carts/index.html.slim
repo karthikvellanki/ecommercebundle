@@ -1,0 +1,14 @@
+- if @cart.present?
+	- if !(@cart.cart_items.count > 0)
+	  h1 style="margin-top:40px;"
+	    | No item in your cart
+	- else
+	  div.row#cart_item_partial
+	    =render partial: 'cart_items/cart_items', locals: {cart: @cart}
+- else
+  h1 style="margin-top:40px;"
+  	| No item in your cart
+
+br
+
+= javascript_include_tag "cart-bundle"

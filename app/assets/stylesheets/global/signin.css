@@ -1,0 +1,383 @@
+@keyframes spinner {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(359deg);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.text-sze {
+  font-size: 19px;
+}
+.icon-style{
+  font-size: 30px;
+}
+
+.tw > th {
+  width: 100px !important;
+}
+
+.btn-lft {
+  margin-left: -116px;
+}
+
+.btn-lft80 {
+  margin-left: 80px;
+}
+
+@media screen and (max-width: 1200px),(max-width: 1440px) {
+  .btn-lft80 {
+   margin-left: 25px;
+  }
+  .btn-lft {
+    margin-left: -113px;
+  }
+}
+
+@media screen and (max-width: 1200px){
+  .btn-lft80 {
+   margin-left: -25px;
+  }
+  .btn-lft {
+    margin-left: -92px;
+  }
+}
+
+.upload-width{
+ width: 260px;
+ margin-right: -117px;
+ margin-top: 8px;
+}
+
+
+@media screen and (max-width: 1440px) {
+  .sub-btn-resp {
+    margin-left: 83px;
+    margin-top: -54px;
+  }
+}
+
+.wrapper {
+  margin-top: -47px;
+  display: flex;
+  height: 652px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 500%;
+  padding: 20px;
+  background-size: 100%;
+}
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding:0;
+    width:100% !important;
+  }
+}
+
+.wrapper1 {
+  padding-top: 50px;
+  padding-left: 25px;
+}
+
+.Login {
+  border-radius: 2px 2px 5px 5px;
+  padding: 10px 20px 20px;
+  width: 90%;
+  max-width: 350px;
+  background: #ffffff;
+  position: relative;
+  /*padding-bottom: 80px;*/
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 150px;
+}
+
+.Login-1 {
+  border-radius: 2px 2px 5px 5px;
+  padding: 10px 20px 20px;
+  width: 90%;
+  max-width: 850px;
+  background: #ffffff;
+  position: relative;
+  padding-bottom: 80px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  /*margin-bottom: 150px;*/
+  height: 420px;
+  margin-top: -47px;
+}
+@media screen and (max-width: 1330px) {
+  .Login-1 {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+  }
+}
+
+.new-user-landing {
+  width: 176px !important;
+  margin: auto;
+  color: #fff;
+}
+
+.log-style {
+  max-width: 850px !important;
+  height: 420px !important;
+}
+
+.hme-btn-signup {}
+
+.pb-2 {
+  padding-bottom: 20px;
+}
+
+.pt-2 {
+  padding-top: 10px;
+}
+
+.Login.loading button {
+  max-height: 100%;
+  padding-top: 50px;
+}
+
+.Login.loading button .spinner {
+  opacity: 1;
+  top: 40%;
+}
+
+.Login.ok button {
+  background-color: #8bc34a;
+}
+
+.Login.ok button .spinner {
+  border-radius: 0;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  height: 20px;
+  animation: none;
+  transform: rotateZ(-45deg);
+}
+
+.Login input {
+  display: block;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  transition: border-width .2s ease;
+  border-radius: 2px;
+  color: #ccc;
+}
+
+.Login input + i.fa {
+  color: #fff;
+  font-size: 1em;
+  position: absolute;
+  margin-top: -47px;
+  opacity: 0;
+  left: 0;
+  transition: all .1s ease-in;
+}
+
+.Login input:focus {
+  outline: none;
+  color: #444;
+  border-color: #2196F3;
+  border-left-width: 35px;
+}
+
+.Login input:focus + i.fa {
+  opacity: 1;
+  left: 30px;
+  transition: all .25s ease-out;
+}
+
+.Login a {
+  font-size: .8em;
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.Login .title {
+  color: #444;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.Login button {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: #2196F3;
+  color: #fff;
+  display: block;
+  border: none;
+  margin-top: 20px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  max-height: 60px;
+  border: 0 solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 2px 2px;
+  transform: rotateZ(0deg);
+  transition: all .1s ease-out;
+  border-bottom-width: 7px;
+}
+
+.Login button .spinner {
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border: 4px solid #ffffff;
+  border-top-color: rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  left: 50%;
+  top: 0;
+  opacity: 0;
+  margin-left: -20px;
+  margin-top: -20px;
+  animation: spinner .6s infinite linear;
+  transition: top .3s .3s ease, opacity .3s .3s ease, border-radius .3s ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.Login:not(.loading) button:hover {
+  box-shadow: 0 1px 3px #2196F3;
+}
+
+.Login:not(.loading) button:focus {
+  border-bottom-width: 4px;
+}
+
+/*login 1*/
+.Login-1.loading button {
+  max-height: 100%;
+  padding-top: 50px;
+}
+
+.Login-1.loading button .spinner {
+  opacity: 1;
+  top: 40%;
+}
+
+.Login-1.ok button {
+  background-color: #8bc34a;
+}
+
+.Login-1.ok button .spinner {
+  border-radius: 0;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  height: 20px;
+  animation: none;
+  transform: rotateZ(-45deg);
+}
+
+.Login-1 input {
+  display: block;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  transition: border-width .2s ease;
+  border-radius: 2px;
+  color: #ccc;
+}
+
+.Login-1 input + i.fa {
+  color: #fff;
+  font-size: 1em;
+  position: absolute;
+  margin-top: -47px;
+  opacity: 0;
+  left: 0;
+  transition: all .1s ease-in;
+}
+
+.Login-1 input:focus {
+  outline: none;
+  color: #444;
+  border-color: #2196F3;
+  border-left-width: 35px;
+}
+
+.Login-1 input:focus + i.fa {
+  opacity: 1;
+  left: 30px;
+  transition: all .25s ease-out;
+}
+
+.Login-1 a {
+  font-size: .8em;
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.Login-1 .title {
+  color: #444;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.Login-1 button {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: #2196F3;
+  color: #fff;
+  display: block;
+  border: none;
+  margin-top: 20px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  max-height: 60px;
+  border: 0 solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 2px 2px;
+  transform: rotateZ(0deg);
+  transition: all .1s ease-out;
+  border-bottom-width: 7px;
+}
+
+.Login-1 button .spinner {
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border: 4px solid #ffffff;
+  border-top-color: rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  left: 50%;
+  top: 0;
+  opacity: 0;
+  margin-left: -20px;
+  margin-top: -20px;
+  animation: spinner .6s infinite linear;
+  transition: top .3s .3s ease, opacity .3s .3s ease, border-radius .3s ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.Login-1:not(.loading) button:hover {
+  box-shadow: 0 1px 3px #2196F3;
+}
+
+.Login-1:not(.loading) button:focus {
+  border-bottom-width: 4px;
+}
+
+.pointer{
+  cursor: pointer;
+}
