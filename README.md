@@ -74,3 +74,5 @@ Once the database is setup and the migrations are complete, you can run the appl
 
 The application will now be running on localhost:3000
 Navigate to localhost:3000 in your browser and start playing with the product!
+
+If you need any further help with the setup, please email karthik@orderbundle.com
